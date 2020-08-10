@@ -1,0 +1,73 @@
+<view class="custom-detail-wrapper">
+  <view class="custom-top">
+    <view class="info-top">
+      <text class="name">胡敏</text>
+      <view class="cu-capsule round">
+        <view class="cu-tag bg-cyan" style="width:auto;">多次主动</view>
+        <view class="cu-tag line-cyan">530</view>
+      </view>
+    </view>
+    <view class="info-bottom">
+      <view class="info-line">
+        <text>手机：</text>
+        <text>13111111111</text>
+      </view>
+      <view class="info-line">
+        <text>职务：</text>
+        <text>保安/保洁/CEO/CTO/COO</text>
+      </view>
+      <view class="info-line">
+        <text>地区：</text>
+        <text>内蒙古自治区鄂尔多斯</text>
+      </view>
+      <view class="info-line">
+        <text>单位：</text>
+        <text>上海市吃吃喝喝股份有限公司</text>
+      </view>
+      <view class="info-line">
+        <text>生日：</text>
+        <text>1991-01-01</text>
+      </view>
+    </view>
+  </view>
+  <view class="custom-bottom">
+    <!-- 遍历日期 -->
+    <view class="cu-timeline">
+      <view class="cu-time">06-17</view>
+      <!-- 遍历当日事情 -->
+      <view class="cu-item">
+        <view class="content">
+          <view class="cu-capsule radius">
+            <view class="cu-tag bg-cyan">5</view>
+            <view class="cu-tag line-cyan">线下多边互动</view>
+          </view>
+          <view class="margin-top">第三次出门！！！</view>
+        </view>
+      </view>
+      <view class="cu-item">
+        <view class="content">
+          <view class="cu-capsule radius">
+            <view class="cu-tag bg-cyan">2</view>
+            <view class="cu-tag line-cyan">线上实时互动</view>
+          </view>
+          <view class="margin-top">第二次出门</view>
+        </view>
+      </view>
+
+    </view>
+    <!-- 另外一天 -->
+    <view class="cu-timeline">
+      <view class="cu-time">06-10</view>
+      <view class="cu-item">
+        <view class="content">
+          <view class="cu-capsule radius">
+            <view class="cu-tag bg-cyan">3</view>
+            <view class="cu-tag line-cyan">一起吃饭</view>
+          </view>
+          <view class="margin-top">这是第一次出门</view>
+        </view>
+      </view>
+    </view>
+
+  </view>
+</view>

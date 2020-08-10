@@ -1,0 +1,82 @@
+<!--index.wxml-->
+<view class="">
+  <!-- 没有授权 -->
+  <button style="margin-top:100rpx;" wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
+  <!-- 有微信授权 -->
+  <view class="" wx:else>
+    <!-- 背景圈 -->
+    <div class="bg-circle"></div>
+    <!-- tab导航 -->
+    <view>
+      <view class="nav text-center fixed">
+        <view class="cu-item {{index==TabCur?'text-blue cur':''}}" wx:for="{{tabNav}}" wx:key bindtap='tabSelect' data-id="{{index}}">
+          {{tabNav[index]}}
+        </view>
+      </view>
+    </view>
+    <view class="tab-card-wrapper">
+      <!-- 选项卡1 -->
+      <view class="tab-card" wx:if="{{TabCur==0}}">
+        <view class="cu-card">
+          <view class="cu-item shadow">
+            <view class="card-top">
+              <text class="card-title">客户分值</text>
+            </view>
+            <ec-canvas id="mychart-1" class="mychart" canvas-id="mychart-1" ec="{{ ecBar }}"></ec-canvas>
+          </view>
+        </view>
+
+        <view class="cu-card">
+          <view class="cu-item shadow">
+            <view class="card-top">
+              <text class="card-title">客户数量与结构</text>
+            </view>
+            <ec-canvas id="mychart-2" class="mychart" canvas-id="mychart-2" ec="{{ ecLine }}"></ec-canvas>
+          </view>
+        </view>
+
+        <view class="cu-card">
+          <view class="cu-item shadow">
+            <view class="card-top">
+              <text class="card-title">客户数量与结构2</text>
+            </view>
+            <ec-canvas id="mychart-3" class="mychart" canvas-id="mychart-3" ec="{{ ecLine }}"></ec-canvas>
+          </view>
+        </view>
+
+      </view>
+      <!-- 选项卡2 -->
+      <view class="tab-card" wx:if="{{TabCur==1}}">
+        <view class="cu-card">
+          <view class="cu-item shadow">22222</view>
+        </view>
+
+        <view class="cu-card">
+          <view class="cu-item shadow">22222</view>
+        </view>
+      </view>
+      <!-- 选项卡3 -->
+      <view class="tab-card" wx:if="{{TabCur==2}}">
+        <view class="cu-card">
+          <view class="cu-item shadow">33333</view>
+        </view>
+
+        <view class="cu-card">
+          <view class="cu-item shadow">33333</view>
+        </view>
+      </view>
+      <!-- 选项卡4 -->
+      <view class="tab-card" wx:if="{{TabCur==3}}">
+        <view class="cu-card">
+          <view class="cu-item shadow">44444</view>
+        </view>
+
+        <view class="cu-card">
+          <view class="cu-item shadow">44444</view>
+        </view>
+      </view>
+
+
+    </view>
+  </view>
+</view>

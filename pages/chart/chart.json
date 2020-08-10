@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "客户关系管理",
+  "usingComponents": {
+    "ec-canvas": "../../ec-canvas/ec-canvas"
+  }
+}

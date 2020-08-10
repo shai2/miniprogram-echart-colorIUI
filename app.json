@@ -1,0 +1,43 @@
+{
+  "pages":[
+    "pages/chart/chart",
+    "pages/logs/logs",
+    "pages/client/client",
+    "pages/my/my",
+    "pages/clientDetail/clientDetail"
+  ],
+  "window":{
+    "enablePullDownRefresh": false,
+    "navigationBarBackgroundColor": "#0F355A",
+    "navigationBarTextStyle": "white",
+    "backgroundTextStyle":"light",
+    "navigationBarTitleText": "客户关系管理"
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json",
+  "tabBar": {
+    "list": [
+      {
+        "pagePath": "pages/chart/chart",
+        "text": "数据看板",
+        "iconPath": "images/tabicon1.png",
+        "selectedIconPath": "images/tabicon1-on.png"
+      },
+      {
+        "pagePath": "pages/client/client",
+        "text": "我的客户",
+        "iconPath": "images/tabicon2.png",
+        "selectedIconPath": "images/tabicon2-on.png"
+      },
+      {
+        "pagePath": "pages/my/my",
+        "text": "个人中心",
+        "iconPath": "images/tabicon3.png",
+        "selectedIconPath": "images/tabicon3-on.png"
+      }
+    ],
+    "backgroundColor": "#fff",
+    "color": "#A7A7A7",
+    "selectedColor": "#0F355A"
+  }
+}

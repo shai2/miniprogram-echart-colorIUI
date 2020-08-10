@@ -1,0 +1,42 @@
+.userinfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.info-top{
+  padding: 40rpx 0 100rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: var(--theme);
+  width: 100%;
+}
+
+.userinfo-avatar {
+  width: 128rpx;
+  height: 128rpx;
+  margin: 20rpx;
+  border-radius: 50%;
+}
+
+.userinfo-nickname {
+  color: #fff;
+}
+
+.info-middle{
+  height: 0;
+  position: relative;
+  top: -20rpx;
+}
+
+.vip-info{
+  padding: 30rpx 150rpx;
+  background: #BAC6CF;
+  color: var(--theme);
+  border-radius: 16rpx;
+}
+
+.info-bottom{
+  width: 100%;
+  margin-top: 80rpx;
+}

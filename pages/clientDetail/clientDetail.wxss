@@ -1,0 +1,33 @@
+.custom-detail-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+.cu-tag.bg-cyan{
+  width: 70rpx;
+}
+.bg-cyan {
+  background-color: #366587;
+}
+.line-cyan{
+  color: #366587;
+}
+.custom-top{
+  background: #fff;
+  margin-bottom: 25rpx;
+  padding: 40rpx;
+}
+.info-top{
+  display: flex;
+  align-items: center;
+  margin-bottom: 5rpx;
+}
+.name{
+  font-size: 60rpx;
+  margin-right: 20rpx;
+}
+.info-bottom{
+  padding-left: 5rpx;
+}
+.info-line{
+  margin-top:15rpx;
+}
