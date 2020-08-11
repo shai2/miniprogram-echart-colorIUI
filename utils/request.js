@@ -1,7 +1,8 @@
+import { AesEncrypt, AesDecrypt } from './util'
 export function myRequest(url, data, method = 'POST') {
   let baseUrl = `https://kam.mindofsales.com/api/api.ashx`
   // let baseUrl = `https://sit02-openmch.yimifudao.com.cn`
-
+  data = Object.assign( data, {appId: 'wxe908b5b423fd1eab'} )
   return new Promise((resolve, reject) => {
     wx.request({
       url: baseUrl + url,
@@ -11,17 +12,18 @@ export function myRequest(url, data, method = 'POST') {
       },
       data,
       success: res => {
-        console.log(res)
+        // console.log(res) 
         if (res.data.res_code !== '00') {
+          let _err = AesDecrypt(res.data.res_msg)
           wx.showToast({
-            title: res.data.res_msg,
+            title: _err,
             icon: 'none'
           })
-          console.log('接口错误', res)
-          reject(res.data)
+          console.log('接口错误', _err)
+          reject(_err||"暂无错误信息")
         } else {
-          resolve(res.data)
-          // console.log('接口返回',res)
+          // console.log('接口返回data',res.data.res_datas)
+          resolve(JSON.parse(AesDecrypt(res.data.res_datas)))
         }
       },
       fail: res => {

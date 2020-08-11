@@ -1,4 +1,4 @@
-// const CryptoJS = require('crypto-js');
+// http://tool.chacuo.net/cryptaes
 const CryptoJS = require('./aes.js')
 const key = CryptoJS.enc.Utf8.parse("2R7MD82GPgqdT446brh2VHb4wDcI1Daw"); 
 
