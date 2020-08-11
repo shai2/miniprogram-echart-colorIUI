@@ -1,3 +1,7 @@
+// appid：wxe908b5b423fd1eab，appsecret：2R7MD82GPgqdT446brh2VHb4wDcI1Daw
+import { myRequest } from '/utils/request'
+import { AesEncrypt }  from '/utils/util'
+
 // 设置全局默认分享
 !function(){
   var _Page = Page
@@ -17,15 +21,30 @@
 
 App({
   onLaunch: function () {
-    // 展示本地存储能力
-    var logs = wx.getStorageSync('logs') || []
-    logs.unshift(Date.now())
-    wx.setStorageSync('logs', logs)
-
     // 登录
     wx.login({
       success: res => {
+        
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
+        var params = {
+          method: 'getWechatOpenId',
+          appId: 'wxe908b5b423fd1eab',
+          // code: '071xti0001AM4K15ou300YRAKS3xti0O'||res.code, //临时登录凭证
+        };
+        // 要加密的参数
+        let _obj = {
+          code: "071xti0001AM4K15ou300YRAKS3xti0O"
+        }
+        // aes加密
+        let _aesString = AesEncrypt(_obj)
+        console.log('aes加密',_aesString)
+
+        params.params = _aesString
+        // 获取 OpenID
+        myRequest('/', params,'GET').then(res => {
+          console.log('获取openId', res)
+        
+        })
       }
     })
     // 获取用户信息
@@ -51,5 +70,5 @@ App({
   },
   globalData: {
     userInfo: null
-  }
+  },
 })

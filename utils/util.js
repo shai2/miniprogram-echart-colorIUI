@@ -1,19 +1,25 @@
-const formatTime = date => {
-  const year = date.getFullYear()
-  const month = date.getMonth() + 1
-  const day = date.getDate()
-  const hour = date.getHours()
-  const minute = date.getMinutes()
-  const second = date.getSeconds()
-
-  return [year, month, day].map(formatNumber).join('/') + ' ' + [hour, minute, second].map(formatNumber).join(':')
+const CryptoJS = require('./aes.js')
+require('./mode-ecb.js')
+const key = CryptoJS.enc.Utf8.parse("2R7MD82GPgqdT446brh2VHb4wDcI1Daw"); 
+console.log(CryptoJS.mode)
+// aes 加密
+export function AesEncrypt(word) {
+  let srcs = CryptoJS.enc.Utf8.parse(word);
+  let encrypted = CryptoJS.AES.encrypt(srcs, key, {
+    mode: CryptoJS.mode.ECB,
+    padding: CryptoJS.pad.Pkcs7
+  });
+  return encrypted.ciphertext.toString().toUpperCase();
 }
 
-const formatNumber = n => {
-  n = n.toString()
-  return n[1] ? n : '0' + n
-}
-
-module.exports = {
-  formatTime: formatTime
+// aes 解密
+export function AesDecrypt(word) {
+  let encryptedHexStr = CryptoJS.enc.Hex.parse(word);
+  let srcs = CryptoJS.enc.Base64.stringify(encryptedHexStr);
+  let decrypt = CryptoJS.AES.decrypt(srcs, key, {
+    mode: CryptoJS.mode.CBC,
+    padding: CryptoJS.pad.Pkcs7
+  });
+  let decryptedStr = decrypt.toString(CryptoJS.enc.Utf8);
+  return decryptedStr.toString();
 }
