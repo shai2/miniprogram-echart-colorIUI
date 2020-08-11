@@ -25,18 +25,17 @@ App({
     wx.login({
       success: res => {
         
-        // 发送 res.code 到后台换取 openId, sessionKey, unionId
+        // 发送 res.code临时登录凭证 到后台换取 openId, sessionKey, unionId
         var params = {
           method: 'getWechatOpenId',
           appId: 'wxe908b5b423fd1eab',
-          // code: '071xti0001AM4K15ou300YRAKS3xti0O'||res.code, //临时登录凭证
         };
         // 要加密的参数
         let _obj = {
-          code: "071xti0001AM4K15ou300YRAKS3xti0O"
+          code: res.code
         }
         // aes加密
-        let _aesString = AesEncrypt(_obj)
+        let _aesString = AesEncrypt(JSON.stringify(_obj))
         console.log('aes加密',_aesString)
 
         params.params = _aesString

@@ -11,9 +11,10 @@ export function myRequest(url, data, method = 'POST') {
       },
       data,
       success: res => {
-        if (res.data.code !== '00') {
+        console.log(res)
+        if (res.data.res_code !== '00') {
           wx.showToast({
-            title: res.data.msg,
+            title: res.data.res_msg,
             icon: 'none'
           })
           console.log('接口错误', res)
