@@ -24,7 +24,7 @@ App({
     // 登录
     wx.login({
       success: res => {
-        this.getOpenid(res.code)
+        this.getWechatOpenId(res.code)
       }
     })
     // 获取用户信息
@@ -48,42 +48,18 @@ App({
       }
     })
   },
-  // 发送 res.code临时登录凭证 到后台换取 openId, sessionKey, unionId
-  getOpenid(code){
-    // 要加密的参数
+  // 发送 res.code临时登录凭证 到后台换取 openId
+  getWechatOpenId(code){
     let _obj = { code: code }
-    // aes加密
-    let _aesString = AesEncrypt(JSON.stringify(_obj))
-    // console.log('aes加密', _aesString)
-    // 接口参数
-    var params = {
-      method: 'getWechatOpenId',
-      params: _aesString
-    };
-
-    myRequest('/', params, 'GET').then(res => {
-      this.globalData.openid = res.openid
-      // console.log(this.globalData)
-      this.getToken(res.openid)
-    })
-  },
-  getToken(openid){
-    // 要加密的参数
-    let _obj = { userid: openid }
-    // aes加密
-    let _aesString = AesEncrypt(JSON.stringify(_obj))
-    // 接口参数
-    var params = {
-      method: 'getToken',
-      params: _aesString,
-    };
-    
-    myRequest('/', params, 'GET').then(res => {
-      console.log(1111,res)
-  
+    myRequest('getWechatOpenId', _obj).then(res => {
+      wx.setStorageSync('openid',res.openid)
+     
     })
   },
   globalData: {
-    openid: null,
+    userInfo: {
+      nickName:'',
+      avatarUrl:'',
+    },
   },
 })

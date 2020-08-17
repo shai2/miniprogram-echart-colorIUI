@@ -40,7 +40,7 @@ Page({
     gridCol:3,
   },
   onLoad() {
-    if (app.globalData.userInfo) {
+    if (app.globalData.userInfo.nickName) {
       this.setData({
         userInfo: app.globalData.userInfo,
         hasUserInfo: true
@@ -74,7 +74,7 @@ Page({
     })
   },
   getUserInfo(e) {
-    console.log(e)
+    // console.log(e)
     app.globalData.userInfo = e.detail.userInfo
     this.setData({
       userInfo: e.detail.userInfo,

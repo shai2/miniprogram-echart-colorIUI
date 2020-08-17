@@ -1,11 +1,17 @@
 import { AesEncrypt, AesDecrypt } from './util'
+
 export function myRequest(url, data, method = 'POST') {
-  let baseUrl = `https://kam.mindofsales.com/api/api.ashx`
-  // let baseUrl = `https://sit02-openmch.yimifudao.com.cn`
-  data = Object.assign( data, {appId: 'wxe908b5b423fd1eab'} )
+  let baseUrl = `https://kam.mindofsales.com/api/api.ashx/`
+  // 重新拼接参数
+  data = {
+    appId: 'wxe908b5b423fd1eab',
+    method: url,
+    token: wx.getStorageSync('openid'),
+    params: AesEncrypt(JSON.stringify(data)) // aes加密
+  }
   return new Promise((resolve, reject) => {
     wx.request({
-      url: baseUrl + url,
+      url: baseUrl,
       method,
       header:{
         // 'content-type':'application/x-www-form-urlencoded',
@@ -13,8 +19,11 @@ export function myRequest(url, data, method = 'POST') {
       data,
       success: res => {
         // console.log(res) 
-        if (res.data.res_code !== '00') {
-          let _err = AesDecrypt(res.data.res_msg)
+        // code==97为token过期
+        if(res.data.res_code === '97'){
+          getToken()
+        } else if (res.data.res_code !== '00') {
+          let _err = res.data.res_msg
           wx.showToast({
             title: _err,
             icon: 'none'
@@ -38,6 +47,12 @@ export function myRequest(url, data, method = 'POST') {
   })
 }
 
-// module.exports = {
-//   myRequest
-// }
+// token过期使用
+function getToken(openid = wx.getStorageSync('openid')){
+  let _obj = { userid: openid }
+  myRequest('getToken', _obj, 'GET').then(res => {
+    console.log('重新获取token：',res)
+    // wx.getcurrentPages()
+
+  })
+}
