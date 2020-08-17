@@ -51,8 +51,9 @@ export function myRequest(url, data, method = 'POST') {
 function getToken(openid = wx.getStorageSync('openid')){
   let _obj = { userid: openid }
   myRequest('getToken', _obj, 'GET').then(res => {
-    console.log('重新获取token：',res)
-    // wx.getcurrentPages()
-
+    // console.log('重新获取token：',res)
+    let _currentPage = getCurrentPages()[0]
+    console.log('触发重新获取token',_currentPage)
+    _currentPage.onLoad() //手动执行token过期那一页的onLoad
   })
 }
