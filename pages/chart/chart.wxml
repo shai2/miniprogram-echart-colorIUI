@@ -9,7 +9,7 @@
     <!-- tab导航 -->
     <view>
       <view class="nav text-center fixed">
-        <view class="cu-item {{index==TabCur?'text-blue cur':''}}" wx:for="{{tabNav}}" wx:key bindtap='tabSelect' data-id="{{index}}">
+        <view class="cu-item {{index==TabCur?'text-blue cur':''}}" wx:for="{{tabNav}}" wx:key="index" bindtap='tabSelect' data-id="{{index}}">
           {{tabNav[index]}}
         </view>
       </view>

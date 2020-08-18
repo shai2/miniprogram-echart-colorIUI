@@ -12,3 +12,15 @@
   box-sizing: border-box;
 }
 .color-active{color: var(--theme)}
+.my-button{
+  background-color: var(--theme)!important;
+  color: #fff;
+}
+.require{position:relative;}
+.require::after{
+  position: relative;
+  right:-5rpx;
+  top:0;
+  content:'*';
+  color:red;
+}

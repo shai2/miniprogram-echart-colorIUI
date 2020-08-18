@@ -1,0 +1,91 @@
+<!--logs.wxml-->
+<view class="addClient">
+  <form bindsubmit="formSubmit">
+    <view class="cu-form-group">
+      <view class="require title">客户姓名</view>
+      <input placeholder="请填写客户姓名" data-type="CustomName" bindinput="changeInput"></input>
+    </view>
+    <view class="cu-form-group">
+      <view class="require title">性别</view>
+      <picker data-type="Gender" bindchange="PickerChange" value="{{index}}" range="{{GenderPicker}}">
+        <view class="picker">
+          {{Gender?GenderPicker[Gender]:'未选择'}}
+        </view>
+      </picker>
+    </view>
+    <view class="cu-form-group margin-top">
+      <view class="title">生日</view>
+      <picker mode="date" value="{{Birthday}}" start="2015-09-01" end="2020-09-01" bindchange="DateChange">
+        <view class="picker">
+          {{Birthday||'请选择生日'}}
+        </view>
+      </picker>
+    </view>
+    <view class="cu-form-group">
+      <view class="title">省</view>
+      <picker data-type="Province" bindchange="PickerChange" value="{{index}}" range="{{ProvincePicker}}">
+        <view class="picker">
+          {{Province || '请选择省'}}
+        </view>
+      </picker>
+    </view>
+    <view hidden="{{!Province}}" class="cu-form-group">
+      <view class="title">市</view>
+      <picker data-type="City" bindchange="PickerChange" value="{{index}}" range="{{CityPicker}}">
+        <view class="picker">
+          {{City || '请选择市'}}
+        </view>
+      </picker>
+    </view>
+    <view hidden="{{!City}}" class="cu-form-group">
+      <view class="title">区</view>
+      <picker data-type="Area" bindchange="PickerChange" value="{{index}}" range="{{AreaPicker}}">
+        <view class="picker">
+          {{Area || '请选择区'}}
+        </view>
+      </picker>
+    </view>
+    <!-- <view class="cu-form-group">
+      <view class="title">城市</view>
+      <picker mode="region" bindchange="RegionChange" value="{{region}}" custom-item="{{customItem}}">
+        <view class="picker">
+          {{region[0]? (region[0]+'-'+region[1]+'-'+region[2]) : '请选择城市'}}
+        </view>
+      </picker>
+    </view> -->
+    <view class="cu-form-group">
+      <view class="title">电话</view>
+      <input type="number" maxlength="13" placeholder="请填写电话" data-type="Telephone" bindinput="changeInput"></input>
+    </view>
+    <view class="cu-form-group">
+      <view class="title">联系方式</view>
+      <input placeholder="请填写联系方式" data-type="ContactWay" bindinput="changeInput"></input>
+    </view>
+    <view class="cu-form-group">
+      <view class="title">公司</view>
+      <input placeholder="请填写公司" data-type="CompanyName" bindinput="changeInput"></input>
+    </view>
+    <view class="cu-form-group">
+      <view class="title">职务</view>
+      <input placeholder="请填写职务" data-type="Job" bindinput="changeInput"></input>
+    </view>
+    <view class="cu-form-group">
+      <view class="title">关系</view>
+      <input placeholder="请填写关系" data-type="Relationship" bindinput="changeInput"></input>
+    </view>
+    <!-- <view class="cu-form-group">
+      <view class="title">产品列表</view>
+      <input placeholder="产品列表" data-type="ProductIds" bindinput="changeInput"></input>
+    </view> -->
+    <!-- <view class="cu-form-group">
+      <view class="title">多列选择</view>
+      <picker mode="multiSelector" bindchange="MultiChange" bindcolumnchange="MultiColumnChange" value="{{multiIndex}}"
+      range="{{multiArray}}">
+        <view class="picker">
+          {{multiArray[0][multiIndex[0]]}}，{{multiArray[1][multiIndex[1]]}}，{{multiArray[2][multiIndex[2]]}}
+        </view>
+      </picker>
+    </view> -->
+    <button form-type="submit" class="my-button cu-btn block margin-tb-sm lg">添加</button>
+    </form>
+</view>

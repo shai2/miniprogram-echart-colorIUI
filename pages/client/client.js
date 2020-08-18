@@ -1,4 +1,4 @@
-// const util = require('../../utils/util.js')
+import { myRequest } from '../../utils/request'
 const app = getApp()
 
 Page({
@@ -14,7 +14,7 @@ Page({
       title: '加载中...',
       mask: true
     });
-    this.listInit()
+    this.getCustomList()
   },
   onReady() {
     wx.hideLoading()
@@ -71,10 +71,17 @@ Page({
       }
     }
   },
+  // 获取联系人列表
+  getCustomList(){
+    myRequest('getCustomList', null, "GET").then(res => {
+      console.log('获取联系人列表：', res)
+      this.listInit() //动效
+    })
+  },
   // 查看详情
-  toClientDetail(){
+  toClientDetail(e){
     wx.navigateTo({
-      url: '/pages/clientDetail/clientDetail'
+      url: `/pages/clientDetail/clientDetail?customId=${e.currentTarget.dataset.id}`
     })
   }
 })

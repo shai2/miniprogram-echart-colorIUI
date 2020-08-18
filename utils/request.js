@@ -3,18 +3,21 @@ import { AesEncrypt, AesDecrypt } from './util'
 export function myRequest(url, data, method = 'POST') {
   let baseUrl = `https://kam.mindofsales.com/api/api.ashx/`
   // 重新拼接参数
-  data = {
+  data = Object.assign({
     appId: 'wxe908b5b423fd1eab',
     method: url,
-    token: wx.getStorageSync('openid'),
-    params: AesEncrypt(JSON.stringify(data)) // aes加密
-  }
+    token: wx.getStorageSync('token'),
+  }, data ? {
+    params: AesEncrypt(JSON.stringify(data))// aes加密
+  } : {})
+  
   return new Promise((resolve, reject) => {
     wx.request({
       url: baseUrl,
       method,
       header:{
         // 'content-type':'application/x-www-form-urlencoded',
+        'content-type':'application/json; charset=utf-8',
       },
       data,
       success: res => {
@@ -24,11 +27,16 @@ export function myRequest(url, data, method = 'POST') {
           getToken()
         } else if (res.data.res_code !== '00') {
           let _err = res.data.res_msg
-          wx.showToast({
-            title: _err,
-            icon: 'none'
-          })
-          console.log('接口错误', _err)
+          if(_err==='已经存在此用户！'){
+            // 不提示
+            reject('不提示')
+          }else{
+            wx.showToast({
+              title: _err,
+              icon: 'none'
+            })
+            console.log('接口错误', _err)
+          }
           reject(_err||"暂无错误信息")
         } else {
           // console.log('接口返回data',res.data.res_datas)
@@ -42,6 +50,8 @@ export function myRequest(url, data, method = 'POST') {
           icon: 'none',
           mask: true
         })
+        console.log(555555,res.data.res_msg)
+        resolve(res.data.res_msg)
       }
     })
   })

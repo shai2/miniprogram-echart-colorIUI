@@ -3,6 +3,7 @@
     "pages/chart/chart",
     "pages/logs/logs",
     "pages/client/client",
+    "pages/addClient/addClient",
     "pages/my/my",
     "pages/clientDetail/clientDetail"
   ],

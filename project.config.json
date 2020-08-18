@@ -16,6 +16,7 @@
 		"checkInvalidKey": true,
 		"checkSiteMap": true,
 		"uploadWithSourceMap": true,
+		"compileHotReLoad": false,
 		"babelSetting": {
 			"ignore": [],
 			"disablePlugins": [],
@@ -23,8 +24,7 @@
 		},
 		"useIsolateContext": true,
 		"useCompilerModule": false,
-		"userConfirmedUseCompilerModuleSwitch": false,
-		"compileHotReLoad": false
+		"userConfirmedUseCompilerModuleSwitch": false
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.12.0",
@@ -85,6 +85,13 @@
 					"id": -1,
 					"name": "客户信息",
 					"pathName": "pages/clientDetail/clientDetail",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "添加客户",
+					"pathName": "pages/addClient/addClient",
 					"scene": null
 				}
 			]
