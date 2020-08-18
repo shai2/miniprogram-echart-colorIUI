@@ -34,11 +34,7 @@ App({
                   // console.log(res.userInfo)
                   this.globalData.userInfo = res.userInfo
                   this.getWechatOpenId(loginRes.code)
-                  // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-                  // 所以此处加入 callback 以防止这种情况
-                  if (this.userInfoReadyCallback) {
-                    this.userInfoReadyCallback(res)
-                  }
+                  
                 }
               })
             }
@@ -87,6 +83,10 @@ App({
     myRequest('getUserInfo', null).then(res => {
       this.globalData.userInfo = Object.assign({},res[0],this.globalData.userInfo)
       console.log('获取用户信息：', this.globalData.userInfo)
+      // 由于 getUserInfo 是网络请求，会在 Page.onLoad 之后返回,加入 callback延迟调用
+      if (this.userInfoReadyCallback) {
+        this.userInfoReadyCallback(res)
+      }
     })
   },
   globalData: {

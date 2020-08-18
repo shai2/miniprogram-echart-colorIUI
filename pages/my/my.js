@@ -1,5 +1,4 @@
 const app = getApp()
-const util = require('../../utils/util.js')
 
 Page({
   data: {
@@ -9,8 +8,9 @@ Page({
     iconList: [{
       icon: 'cardboardfill',
       color: 'red',
-      badge: 120,
-      name: 'VR'
+      // badge: 120,
+      name: '新增客户',
+      url: 'addClient/addClient'
     }, {
       icon: 'recordfill',
       color: 'orange',
@@ -50,7 +50,7 @@ Page({
       // 所以此处加入 callback 以防止这种情况
       app.userInfoReadyCallback = res => {
         this.setData({
-          userInfo: res.userInfo,
+          userInfo: app.globalData.userInfo,//res.userInfo不够
           hasUserInfo: true
         })
       }
@@ -79,6 +79,12 @@ Page({
     this.setData({
       userInfo: e.detail.userInfo,
       hasUserInfo: true
+    })
+  },
+  // 点击icon-item跳转
+  toUrl(e){
+    wx.navigateTo({
+      url: '/pages/'+e.currentTarget.dataset.url
     })
   }
 })

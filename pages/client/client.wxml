@@ -25,7 +25,8 @@
       <!-- 遍历列表 -->
       <view class="cu-list menu-avatar">
         <view class="cu-item" catchtap="toClientDetail" data-id="{{888}}">
-          <view class="cu-avatar round lg" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big10001.jpg);">
+          <view class="cu-avatar round lg">
+            凯
             <!-- <view class="cu-tag badge">99+</view> -->
           </view>
           <view class="content">
@@ -37,7 +38,7 @@
             </view> -->
           </view>
         </view>
-        <view class="cu-item" catchtap="toClientDetail" data-id="{{999}}">
+        <view class="cu-item" bindtap="toClientDetail" data-id="{{999}}">
           <view class="cu-avatar radius lg" style="background-image:url(https://ossweb-img.qq.com/images/lol/img/champion/Morgana.png);">
             <!-- <view class="cu-tag badge"></view> -->
           </view>
