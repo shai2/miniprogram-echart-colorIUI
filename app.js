@@ -87,6 +87,14 @@ App({
       if (this.userInfoReadyCallback) {
         this.userInfoReadyCallback(res)
       }
+      !wx.getStorageSync('RelationInfo')&&this.getRelationInfo()
+    })
+  },
+  // 获取关系标签
+  getRelationInfo(){
+    myRequest('getRelationInfo', null).then(res => {
+      console.log('关系标签：',res)
+      wx.setStorageSync('RelationInfo', res.reverse())
     })
   },
   globalData: {

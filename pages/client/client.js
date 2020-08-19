@@ -6,15 +6,22 @@ Page({
     TabCur: 0, //左侧item高亮
     MainCur: 0, //找到的滑动位置id
     VerticalNavTop: 0,
-    list: [{name:'门外'},{name:'熟悉'},{name:'洞察'},{name:'利益关联'},{name:'深度合作'},{name:'主动联络'},{name:'多次主动'}],
-    load: true
+    list: [],
+    load: true,
+    relationArr:[],
+    customArr:[],
   },
   onLoad() {
     wx.showLoading({
       title: '加载中...',
       mask: true
     });
-    this.getCustomList()
+  },
+  onShow() {
+    if('需要刷新联系人'){
+      this.setData({list: wx.getStorageSync('RelationInfo')})
+      this.getCustomList()
+    }
   },
   onReady() {
     wx.hideLoading()
@@ -24,11 +31,11 @@ Page({
     let _list = []
     for (let i = 0; i < this.data.list.length; i++) {
       _list[i] = {}
-      _list[i].name = this.data.list[i].name
+      _list[i].name = this.data.list[i].RelationTag
       _list[i].id = i
     }
     this.setData({
-      list: _list
+      list: _list,
     })
   },
   // 点击左边
@@ -75,7 +82,14 @@ Page({
   getCustomList(){
     myRequest('getCustomList', null, "GET").then(res => {
       console.log('获取联系人列表：', res)
-      this.listInit() //动效
+      this.listInit()
+      console.log('res:',res)
+      let _customArr = new Array(this.data.list.length).fill('')
+      _customArr = _customArr.map(e=>[])
+      res.forEach((e,i)=>{
+        _customArr[0].push(e)
+      })
+      this.setData({customArr:_customArr})
     })
   },
   // 查看详情

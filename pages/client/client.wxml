@@ -1,3 +1,9 @@
+<wxs module="utils">
+module.exports.format = function(string){
+  return string.slice(0,1)
+}
+</wxs>
+
 <!-- 搜索 -->
 <view class="cu-bar bg-white search fixed" style="top:{{CustomBar}}px;">
   <view class="search-form round">
@@ -11,43 +17,30 @@
 <view class="VerticalBox">
   <!-- 列表左侧 -->
   <scroll-view class="VerticalNav nav" scroll-y scroll-with-animation scroll-top="{{VerticalNavTop}}" style="height:calc(100vh - 100rpx)">
-    <view class="cu-item {{index==TabCur?'color-active cur':''}}" wx:for="{{list}}" wx:key="{{index}}" bindtap='tabSelect' data-id="{{index}}">
+    <view class="cu-item {{index==TabCur?'color-active cur':''}}" wx:for="{{list}}" wx:key="index" bindtap='tabSelect' data-id="{{index}}">
       {{item.name}}
     </view>
   </scroll-view>
   <!-- 列表右侧 -->
   <scroll-view class="VerticalMain" scroll-y scroll-with-animation style="height:calc(100vh - 100rpx)" scroll-into-view="main-{{MainCur}}" bindscroll="VerticalMain">
-    <view class="padding-top padding-lr" wx:for="{{list}}" wx:key="client-{{index}}" id="main-{{index}}">
+    <view class="padding-top padding-lr" wx:for="{{list}}" wx:key="index" id="main-{{index}}">
       <view class='cu-bar solid-bottom bg-white'>
         <view class='action'>
           <text class='cuIcon-title color-active'></text>{{item.name}}</view>
       </view>
       <!-- 遍历列表 -->
       <view class="cu-list menu-avatar">
-        <view class="cu-item" catchtap="toClientDetail" data-id="{{888}}">
+        <view wx:for="{{customArr[index]}}" wx:key="index" class="cu-item" catchtap="toClientDetail" data-id="{{item.UserId}}">
           <view class="cu-avatar round lg">
-            凯
+            {{utils.format(item.CustomName)}}
             <!-- <view class="cu-tag badge">99+</view> -->
           </view>
           <view class="content">
-            <view class="text-grey">凯尔</view>
+            <view class="text-grey">{{item.CustomName}}</view>
             <!-- <view class="text-gray text-sm flex">
               <text class="text-cut">
                 我已天理为凭，踏入这片荒芜，不再受凡人的枷锁遏制。我已天理为凭，踏入这片荒芜，不再受凡人的枷锁遏制。
               </text>
-            </view> -->
-          </view>
-        </view>
-        <view class="cu-item" bindtap="toClientDetail" data-id="{{999}}">
-          <view class="cu-avatar radius lg" style="background-image:url(https://ossweb-img.qq.com/images/lol/img/champion/Morgana.png);">
-            <!-- <view class="cu-tag badge"></view> -->
-          </view>
-          <view class="content">
-            <view class="text-pink">
-              <text class="text-cut">莫甘娜</text>
-            </view>
-            <!-- <view class="text-gray text-sm flex">
-              <text class="text-cut">凯尔，你被自己的光芒变的盲目！</text>
             </view> -->
           </view>
         </view>

@@ -7,7 +7,7 @@
     </view>
     <view class="cu-form-group">
       <view class="require title">性别</view>
-      <picker data-type="Gender" bindchange="PickerChange" value="{{index}}" range="{{GenderPicker}}">
+      <picker data-type="Gender" bindchange="PickerChange" value="{{Gender}}" range="{{GenderPicker}}">
         <view class="picker">
           {{Gender?GenderPicker[Gender]:'未选择'}}
         </view>
@@ -23,7 +23,7 @@
     </view>
     <view class="cu-form-group">
       <view class="title">省</view>
-      <picker data-type="Province" bindchange="PickerChange" value="{{index}}" range="{{ProvincePicker}}">
+      <picker data-type="Province" bindchange="PickerChange" value="{{Province}}" range="{{ProvincePicker}}">
         <view class="picker">
           {{Province || '请选择省'}}
         </view>
@@ -31,7 +31,7 @@
     </view>
     <view hidden="{{!Province}}" class="cu-form-group">
       <view class="title">市</view>
-      <picker data-type="City" bindchange="PickerChange" value="{{index}}" range="{{CityPicker}}">
+      <picker data-type="City" bindchange="PickerChange" value="{{City}}" range="{{CityPicker}}">
         <view class="picker">
           {{City || '请选择市'}}
         </view>
@@ -39,7 +39,7 @@
     </view>
     <view hidden="{{!City}}" class="cu-form-group">
       <view class="title">区</view>
-      <picker data-type="Area" bindchange="PickerChange" value="{{index}}" range="{{AreaPicker}}">
+      <picker data-type="Area" bindchange="PickerChange" value="{{Area}}" range="{{AreaPicker}}">
         <view class="picker">
           {{Area || '请选择区'}}
         </view>
@@ -73,19 +73,14 @@
       <view class="title">关系</view>
       <input placeholder="请填写关系" data-type="Relationship" bindinput="changeInput"></input>
     </view>
-    <!-- <view class="cu-form-group">
-      <view class="title">产品列表</view>
-      <input placeholder="产品列表" data-type="ProductIds" bindinput="changeInput"></input>
-    </view> -->
-    <!-- <view class="cu-form-group">
-      <view class="title">多列选择</view>
-      <picker mode="multiSelector" bindchange="MultiChange" bindcolumnchange="MultiColumnChange" value="{{multiIndex}}"
-      range="{{multiArray}}">
+    <view class="cu-form-group">
+      <view class="title">关系标签</view>
+      <picker data-type="RelationTag" bindchange="PickerChange" value="{{RelationTag}}" range="{{RelationTagPicker}}" range-key="RelationTag">
         <view class="picker">
-          {{multiArray[0][multiIndex[0]]}}，{{multiArray[1][multiIndex[1]]}}，{{multiArray[2][multiIndex[2]]}}
+          {{RelationTag?RelationTagPicker[RelationTag].RelationTag:'未选择'}}
         </view>
       </picker>
-    </view> -->
+    </view>
     <button form-type="submit" class="my-button cu-btn block margin-tb-sm lg">添加</button>
     </form>
 </view>

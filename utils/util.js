@@ -14,7 +14,7 @@ export function AesEncrypt(word) {
   // var encryptData = encrypted.ciphertext.toString().toUpperCase(); 
   // return encryptData
 
-  // base64模式
+  // base64模式 下三句好像等价于encrypted.ciphertext.toString(CryptoJS.enc.Base64);
   var encryptData = encrypted.toString().toUpperCase(); 
   // console.log("hex结果:" + encryptData);
   var oldHexStr = CryptoJS.enc.Hex.parse(encryptData);

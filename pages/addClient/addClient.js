@@ -1,19 +1,13 @@
 import { myRequest } from '../../utils/request'
+const app = getApp()
 
 Page({
   data: {
-    // region: [null, null, null],
     GenderPicker: ['未知', '男', '女'],
+    RelationTagPicker:[],
     ProvincePicker: [],
     CityPicker: [],
     AreaPicker: [],
-    // multiArray: [ //当前联动的3列数据
-    //   ['北京', '上海'],
-    //   ['北京市1', '北京市2', '北京市3'],
-    //   ['北京市1-区1', '北京市1-区2']
-    // ],
-    // multiIndex: [0, 0, 0], //选中列的index
-
     // 以下是form字段
     CustomName: '',
     Gender: '',
@@ -25,12 +19,13 @@ Page({
     ContactWay: '',
     CompanyName: '',
     Job: '',
+    RelationTag: '',
     Relationship: '',
     ProductIds: '',
   },
   onLoad() {
     this.getProvince()
-    
+    this.setData({RelationTagPicker: wx.getStorageSync('RelationInfo')})
   },
   // 选择省份
   // RegionChange: function(e) {
@@ -46,7 +41,6 @@ Page({
   },
   // 提交表单
   formSubmit(e){
-    console.log(11111)
     console.log('表单：', e)
     if(!this.data.CustomName){
       wx.showToast({
@@ -79,9 +73,12 @@ Page({
       ContactWay: this.data.ContactWay,
       CompanyName: this.data.CompanyName,
       Job: this.data.Job,
+      RelationTag: this.data.RelationTagPicker[this.data.RelationTag].RelationId||1,//不填默认给1，门外关系
       Relationship: this.data.Relationship,
       ProductIds: this.data.ProductIds,
     }
+    console.log('新增的数据：', _obj)
+    // console.log('新增的数据JSON：', JSON.stringify(_obj))
     myRequest('addCustom', _obj).then(res => {
       // console.log('新增联系人：', res)
       wx.showToast({
@@ -89,10 +86,11 @@ Page({
         icon: 'none',
         mask: true,
         success: ()=>{
+          wx.setStorageSync('needRefresh',true)//设置flag
           // 添加成功后调转到联系人列表页
           setTimeout(()=>{
             wx.switchTab({
-              url: `/pages/client/client`
+              url: `/pages/my/my`
             })
           },1500)
         }
@@ -110,8 +108,15 @@ Page({
   // pick选择
   PickerChange(e) {
     let _type = e.target.dataset.type
-    // 改变性别 可能还有其他
+    // 改变性别
     if(_type==='Gender'){
+      console.log(_type,e.detail.value)
+      this.setData({
+        [_type]: e.detail.value
+      })
+    }
+    // 改变关系
+    else if(_type==='RelationTag'){
       console.log(_type,e.detail.value)
       this.setData({
         [_type]: e.detail.value
@@ -179,68 +184,4 @@ Page({
       })
     })
   },
-  // 多级联动
-  // MultiChange(e) {
-  //   this.setData({
-  //     multiIndex: e.detail.value
-  //   })
-  // },
-  // MultiColumnChange(e) {
-  //   console.log(e.detail.column,e.detail.value)
-  //   let data = {
-  //     multiArray: this.data.multiArray,
-  //     multiIndex: this.data.multiIndex
-  //   };
-  //   data.multiIndex[e.detail.column] = e.detail.value;
-  //   switch (e.detail.column) {
-  //     // 如果切一
-  //     case 0:
-  //       switch (data.multiIndex[0]) {
-  //         case 0: //'北京'
-  //           data.multiArray[1] = ['北京市1', '北京市2', '北京市3']
-  //           data.multiArray[2] = ['北京市1-区1', '北京市1-区2']
-  //           break;
-  //         case 1: //'上海'
-  //           data.multiArray[1] = ['上海市1', '上海市2', '上海市3'],
-  //           data.multiArray[2] = ['上海市1-区1', '上海市1-区2']
-  //           break;
-  //       }
-  //       data.multiIndex[1] = 0;
-  //       data.multiIndex[2] = 0;
-  //       break;
-  //     // 如果切列二
-  //     case 1:
-  //       switch (data.multiIndex[0]) {
-  //         case 0: //'北京'
-  //           switch (data.multiIndex[1]) {
-  //             case 0: //'北京市1'
-  //               data.multiArray[2] = ['北京市1-区1', '北京市1-区2']
-  //               break;
-  //             case 1: //'北京市2'
-  //               data.multiArray[2] = ['北京市2-区1', '北京市2-区2']
-  //               break;
-  //             case 2: //'北京市3'
-  //               data.multiArray[2] = ['北京市3-区1', '北京市3-区2']
-  //               break;
-  //           }
-  //           break;
-  //         case 1: //'上海'
-  //           switch (data.multiIndex[1]) {
-  //             case 0:
-  //               data.multiArray[2] = ['鲫鱼', '带鱼'];
-  //               break;
-  //             case 1:
-  //               data.multiArray[2] = ['青蛙', '娃娃鱼'];
-  //               break;
-  //             case 2:
-  //               data.multiArray[2] = ['蜥蜴', '龟', '壁虎'];
-  //               break;
-  //           }
-  //           break;
-  //       }
-  //       data.multiIndex[2] = 0;
-  //       break;
-  //   }
-  //   this.setData(data);
-  // },
 })
