@@ -16,11 +16,15 @@ Page({
       title: '加载中...',
       mask: true
     });
+    this.getCustomList()
   },
   onShow() {
-    if('需要刷新联系人'){
-      this.setData({list: wx.getStorageSync('RelationInfo')})
+    // 没有标签list 就获取一次
+    !this.data.list.length && this.listInit()
+    // 每次切换回来 有flag时 重新请求一次列表
+    if(wx.getStorageSync('needRefresh')){
       this.getCustomList()
+      wx.removeStorageSync('needRefresh')
     }
   },
   onReady() {
@@ -28,10 +32,11 @@ Page({
   },
   // 左侧列表初始化，加字段
   listInit(){
+    let _listOrigin = wx.getStorageSync('RelationInfo')
     let _list = []
-    for (let i = 0; i < this.data.list.length; i++) {
+    for (let i = 0; i < _listOrigin.length; i++) {
       _list[i] = {}
-      _list[i].name = this.data.list[i].RelationTag
+      _list[i].name = _listOrigin[i].RelationTag
       _list[i].id = i
     }
     this.setData({
@@ -83,11 +88,11 @@ Page({
     myRequest('getCustomList', null, "GET").then(res => {
       console.log('获取联系人列表：', res)
       this.listInit()
-      console.log('res:',res)
+      // console.log('res:',res)
       let _customArr = new Array(this.data.list.length).fill('')
       _customArr = _customArr.map(e=>[])
       res.forEach((e,i)=>{
-        _customArr[0].push(e)
+        _customArr[e.RelationId].push(e)
       })
       this.setData({customArr:_customArr})
     })

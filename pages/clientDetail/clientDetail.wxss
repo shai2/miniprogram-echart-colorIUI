@@ -12,10 +12,18 @@
   color: #366587;
 }
 .custom-top{
+  position: relative;
   background: #fff;
   margin-bottom: 25rpx;
   padding: 40rpx;
 }
+.control-area{
+  position: absolute;
+  right: 30rpx;
+  top: 140rpx;
+  color: #ccc
+}
+.control-area text{color: var(--theme)}
 .info-top{
   display: flex;
   align-items: center;

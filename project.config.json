@@ -23,7 +23,7 @@
 			"outputPath": ""
 		},
 		"useIsolateContext": true,
-		"useCompilerModule": true,
+		"useCompilerModule": false,
 		"userConfirmedUseCompilerModuleSwitch": false
 	},
 	"compileType": "miniprogram",
@@ -82,16 +82,17 @@
 					"scene": null
 				},
 				{
-					"id": -1,
+					"id": 3,
 					"name": "客户信息",
 					"pathName": "pages/clientDetail/clientDetail",
-					"query": "",
+					"query": "customId=9",
 					"scene": null
 				},
 				{
-					"id": -1,
+					"id": 4,
 					"name": "添加客户",
 					"pathName": "pages/addClient/addClient",
+					"query": "customId=9",
 					"scene": null
 				}
 			]

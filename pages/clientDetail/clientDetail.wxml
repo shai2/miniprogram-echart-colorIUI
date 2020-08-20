@@ -1,32 +1,51 @@
 <view class="custom-detail-wrapper">
   <view class="custom-top">
     <view class="info-top">
-      <text class="name">胡敏</text>
+      <view class="control-area">
+        <text bindtap="toClientDetail">编辑</text> |
+        <text bindtap="showDeleteModal" data-target="deleteModal">删除</text> |
+        <text>图表</text> |
+        <text>添加</text>
+      </view>
+      <text class="name">{{customInfo.CustomName}}</text>
       <view class="cu-capsule round">
-        <view class="cu-tag bg-cyan" style="width:auto;">多次主动</view>
-        <view class="cu-tag line-cyan">530</view>
+        <view class="cu-tag bg-cyan" style="width:auto;">{{customInfo.RelationTag}}</view>
+        <view class="cu-tag line-cyan">{{customInfo.ContactPoint}}</view>
       </view>
     </view>
     <view class="info-bottom">
       <view class="info-line">
+        <text>性别：</text>
+        <text>{{customInfo.Gender}}</text>
+      </view>
+      <view class="info-line">
         <text>手机：</text>
-        <text>13111111111</text>
+        <text>{{customInfo.Mobile}}</text>
       </view>
       <view class="info-line">
         <text>职务：</text>
-        <text>保安/保洁/CEO/CTO/COO</text>
+        <text>{{customInfo.Job}}</text>
       </view>
       <view class="info-line">
         <text>地区：</text>
-        <text>内蒙古自治区鄂尔多斯</text>
+        <text>{{customInfo.Address}}
+        </text>
       </view>
       <view class="info-line">
-        <text>单位：</text>
-        <text>上海市吃吃喝喝股份有限公司</text>
+        <text>公司：</text>
+        <text>{{customInfo.CompanyName}}</text>
       </view>
       <view class="info-line">
         <text>生日：</text>
-        <text>1991-01-01</text>
+        <text>{{customInfo.Birthday}}</text>
+      </view>
+      <view class="info-line">
+        <text>关系：</text>
+        <text>{{customInfo.Relationship}}</text>
+      </view>
+      <view class="info-line">
+        <text>联系方式：</text>
+        <text>{{customInfo.ContactWay}}</text>
       </view>
     </view>
   </view>
@@ -69,5 +88,20 @@
       </view>
     </view>
 
+  </view>
+</view>
+<!-- 确认删除弹窗 -->
+<view class="cu-modal {{modalName=='deleteModal'?'show':''}}">
+  <view class="cu-dialog">
+    <view class="cu-bar bg-white justify-end">
+      <view class="content">确定删除该联系人？</view>
+      <view class="action" bindtap="closeModal">
+        <text class="cuIcon-close text-red"></text>
+      </view>
+    </view>
+    <view class="padding bg-white modal-button-line">
+      <button class="cu-btn bg-grey lg" bindtap="closeModal">取消</button>
+      <button class="cu-btn bg-red margin-tb-sm lg" bindtap="delCustom">确定</button>
+    </view>
   </view>
 </view>

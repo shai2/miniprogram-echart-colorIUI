@@ -24,3 +24,12 @@
   content:'*';
   color:red;
 }
+.modal-button-line{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.modal-button-line button{
+  width: 200rpx!important;
+  margin: 0 20rpx!important;
+}

@@ -8,6 +8,8 @@ Page({
     ProvincePicker: [],
     CityPicker: [],
     AreaPicker: [],
+    actionType: '添加',
+    isEdit: false,
     // 以下是form字段
     CustomName: '',
     Gender: '',
@@ -23,16 +25,48 @@ Page({
     Relationship: '',
     ProductIds: '',
   },
-  onLoad() {
+  onLoad(opt) {
     this.getProvince()
     this.setData({RelationTagPicker: wx.getStorageSync('RelationInfo')})
+    // 带customId是编辑
+    if(opt.customId){
+      console.log('这是编辑')
+      wx.setNavigationBarTitle({
+        title: '编辑客户',
+      })
+      this.setData({
+        actionType:'修改',
+        isEdit: true,
+        editId: opt.customId,
+      })
+      this.getCustomInfo(opt.customId)
+    }
   },
-  // 选择省份
-  // RegionChange: function(e) {
-  //   this.setData({
-  //     region: e.detail.value
-  //   })
-  // },
+  // 获取单一联系人信息
+  getCustomInfo(customId){
+    let _obj = { CustomId: customId }
+    // console.log('参数',_obj)
+    myRequest('getCustomInfo', _obj).then(res => {
+      // 格式化数据
+      console.log('客户数据：',res[0])
+      
+      this.setData({
+        CustomName: res[0].CustomName,
+        Gender: res[0].Gender,
+        Birthday: res[0].Birthday.split(' ')[0],
+        Province: res[0].Province,
+        City: res[0].City,
+        Area: res[0].Area,
+        Telephone: res[0].Mobile,
+        ContactWay: res[0].ContactWay,
+        CompanyName: res[0].CompanyName,
+        Job: res[0].Job,
+        RelationTag: res[0].Relation,
+        Relationship: res[0].Relationship,
+        ProductIds: res[0].ProductIds,
+      })
+    })
+  },
   // 选择日期
   DateChange(e) {
     this.setData({
@@ -60,9 +94,10 @@ Page({
     }
     this.addCustom()
   },
-  // 新增联系人
+  // 新增/编辑 联系人
   addCustom(){
     let _obj = {
+      CustomId: this.data.isEdit?this.data.editId:'',
       CustomName: this.data.CustomName,
       Gender: this.data.Gender,
       Birthday: this.data.Birthday,
@@ -79,19 +114,26 @@ Page({
     }
     console.log('新增的数据：', _obj)
     // console.log('新增的数据JSON：', JSON.stringify(_obj))
-    myRequest('addCustom', _obj).then(res => {
+    myRequest(this.data.isEdit?'editCustom':'addCustom', _obj).then(res => {
       // console.log('新增联系人：', res)
       wx.showToast({
-        title: '添加成功',
+        title: '成功',
         icon: 'none',
         mask: true,
         success: ()=>{
           wx.setStorageSync('needRefresh',true)//设置flag
           // 添加成功后调转到联系人列表页
           setTimeout(()=>{
-            wx.switchTab({
-              url: `/pages/my/my`
-            })
+            if(this.data.isEdit){
+              wx.navigateTo({
+                url: `/pages/clientDetail/clientDetail?customId=${this.data.editId}`
+              })
+            }
+            else{
+              wx.switchTab({
+                url: `/pages/my/my`
+              })
+            }
           },1500)
         }
       })

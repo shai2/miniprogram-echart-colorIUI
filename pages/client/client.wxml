@@ -30,7 +30,7 @@ module.exports.format = function(string){
       </view>
       <!-- 遍历列表 -->
       <view class="cu-list menu-avatar">
-        <view wx:for="{{customArr[index]}}" wx:key="index" class="cu-item" catchtap="toClientDetail" data-id="{{item.UserId}}">
+        <view wx:for="{{customArr[index]}}" wx:key="index" class="cu-item" catchtap="toClientDetail" data-id="{{item.Id}}">
           <view class="cu-avatar round lg">
             {{utils.format(item.CustomName)}}
             <!-- <view class="cu-tag badge">99+</view> -->
