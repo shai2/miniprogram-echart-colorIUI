@@ -9,7 +9,7 @@
       <view class="require title">性别</view>
       <picker data-type="Gender" bindchange="PickerChange" value="{{Gender}}" range="{{GenderPicker}}">
         <view class="picker">
-          {{Gender?GenderPicker[Gender]:'未选择'}}
+          {{Gender!==null?GenderPicker[Gender]:'未选择'}}
         </view>
       </picker>
     </view>

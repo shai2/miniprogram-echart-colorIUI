@@ -12,7 +12,7 @@ Page({
     isEdit: false,
     // 以下是form字段
     CustomName: '',
-    Gender: '',
+    Gender: null,
     Birthday: '',
     Province: '',
     City: '',
@@ -49,7 +49,6 @@ Page({
     myRequest('getCustomInfo', _obj).then(res => {
       // 格式化数据
       console.log('客户数据：',res[0])
-      
       this.setData({
         CustomName: res[0].CustomName,
         Gender: res[0].Gender,
