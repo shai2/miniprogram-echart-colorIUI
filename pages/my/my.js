@@ -15,8 +15,7 @@ Page({
       icon: 'recordfill',
       color: 'orange',
       badge: 1,
-      name: '编辑信息',
-      method: 'openEditModel',
+      name: '编辑信息'
     }, {
       icon: 'picfill',
       color: 'yellow',
@@ -78,31 +77,8 @@ Page({
   },
   // 点击icon-item跳转
   toUrl(e){
-    if(e.currentTarget.dataset.url){
-      wx.navigateTo({
-        url: '/pages/'+e.currentTarget.dataset.url
-      })
-    }else{
-      this[e.currentTarget.dataset.method]()
-    }
-  },
-  // 打开编辑我的信息弹窗
-  openEditModel(e){
-    this.setData({
-      modalName: 'editInfo'
+    wx.navigateTo({
+      url: '/pages/'+e.currentTarget.dataset.url
     })
-  },
-  // 关闭弹窗
-  closeModal(){
-    this.setData({
-      modalName: ''
-    })
-  },
-  // 输入input
-  changeInput(e){
-    // console.log('改变：', e.target.dataset.type, e.detail.value)
-    this.setData({
-      [e.target.dataset.type]: e.detail.value
-    })
-  },
+  }
 })

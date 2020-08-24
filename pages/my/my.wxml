@@ -29,13 +29,3 @@
     </block>
   </view>
 </view>
-<!-- 编辑我的信息 -->
-<view class="editInfo cu-modal {{modalName=='editInfo'?'show':''}}">
-  <view class="cu-dialog">
-    <input placeholder="请填写昵称" data-type="nickname" bindinput="changeInput" value="{{nickname}}"></input>
-    <input type="number" maxlength="13" placeholder="请填写电话" data-type="mobile" bindinput="changeInput" value="{{mobile}}"></input>
-    <view class="cu-bar bg-white">
-      <view class="action margin-0 flex-sub  solid-left" bindtap="closeModal">完成</view>
-    </view>
-  </view>
-</view>
