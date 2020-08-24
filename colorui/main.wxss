@@ -73,6 +73,10 @@ page {
 	color: var(--black);
 	font-family: Helvetica Neue, Helvetica, sans-serif;
 }
+.bg-theme {
+	background-color: var(--theme);
+	color: #fff;
+}
 
 view,
 scroll-view,
