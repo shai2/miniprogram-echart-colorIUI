@@ -3,6 +3,7 @@ const app = getApp()
 
 Page({
   data: {
+    productList: [],//产品列表
     GenderPicker: ['未知', '男', '女'],
     RelationTagPicker:[],
     ProvincePicker: [],
@@ -23,9 +24,10 @@ Page({
     Job: '',
     RelationTag: '',
     Relationship: '',
-    ProductIds: '',
+    ProductIds: [],//选中的列表
   },
   onLoad(opt) {
+    this.getProductList()
     this.getProvince()
     this.setData({RelationTagPicker: wx.getStorageSync('RelationInfo')})
     // 带customId是编辑
@@ -63,6 +65,18 @@ Page({
         RelationTag: res[0].Relation,
         Relationship: res[0].Relationship,
         ProductIds: res[0].ProductIds,
+      })
+      // 处理checkbox回显
+      console.log('相关产品：',res[0].ProductIds)
+      let _checkedArr = res[0].ProductIds.split(',')
+      let _productList = this.data.productList.map((e)=>{
+        if(_checkedArr.includes(e.Id+'')){
+          e.checked = true
+        }
+        return e
+      })
+      this.setData({
+        productList: _productList
       })
     })
   },
@@ -109,7 +123,7 @@ Page({
       Job: this.data.Job,
       RelationTag: this.data.RelationTagPicker[this.data.RelationTag].RelationId||1,//不填默认给1，门外关系
       Relationship: this.data.Relationship,
-      ProductIds: this.data.ProductIds,
+      ProductIds: this.data.ProductIds+'',
     }
     console.log('新增的数据：', _obj)
     // console.log('新增的数据JSON：', JSON.stringify(_obj))
@@ -223,6 +237,26 @@ Page({
         AreaPicker: res.map(e=>e.AreaName),
         AreaPickerOrigin: res
       })
+    })
+  },
+  // 获取我的产品列表
+  getProductList(){
+    let _obj = {
+      pagesize: 9999
+    }
+    myRequest('getProductList', _obj).then(res => {
+      let _productList = res.rows.map(e=>e)
+      console.log('产品列表：', _productList)
+      this.setData({
+        productList: _productList
+      })
+    })
+  },
+  checkboxChange(e){
+    let _val = e.detail.value
+    console.log(_val,typeof(_val))
+    this.setData({
+      ProductIds: _val
     })
   },
 })

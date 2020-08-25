@@ -1,0 +1,14 @@
+<!--logs.wxml-->
+<view class="addClient">
+  <form bindsubmit="formSubmit">
+    <view class="cu-form-group">
+      <view class="require title">昵称</view>
+      <input placeholder="昵称" data-type="nickname" value="{{nickname}}" bindinput="changeInput"></input>
+    </view>    
+    <view class="cu-form-group">
+      <view class="require title">手机</view>
+      <input type="number" maxlength="13" placeholder="请填写手机" data-type="mobile" bindinput="changeInput" value="{{mobile}}"></input>
+    </view>
+    <button form-type="submit" class="my-button cu-btn block margin-tb-sm lg">保存</button>
+    </form>
+</view>

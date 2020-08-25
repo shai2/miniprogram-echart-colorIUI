@@ -47,6 +47,10 @@
         <text>联系方式：</text>
         <text>{{customInfo.ContactWay}}</text>
       </view>
+      <view class="info-line">
+        <text>产品相关：</text>
+        <text>{{customInfo.ProductIds}}</text>
+      </view>
     </view>
   </view>
   <view class="custom-bottom">

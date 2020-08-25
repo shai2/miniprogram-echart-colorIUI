@@ -3,6 +3,7 @@ const app = getApp()
 
 Page({
   data: {
+    productList: [],//产品列表 提前请求
     TabCur: 0, //左侧item高亮
     MainCur: 0, //找到的滑动位置id
     VerticalNavTop: 0,
@@ -17,6 +18,7 @@ Page({
       mask: true
     });
     this.getCustomList()
+    this.getProductList()
   },
   onShow() {
     // 没有标签list 就获取一次
@@ -86,13 +88,17 @@ Page({
   // 获取联系人列表
   getCustomList(){
     myRequest('getCustomList', null, "GET").then(res => {
+      res=res.map(e=>{
+        e.RelationId = e.RelationId || 1
+        return e
+      })
       console.log('获取联系人列表：', res)
       this.listInit()
       // console.log('res:',res)
       let _customArr = new Array(this.data.list.length).fill('')
       _customArr = _customArr.map(e=>[])
       res.forEach((e,i)=>{
-        _customArr[e.RelationId].push(e)
+        _customArr[e.RelationId-1].push(e) //RelationId从1开始的 比index大1
       })
       this.setData({customArr:_customArr})
     })
@@ -102,5 +108,14 @@ Page({
     wx.navigateTo({
       url: `/pages/clientDetail/clientDetail?customId=${e.currentTarget.dataset.id}`
     })
-  }
+  },
+  // 获取我的产品列表
+  getProductList(){
+    let _obj = {
+      pagesize: 9999
+    }
+    myRequest('getProductList', _obj).then(res => {
+      wx.setStorageSync('productList',res.rows)
+    })
+  },
 })

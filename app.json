@@ -4,8 +4,10 @@
     "pages/logs/logs",
     "pages/client/client",
     "pages/addClient/addClient",
+    "pages/editMyInfo/editMyInfo",
     "pages/my/my",
-    "pages/clientDetail/clientDetail"
+    "pages/clientDetail/clientDetail",
+    "pages/myProduct/myProduct"
   ],
   "window":{
     "enablePullDownRefresh": false,

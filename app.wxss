@@ -33,3 +33,7 @@
   width: 200rpx!important;
   margin: 0 20rpx!important;
 }
+.edit-button{
+  width:120rpx!important;
+  margin-left:20rpx!important;
+}

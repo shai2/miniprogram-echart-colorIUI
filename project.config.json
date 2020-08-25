@@ -92,6 +92,20 @@
 					"id": 4,
 					"name": "添加客户",
 					"pathName": "pages/addClient/addClient",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "我的产品",
+					"pathName": "pages/myProduct/myProduct",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "编辑客户",
+					"pathName": "pages/addClient/addClient",
 					"query": "customId=9",
 					"scene": null
 				}

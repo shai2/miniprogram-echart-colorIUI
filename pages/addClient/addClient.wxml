@@ -45,14 +45,6 @@
         </view>
       </picker>
     </view>
-    <!-- <view class="cu-form-group">
-      <view class="title">城市</view>
-      <picker mode="region" bindchange="RegionChange" value="{{region}}" custom-item="{{customItem}}">
-        <view class="picker">
-          {{region[0]? (region[0]+'-'+region[1]+'-'+region[2]) : '请选择城市'}}
-        </view>
-      </picker>
-    </view> -->
     <view class="cu-form-group">
       <view class="title">电话</view>
       <input type="number" maxlength="13" placeholder="请填写电话" data-type="Telephone" bindinput="changeInput" value="{{Telephone}}"></input>
@@ -81,6 +73,17 @@
         </view>
       </picker>
     </view>
+    <view class="cu-form-group" style="align-items:flex-start">
+      <view class="title" style="margin-top:20rpx">产品相关</view>
+      <checkbox-group bindchange="checkboxChange">
+        <view class="productList-box">
+        <view class="productList-item" wx:for="{{productList}}" wx:key="index">
+          {{item.ProductName}}
+          <checkbox color="#0F355A" checked="{{item.checked}}" value="{{item.Id}}"></checkbox>
+        </view>
+        </view>
+      </checkbox-group>
+    </view>
     <button form-type="submit" class="my-button cu-btn block margin-tb-sm lg">{{actionType}}</button>
-    </form>
+  </form>
 </view>

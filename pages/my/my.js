@@ -15,12 +15,14 @@ Page({
       icon: 'recordfill',
       color: 'orange',
       badge: 1,
-      name: '编辑信息'
+      name: '我的信息',
+      url: 'editMyInfo/editMyInfo'
     }, {
       icon: 'picfill',
       color: 'yellow',
       badge: 0,
-      name: '图像'
+      name: '我的产品',
+      url: 'myProduct/myProduct'
     }, {
       icon: 'noticefill',
       color: 'olive',

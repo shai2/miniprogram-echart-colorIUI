@@ -7,3 +7,13 @@ form {
 .cu-form-group input{
   text-align: right;
 }
+.productList-box{
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  padding: 15rpx 20rpx 30rpx;
+}
+.productList-item{
+  margin-top:15rpx;
+}

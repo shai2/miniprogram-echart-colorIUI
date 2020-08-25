@@ -7,7 +7,7 @@
     <block wx:else>
       <view class="info-top">
         <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
-        <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+        <text class="userinfo-nickname">{{userInfo.nickname||userInfo.nickName}}</text>
       </view>
       <view class="info-middle">
         <text class="vip-info">有效期至：{{userInfo.ExpiresDate}}</text>

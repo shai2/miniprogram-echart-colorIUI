@@ -3897,6 +3897,12 @@ scroll-view.cu-steps .cu-item {
 	color: var(--blue);
 }
 
+.text-blue,
+.line-blue,
+.lines-blue {
+	color: var(--theme);
+}
+
 .text-purple,
 .line-purple,
 .lines-purple {
