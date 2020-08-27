@@ -7,7 +7,8 @@
     "pages/editMyInfo/editMyInfo",
     "pages/my/my",
     "pages/clientDetail/clientDetail",
-    "pages/myProduct/myProduct"
+    "pages/myProduct/myProduct",
+    "pages/addContact/addContact"
   ],
   "window":{
     "enablePullDownRefresh": false,

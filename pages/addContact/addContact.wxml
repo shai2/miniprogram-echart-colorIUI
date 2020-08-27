@@ -1,0 +1,27 @@
+<!--logs.wxml-->
+<view class="addContact">
+  <form bindsubmit="formSubmit">
+    <view class="cu-form-group">
+      <view class="require title">接触方式</view>
+      <picker data-type="ContactWay" bindchange="PickerChange" value="{{ContactWay}}" range="{{ContactPicker}}" range-key="ContactWay">
+        <view class="picker">
+          {{ContactWay?ContactPicker[ContactWay].ContactWay:'未选择'}}
+        </view>
+      </picker>
+    </view>
+    <view wx:if="{{ContactWay}}" class="cu-form-group">
+      <view class="require title">接触评分</view>
+      <picker data-type="ContactPoint" bindchange="PickerChange" value="{{ContactPoint}}" range="{{ContactPointPicker}}" range-key="assess">
+        <view class="picker">
+          {{ContactPoint?ContactPointPicker[ContactPoint].assess:'未选择'}}
+        </view>
+      </picker>
+    </view>
+    <view class="cu-form-group">
+      <view class="require title">接触内容</view>
+      <textarea data-type="ContactNote" bindblur="changeInput" maxlength="-1" auto-height placeholder="请填写接触内容" />
+    </view>
+    
+    <button form-type="submit" class="my-button cu-btn block margin-tb-sm lg">{{actionType}}</button>
+  </form>
+</view>

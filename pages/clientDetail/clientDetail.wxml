@@ -1,11 +1,16 @@
+<wxs module="utils">
+module.exports.myFormatTime = function(e){
+  return e.split(' ')[0]
+}
+</wxs>
+
 <view class="custom-detail-wrapper">
   <view class="custom-top">
     <view class="info-top">
       <view class="control-area">
         <text bindtap="toClientDetail">编辑</text> |
         <text bindtap="showDeleteModal" data-target="deleteModal">删除</text> |
-        <text>图表</text> |
-        <text>添加</text>
+        <text>图表</text>
       </view>
       <text class="name">{{customInfo.CustomName}}</text>
       <view class="cu-capsule round">
@@ -54,47 +59,35 @@
     </view>
   </view>
   <view class="custom-bottom">
+    <view class="control-area-bottom">
+      <text bindtap="toAddContact">添加接触</text>
+    </view>
     <!-- 遍历日期 -->
-    <view class="cu-timeline">
-      <view class="cu-time">06-17</view>
-      <!-- 遍历当日事情 -->
-      <view class="cu-item">
-        <view class="content">
-          <view class="cu-capsule radius">
-            <view class="cu-tag bg-cyan">5</view>
-            <view class="cu-tag line-cyan">线下多边互动</view>
+    <block wx:for="{{rows}}">
+      <view class="cu-timeline">
+        <view class="cu-time" style="margin-left:10rpx;">{{utils.myFormatTime(item[0].ContactDate)}}</view>
+        <!-- 遍历当天的事 -->
+        <block wx:for="{{item}}" wx:for-item="e">
+          <view class="cu-item">
+            <view class="contact-content content">
+              <view class="control-area-item">
+                <text bindtap="toEditContact" data-id="{{e.ContactId}}">编辑</text> |
+                <text bindtap="showDeleteModal" data-id="{{e.ContactId}}" data-target="deleteModalContact">删除</text>
+              </view>
+              <view class="cu-capsule radius">
+                <view class="cu-tag bg-cyan">{{e.ContactPoint}}</view>
+                <view class="cu-tag line-cyan">{{contactList[0].ContactWay}}</view>
+              </view>
+              <view class="margin-top">{{e.ContactNote}}</view>
+            </view>
           </view>
-          <view class="margin-top">第三次出门！！！</view>
-        </view>
+        </block>
       </view>
-      <view class="cu-item">
-        <view class="content">
-          <view class="cu-capsule radius">
-            <view class="cu-tag bg-cyan">2</view>
-            <view class="cu-tag line-cyan">线上实时互动</view>
-          </view>
-          <view class="margin-top">第二次出门</view>
-        </view>
-      </view>
-
-    </view>
-    <!-- 另外一天 -->
-    <view class="cu-timeline">
-      <view class="cu-time">06-10</view>
-      <view class="cu-item">
-        <view class="content">
-          <view class="cu-capsule radius">
-            <view class="cu-tag bg-cyan">3</view>
-            <view class="cu-tag line-cyan">一起吃饭</view>
-          </view>
-          <view class="margin-top">这是第一次出门</view>
-        </view>
-      </view>
-    </view>
+    </block>
 
   </view>
 </view>
-<!-- 确认删除弹窗 -->
+<!-- 确认删除联系人弹窗 -->
 <view class="cu-modal {{modalName=='deleteModal'?'show':''}}">
   <view class="cu-dialog">
     <view class="cu-bar bg-white justify-end">
@@ -106,6 +99,21 @@
     <view class="padding bg-white modal-button-line">
       <button class="cu-btn bg-grey lg" bindtap="closeModal">取消</button>
       <button class="cu-btn bg-red margin-tb-sm lg" bindtap="delCustom">确定</button>
+    </view>
+  </view>
+</view>
+<!-- 确认删除接触点弹窗 -->
+<view class="cu-modal {{modalName=='deleteModalContact'?'show':''}}">
+  <view class="cu-dialog">
+    <view class="cu-bar bg-white justify-end">
+      <view class="content">确定删除该接触点？</view>
+      <view class="action" bindtap="closeModal">
+        <text class="cuIcon-close text-red"></text>
+      </view>
+    </view>
+    <view class="padding bg-white modal-button-line">
+      <button class="cu-btn bg-grey lg" bindtap="closeModal">取消</button>
+      <button class="cu-btn bg-red margin-tb-sm lg" bindtap="delContact">确定</button>
     </view>
   </view>
 </view>

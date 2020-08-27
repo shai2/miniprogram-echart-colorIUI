@@ -19,6 +19,7 @@ Page({
     });
     this.getCustomList()
     this.getProductList()
+    this.getContactAssess()
   },
   onShow() {
     // 没有标签list 就获取一次
@@ -116,6 +117,12 @@ Page({
     }
     myRequest('getProductList', _obj).then(res => {
       wx.setStorageSync('productList',res.rows)
+    })
+  },
+  // 获取接触点评分
+  getContactAssess(){
+    myRequest('getContactAssess', null).then(res => {
+      wx.setStorageSync('contactList',res)
     })
   },
 })

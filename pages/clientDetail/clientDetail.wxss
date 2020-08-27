@@ -39,3 +39,25 @@
 .info-line{
   margin-top:15rpx;
 }
+.custom-bottom{
+  position: relative;
+}
+.control-area-bottom{
+  z-index:1;
+  position: absolute;
+  right: 30rpx;
+  top: 20rpx;
+  color: #ccc
+}
+.control-area-bottom text{color: var(--theme)}
+.contact-content{
+  position: relative;
+}
+.control-area-item{
+  z-index:1;
+  position: absolute;
+  right: 20rpx;
+  top: 20rpx;
+  color: #ccc
+}
+.control-area-item text{color: #888;}

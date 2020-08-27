@@ -5,12 +5,44 @@ Page({
     productList: [],//产品列表 从本地取
     customInfo:{},
     GenderPicker: ['未知', '男', '女'],
+    rows:[],
+    contactList:[],
   },
   onLoad(opt) {
     console.log('客户id：',opt.customId)
-    this.getCustomInfo(opt.customId)
     this.setData({
-      productList: wx.getStorageSync('productList')
+      productList: wx.getStorageSync('productList'),
+      contactList: wx.getStorageSync('contactList'),
+      customId: opt.customId,
+    })
+    this.getCustomInfo(this.data.customId)
+    this.getContactList(this.data.customId)
+  },
+  // 获取单一联系人接触
+  getContactList(customId){
+    let _obj = {
+      CustomId: customId,
+      pagesize: 9999,
+    }
+    // 注：需要接口按照日期降序返回
+    myRequest('getContactList', _obj).then(res => {
+      console.log('接触点数据：',res.rows)
+      let _formatObj = {}
+      // 按照日期格式化 todo:日期可以格式化成"今天 今天"
+      res.rows.forEach((e,i)=>{
+        let _day = e.ContactDate.split(' ')[0]
+        if(!_formatObj[_day]){
+          _formatObj[_day] = []
+        }
+        _formatObj[_day].push(e)
+      })
+      let _formatArr = []
+      for(let e in _formatObj){
+        _formatArr.push(_formatObj[e])
+      }
+      this.setData({
+        rows: _formatArr
+      })
     })
   },
   // 获取单一联系人信息
@@ -43,10 +75,16 @@ Page({
       })
     })
   },
-  // 编辑详情
-  toClientDetail(){
+  // 去添加接触
+  toAddContact(){
     wx.navigateTo({
-      url: `/pages/addClient/addClient?customId=${this.data.customInfo.Id}`
+      url: `/pages/addContact/addContact?customId=${this.data.customInfo.Id}`
+    })
+  },
+  // 编辑详情
+  toEditContact(){
+    wx.navigateTo({
+      url: `/pages/addContact/addContact?customId=${this.data.customInfo.Id}&contactId=${e.target.dataset.ContactId}`
     })
   },
   // 删除客户 支持多个 格式：1,2,3
@@ -58,16 +96,24 @@ Page({
       })
     })
   },
+  // 删除接触点
+  delContact(){
+    myRequest('delContact', {ContactIds: this.data.contactIds}).then(res => {
+      this.getContactList(opt.customId)
+    })
+  },
   // 打开询问弹窗
   showDeleteModal(e){
     this.setData({
-      modalName: e.currentTarget.dataset.target
+      modalName: e.currentTarget.dataset.target,
+      contactIds: e.target.dataset.id
     })
   },
   // 关闭弹窗
   closeModal(){
     this.setData({
-      modalName: ''
+      modalName: '',
+      contactIds: '',
     })
   },
 })
