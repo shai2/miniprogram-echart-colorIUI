@@ -62,7 +62,7 @@ Page({
         ContactWay: res[0].ContactWay,
         CompanyName: res[0].CompanyName,
         Job: res[0].Job,
-        RelationTag: res[0].Relation,
+        RelationTag: res[0].Relation*1-1, //RelationTag是index，接口比数组picker的value大1，减1回显
         Relationship: res[0].Relationship,
         ProductIds: res[0].ProductIds,
       })
