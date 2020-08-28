@@ -63,16 +63,16 @@ module.exports.myFormatTime = function(e){
       <text bindtap="toAddContact">添加接触</text>
     </view>
     <!-- 遍历日期 -->
-    <block wx:for="{{rows}}">
+    <block wx:key="index" wx:for="{{rows}}">
       <view class="cu-timeline">
         <view class="cu-time" style="margin-left:10rpx;">{{utils.myFormatTime(item[0].ContactDate)}}</view>
         <!-- 遍历当天的事 -->
-        <block wx:for="{{item}}" wx:for-item="e">
+        <block wx:key="index" wx:for="{{item}}" wx:for-item="e">
           <view class="cu-item">
             <view class="contact-content content">
               <view class="control-area-item">
-                <text bindtap="toEditContact" data-id="{{e.ContactId}}">编辑</text> |
-                <text bindtap="showDeleteModal" data-id="{{e.ContactId}}" data-target="deleteModalContact">删除</text>
+                <text bindtap="toEditContact" data-id="{{e.Id}}">编辑</text> |
+                <text bindtap="showDeleteModal" data-id="{{e.Id}}" data-target="deleteModalContact">删除</text>
               </view>
               <view class="cu-capsule radius">
                 <view class="cu-tag bg-cyan">{{e.ContactPoint}}</view>

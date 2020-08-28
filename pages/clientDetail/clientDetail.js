@@ -76,13 +76,13 @@ Page({
     })
   },
   // 去添加接触
-  toAddContact(){
+  toAddContact(e){
     wx.navigateTo({
       url: `/pages/addContact/addContact?customId=${this.data.customInfo.Id}`
     })
   },
   // 编辑详情
-  toEditContact(){
+  toEditContact(e){
     wx.navigateTo({
       url: `/pages/addContact/addContact?customId=${this.data.customInfo.Id}&contactId=${e.target.dataset.ContactId}`
     })
@@ -99,7 +99,7 @@ Page({
   // 删除接触点
   delContact(){
     myRequest('delContact', {ContactIds: this.data.contactIds}).then(res => {
-      this.getContactList(opt.customId)
+      this.getContactList(this.data.customId)
     })
   },
   // 打开询问弹窗
