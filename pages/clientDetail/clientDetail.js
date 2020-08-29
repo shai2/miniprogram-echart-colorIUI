@@ -18,6 +18,11 @@ Page({
     this.getCustomInfo(this.data.customId)
     this.getContactList(this.data.customId)
   },
+  toClientEdit(){
+    wx.navigateTo({
+      url: `/pages/addClient/addClient?customId=${this.data.customId}`
+    })
+  },
   // 获取单一联系人接触
   getContactList(customId){
     let _obj = {
@@ -67,7 +72,11 @@ Page({
           return m.Id == e
         })
         return _item
-      }).map(e=>e.ProductName).join(',')
+      }).map(e=>{
+        if(e){
+          return e.ProductName
+        }
+      }).join(',')
   
       console.log('客户数据：',res[0])
       this.setData({
@@ -81,10 +90,13 @@ Page({
       url: `/pages/addContact/addContact?customId=${this.data.customInfo.Id}`
     })
   },
-  // 编辑详情
+  // 编辑触点详情
   toEditContact(e){
+    // console.log('要编辑的', e.target.dataset.item)
+    wx.setStorageSync('editItem',e.target.dataset.item)
+    
     wx.navigateTo({
-      url: `/pages/addContact/addContact?customId=${this.data.customInfo.Id}&contactId=${e.target.dataset.ContactId}`
+      url: `/pages/addContact/addContact?customId=${this.data.customInfo.Id}&contactId=${e.target.dataset.id}`
     })
   },
   // 删除客户 支持多个 格式：1,2,3

@@ -10,11 +10,10 @@ Page({
     actionType: '添加',
     isEdit: false,
     ContactNote:'',//接触信息
-    ContactWay:'',//接触方式
+    ContactWay:null,//接触方式
     ContactPoint:'',//接触评分
   },
   onLoad(opt) {
-    console.log(1111,opt)
     this.setData({
       ContactPicker: wx.getStorageSync('contactList'),
       customId: opt.customId,
@@ -23,15 +22,26 @@ Page({
     // 带contactId是编辑
     if(opt.contactId){
       console.log('这是编辑')
+      let _picker =  wx.getStorageSync('contactList')
+      // 回显
+      let _editItem = wx.getStorageSync('editItem')
       wx.setNavigationBarTitle({
         title: '编辑接触',
       })
       this.setData({
         actionType:'修改',
         isEdit: true,
+        ContactNote:_editItem.ContactNote,//接触信息
+        ContactWay:_editItem.ContactWay*1,//接触方式
+        ContactPointPicker:_picker[_editItem.ContactWay*1].children,
+      },()=>{
+        this.setData({
+          ContactPoint: this.data.ContactPointPicker.findIndex(e=>{
+            return e.point==_editItem.ContactPoint
+          })
+        })
       })
     }
-    // TODO：回显编辑数据
   },
   // 提交表单
   formSubmit(e){
@@ -67,16 +77,19 @@ Page({
     let _ContactPoint = this.data.ContactPointPicker[this.data.ContactPoint].point
     let _obj = {
       customId: this.data.customId,
-      contactId: isEdit?this.data.contactId:'',
       ContactDate: formatTime(),
       ContactNote: this.data.ContactNote,
       ContactPoint: _ContactPoint,
       ContactWay: this.data.ContactWay,
     }
+    // 编辑节点id 传null接口报错
+    if(this.data.isEdit){
+      _obj = Object.assign(_obj,{ contactId: this.data.contactId })
+    }
     console.log('新增的数据：', _obj)
     // console.log('新增的数据JSON：', JSON.stringify(_obj))
     myRequest(this.data.isEdit?'editContact':'addContact', _obj).then(res => {
-      wx.navigateTo({
+      wx.redirectTo({
         url: `/pages/clientDetail/clientDetail?customId=${this.data.customId}`
       })
     })
@@ -95,10 +108,11 @@ Page({
     console.log(_type,e.detail.value)
     // 改变接触方式
     if(_type==='ContactWay'){
+      console.log(3333, this.data.ContactPicker[e.detail.value*1].children)
       this.setData({
         [_type]: e.detail.value,
-        ContactPointPicker: this.data.ContactPicker[e.detail.value].children,
-        ContactPoint: '',
+        ContactPointPicker: this.data.ContactPicker[e.detail.value*1].children,
+        ContactPoint:null,
       })
     }
     else if(_type=='ContactPoint'){

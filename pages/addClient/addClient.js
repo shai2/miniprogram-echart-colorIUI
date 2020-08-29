@@ -110,7 +110,6 @@ Page({
   // 新增/编辑 联系人
   addCustom(){
     let _obj = {
-      CustomId: this.data.isEdit?this.data.editId:'',
       CustomName: this.data.CustomName,
       Gender: this.data.Gender,
       Birthday: this.data.Birthday,
@@ -121,9 +120,13 @@ Page({
       ContactWay: this.data.ContactWay,
       CompanyName: this.data.CompanyName,
       Job: this.data.Job,
-      RelationTag: this.data.RelationTagPicker[this.data.RelationTag].RelationId||1,//不填默认给1，门外关系
+      RelationTag: this.data.RelationTag&&this.data.RelationTagPicker[this.data.RelationTag].RelationId||1,//不填默认给1，门外关系
       Relationship: this.data.Relationship,
       ProductIds: this.data.ProductIds+'',
+    }
+    // 编辑需要联系人id 传null接口报错
+    if(this.data.isEdit){
+      _obj = Object.assign(_obj,{ CustomId: this.data.editId })
     }
     console.log('新增的数据：', _obj)
     // console.log('新增的数据JSON：', JSON.stringify(_obj))
@@ -138,7 +141,7 @@ Page({
           // 添加成功后调转到联系人列表页
           setTimeout(()=>{
             if(this.data.isEdit){
-              wx.navigateTo({
+              wx.redirectTo({
                 url: `/pages/clientDetail/clientDetail?customId=${this.data.editId}`
               })
             }

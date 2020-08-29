@@ -8,7 +8,7 @@ module.exports.myFormatTime = function(e){
   <view class="custom-top">
     <view class="info-top">
       <view class="control-area">
-        <text bindtap="toClientDetail">编辑</text> |
+        <text bindtap="toClientEdit">编辑</text> |
         <text bindtap="showDeleteModal" data-target="deleteModal">删除</text> |
         <text>图表</text>
       </view>
@@ -71,7 +71,7 @@ module.exports.myFormatTime = function(e){
           <view class="cu-item">
             <view class="contact-content content">
               <view class="control-area-item">
-                <text bindtap="toEditContact" data-id="{{e.Id}}">编辑</text> |
+                <text bindtap="toEditContact" data-id="{{e.Id}}" data-item="{{e}}">编辑</text> |
                 <text bindtap="showDeleteModal" data-id="{{e.Id}}" data-target="deleteModalContact">删除</text>
               </view>
               <view class="cu-capsule radius">

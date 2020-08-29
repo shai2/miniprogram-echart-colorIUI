@@ -1,5 +1,5 @@
 <!--logs.wxml-->
-<view class="addClient">
+<view class="myProduct">
   <view class="cu-list menu sm-border">
     <view wx:for="{{productList}}" class="cu-item">
       <!-- 编辑 -->
