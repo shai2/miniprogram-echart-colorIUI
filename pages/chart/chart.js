@@ -46,7 +46,9 @@ Page({
     })
   },
   onLoad() {
-    if (app.globalData.userInfo) {
+    wx.hideTabBar({}) //未授权隐藏tabbar
+    if (app.globalData.userInfo.nickName) {
+      wx.showTabBar()
       this.setData({
         userInfo: app.globalData.userInfo,
         hasUserInfo: true
@@ -59,6 +61,7 @@ Page({
           userInfo: res.userInfo,
           hasUserInfo: true
         })
+        wx.showTabBar({})
       }
     } else {
       // 在没有 open-type=getUserInfo 版本的兼容处理
@@ -69,17 +72,18 @@ Page({
             userInfo: res.userInfo,
             hasUserInfo: true
           })
+          wx.showTabBar({})
         }
       })
     }
   },
   getUserInfo(e) {
-    console.log(e)
     app.globalData.userInfo = e.detail.userInfo
     this.setData({
       userInfo: e.detail.userInfo,
       hasUserInfo: true
     })
+    wx.showTabBar({})
   }
 })
 

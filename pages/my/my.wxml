@@ -1,8 +1,7 @@
-<!--logs.wxml-->
 <view class="my-container">
   <view class="userinfo">
     <!-- 没有授权 -->
-    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
+    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo">一键登录</button>
     <!-- 授权了 -->
     <block wx:else>
       <view class="info-top">

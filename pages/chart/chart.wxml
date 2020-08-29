@@ -1,7 +1,7 @@
 <!--index.wxml-->
 <view class="">
   <!-- 没有授权 -->
-  <button style="margin-top:100rpx;" wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
+  <button style="margin-top:100rpx;" wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo">一键登录</button>
   <!-- 有微信授权 -->
   <view class="" wx:else>
     <!-- 背景圈 -->

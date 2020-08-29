@@ -31,7 +31,7 @@ App({
               // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
               wx.getUserInfo({
                 success: res => {
-                  // console.log(res.userInfo)
+                  console.log(res.userInfo)
                   this.globalData.userInfo = res.userInfo
                   this.getWechatOpenId(loginRes.code)
                   
@@ -48,6 +48,7 @@ App({
   getWechatOpenId(code){
     let _obj = { code: code }
     myRequest('getWechatOpenId', _obj).then(res => {
+      console.log('openid',res.openid)
       wx.setStorageSync('openid',res.openid)
       this.regUser()
     })
