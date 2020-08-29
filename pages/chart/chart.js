@@ -1,4 +1,5 @@
 import * as echarts from '../../ec-canvas/echarts';
+import { myRequest } from '../../utils/request'
 const app = getApp()
 
 Page({
@@ -37,6 +38,12 @@ Page({
       }
     }
   },
+  onLoad() {
+    wx.hideTabBar({}) //未授权隐藏tabbar
+    if(wx.getStorageSync('canUseUserInfo')){
+      this.userInfoReadyCallback()
+    }
+  },
   // 切换tab
   tabSelect(e) {
     // console.log(e);
@@ -45,46 +52,72 @@ Page({
       scrollLeft: (e.currentTarget.dataset.id - 1) * 60
     })
   },
-  onLoad() {
-    wx.hideTabBar({}) //未授权隐藏tabbar
-    if (app.globalData.userInfo.nickName) {
-      wx.showTabBar()
-      this.setData({
-        userInfo: app.globalData.userInfo,
-        hasUserInfo: true
-      })
-    } else if (this.data.canIUse){
-      // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-      // 所以此处加入 callback 以防止这种情况
-      app.userInfoReadyCallback = res => {
+  // wx.login后开始执行
+  userInfoReadyCallback(){
+    // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
+    wx.getUserInfo({
+      success: res => {
+        console.log('getUserInfo返回',res.userInfo)
         this.setData({
           userInfo: res.userInfo,
           hasUserInfo: true
         })
-        wx.showTabBar({})
+        app.globalData.userInfo = res.userInfo
+        this.getWechatOpenId(app.globalData.tempCode)
       }
-    } else {
-      // 在没有 open-type=getUserInfo 版本的兼容处理
-      wx.getUserInfo({
-        success: res => {
-          app.globalData.userInfo = res.userInfo
-          this.setData({
-            userInfo: res.userInfo,
-            hasUserInfo: true
-          })
-          wx.showTabBar({})
-        }
-      })
-    }
-  },
-  getUserInfo(e) {
-    app.globalData.userInfo = e.detail.userInfo
-    this.setData({
-      userInfo: e.detail.userInfo,
-      hasUserInfo: true
     })
-    wx.showTabBar({})
-  }
+  },
+  // 发送 res.code临时登录凭证 到后台换取 openId
+  getWechatOpenId(code){
+    let _obj = { code: code }
+    myRequest('getWechatOpenId', _obj).then(res => {
+      console.log('openid',res.openid)
+      wx.setStorageSync('openid',res.openid)
+      this.regUser()
+    })
+  },
+  //注册新用户
+  regUser(){
+    let _obj = {
+      userid: wx.getStorageSync('openid'),
+      nickname: app.globalData.userInfo.nickName
+    }
+    console.log('注册新用户参数：',_obj)
+    myRequest('regUser', _obj).then(res => {
+      console.log('注册用户：', res)
+      wx.setStorageSync('token',res.token)
+      this.getUserInfo()
+    }).catch(err=>{
+      console.log('注册返回：',err)
+      if(err==="不提示"){
+        this.getToken()
+      }
+    })
+  },
+  getToken(openid = wx.getStorageSync('openid')){
+    let _obj = { userid: openid }
+    myRequest('getToken', _obj).then(res => {
+      console.log('老用户获取token：',res)
+      wx.setStorageSync('token',res.token)
+      this.getUserInfo()
+    })
+  },
+  // 获取用户信息
+  getUserInfo(){
+    myRequest('getUserInfo', null).then(res => {
+      app.globalData.userInfo = Object.assign({},res[0],app.globalData.userInfo)
+      console.log('获取用户信息：', app.globalData.userInfo)
+      !wx.getStorageSync('RelationInfo')&&this.getRelationInfo()
+      wx.showTabBar({})
+    })
+  },
+  // 获取关系标签
+  getRelationInfo(){
+    myRequest('getRelationInfo', null).then(res => {
+      console.log('关系标签：',res)
+      wx.setStorageSync('RelationInfo', res.reverse())
+    })
+  },
 })
 
 // echart图表配置
