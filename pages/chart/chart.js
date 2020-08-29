@@ -25,20 +25,19 @@ Page({
     endDate6: '未选择',
     ecChart_1: {
       disableTouch: true,
-      onInit: function (canvas, width, height, dpr) {
+      onInit(canvas, width, height, dpr) {
         chart_1 = echarts.init(canvas, null, {
           width: width,
           height: height,
           devicePixelRatio: dpr,
         });
         canvas.setChart(chart_1);
-        chart_1.showLoading();
         return chart_1;
       }
     },
     ecChart_2: {
       disableTouch: true,
-      onInit: function (canvas, width, height, dpr) {
+      onInit(canvas, width, height, dpr) {
         chart_2 = echarts.init(canvas, null, {
           width: width,
           height: height,
@@ -51,7 +50,7 @@ Page({
     },
     ecChart_3: {
       disableTouch: true,
-      onInit: function (canvas, width, height, dpr) {
+      onInit(canvas, width, height, dpr) {
         chart_3 = echarts.init(canvas, null, {
           width: width,
           height: height,
@@ -64,7 +63,7 @@ Page({
     },
     ecChart_4: {
       disableTouch: true,
-      onInit: function (canvas, width, height, dpr) {
+      onInit(canvas, width, height, dpr) {
         chart_4 = echarts.init(canvas, null, {
           width: width,
           height: height,
@@ -77,7 +76,7 @@ Page({
     },
     ecChart_5: {
       disableTouch: true,
-      onInit: function (canvas, width, height, dpr) {
+      onInit(canvas, width, height, dpr) {
         chart_5 = echarts.init(canvas, null, {
           width: width,
           height: height,
@@ -90,7 +89,7 @@ Page({
     },
     ecChart_6: {
       disableTouch: true,
-      onInit: function (canvas, width, height, dpr) {
+      onInit(canvas, width, height, dpr) {
         chart_6 = echarts.init(canvas, null, {
           width: width,
           height: height,
@@ -137,6 +136,9 @@ Page({
     this.setData({
       TabCur: e.currentTarget.dataset.id,
       scrollLeft: (e.currentTarget.dataset.id - 1) * 60
+    })
+    wx.pageScrollTo({
+      scrollTop: 0
     })
   },
   // wx.login后开始执行

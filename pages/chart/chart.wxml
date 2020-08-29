@@ -16,7 +16,7 @@
     </view>
     <view class="tab-card-wrapper">
       <!-- 选项卡1 -->
-      <view class="tab-card" wx:if="{{TabCur==0}}">
+      <view class="tab-card" hidden="{{TabCur!=0}}">
         <view class="cu-card">
           <view class="cu-item shadow">
             <view class="data-line">
@@ -148,7 +148,7 @@
 
       </view>
       <!-- 选项卡2 -->
-      <view class="tab-card" wx:if="{{TabCur==1}}">
+      <view class="tab-card" hidden="{{TabCur!=1}}">
         <view class="cu-card">
           <view class="cu-item shadow">暂无数据</view>
         </view>
@@ -158,7 +158,7 @@
         </view>
       </view>
       <!-- 选项卡3 -->
-      <view class="tab-card" wx:if="{{TabCur==2}}">
+      <view class="tab-card" hidden="{{TabCur!=2}}">
         <view class="cu-card">
           <view class="cu-item shadow">暂无数据</view>
         </view>
