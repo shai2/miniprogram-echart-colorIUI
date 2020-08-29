@@ -1,5 +1,5 @@
 {
-  "navigationBarTitleText": "客户关系管理",
+  "navigationBarTitleText": "数据看板",
   "usingComponents": {
     "ec-canvas": "../../ec-canvas/ec-canvas"
   }

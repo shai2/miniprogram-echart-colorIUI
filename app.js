@@ -23,10 +23,10 @@ App({
     // 登录
     wx.login({
       success: loginRes => {
-        // 获取用户信息
+        this.globalData.tempCode = loginRes.code
+        // 获取用户权限
         wx.getSetting({
           success: res => {
-            this.globalData.tempCode = loginRes.code
             if (res.authSetting['scope.userInfo']) {
               wx.setStorageSync('canUseUserInfo',true)
             }else{

@@ -30,7 +30,7 @@
 }
 
 .vip-info{
-  padding: 30rpx 150rpx;
+  padding: 30rpx 120rpx;
   background: #BAC6CF;
   color: var(--theme);
   border-radius: 16rpx;

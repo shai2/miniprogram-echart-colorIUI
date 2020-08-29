@@ -5,38 +5,39 @@ Page({
     userInfo: {},
     hasUserInfo: false,
     iconList: [{
-      icon: 'cardboardfill',
+      icon: 'friendaddfill',
       color: 'red',
-      // badge: 120,
+      badge: 0,
       name: '新增客户',
       url: 'addClient/addClient'
     }, {
-      icon: 'recordfill',
+      icon: 'peoplefill',
       color: 'orange',
-      badge: 1,
+      badge: 0,
       name: '我的信息',
       url: 'editMyInfo/editMyInfo'
     }, {
-      icon: 'picfill',
+      icon: 'newshotfill',
       color: 'yellow',
       badge: 0,
       name: '我的产品',
       url: 'myProduct/myProduct'
-    }, {
+    }, 
+    {
       icon: 'noticefill',
       color: 'olive',
       badge: 22,
-      name: '通知'
+      name: '暂无'
     }, {
       icon: 'upstagefill',
       color: 'cyan',
       badge: 0,
-      name: '排行榜'
+      name: '暂无'
     }, {
       icon: 'clothesfill',
       color: 'blue',
       badge: 0,
-      name: '皮肤'
+      name: '暂无'
     }],
     gridCol:3,
   },

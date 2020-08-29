@@ -19,28 +19,130 @@
       <view class="tab-card" wx:if="{{TabCur==0}}">
         <view class="cu-card">
           <view class="cu-item shadow">
-            <view class="card-top">
+            <view class="data-line">
+              <text>时间范围：</text>
+              <picker mode="date" value="{{startDate1}}" data-datatap="startDate1" bindchange="bindDateChange">
+                <view class="picker">
+                  {{startDate1}}
+                </view>
+              </picker>
+              <text>~</text>
+              <picker mode="date" value="{{endDate1}}" data-datatap="endDate1" bindchange="bindDateChange">
+                <view class="picker">
+                  {{endDate1}}
+                </view>
+              </picker>
+              <text class="reset-button" bindtap="resetData" data-index="1">重置</text>
+            </view>
+            <!-- <view class="card-top">
               <text class="card-title">客户分值</text>
-            </view>
-            <ec-canvas id="mychart-1" class="mychart" canvas-id="mychart-1" ec="{{ ecBar }}"></ec-canvas>
+            </view> -->
+            <ec-canvas id="mychart-1" class="mychart" canvas-id="mychart-1" ec="{{ ecChart_1 }}"></ec-canvas>
           </view>
         </view>
 
         <view class="cu-card">
           <view class="cu-item shadow">
-            <view class="card-top">
-              <text class="card-title">客户数量与结构</text>
+            <view class="data-line">
+              <text>时间范围：</text>
+              <picker mode="date" value="{{startDate2}}" data-datatap="startDate2" bindchange="bindDateChange">
+                <view class="picker">
+                  {{startDate2}}
+                </view>
+              </picker>
+              <text>~</text>
+              <picker mode="date" value="{{endDate2}}" data-datatap="endDate2" bindchange="bindDateChange">
+                <view class="picker">
+                  {{endDate2}}
+                </view>
+              </picker>
+              <text class="reset-button" bindtap="resetData" data-index="2">重置</text>
             </view>
-            <ec-canvas id="mychart-2" class="mychart" canvas-id="mychart-2" ec="{{ ecLine }}"></ec-canvas>
+            <ec-canvas id="mychart-2" class="mychart" canvas-id="mychart-2" ec="{{ ecChart_2 }}"></ec-canvas>
           </view>
         </view>
 
         <view class="cu-card">
           <view class="cu-item shadow">
-            <view class="card-top">
-              <text class="card-title">客户数量与结构2</text>
+            <view class="data-line">
+              <text>时间范围：</text>
+              <picker mode="date" value="{{startDate3}}" data-datatap="startDate3" bindchange="bindDateChange">
+                <view class="picker">
+                  {{startDate3}}
+                </view>
+              </picker>
+              <text>~</text>
+              <picker mode="date" value="{{endDate3}}" data-datatap="endDate3" bindchange="bindDateChange">
+                <view class="picker">
+                  {{endDate3}}
+                </view>
+              </picker>
+              <text class="reset-button" bindtap="resetData" data-index="3">重置</text>
             </view>
-            <ec-canvas id="mychart-3" class="mychart" canvas-id="mychart-3" ec="{{ ecLine }}"></ec-canvas>
+            <ec-canvas id="mychart-3" class="mychart" canvas-id="mychart-3" ec="{{ ecChart_3 }}"></ec-canvas>
+          </view>
+        </view>
+
+        <view class="cu-card">
+          <view class="cu-item shadow">
+            <view class="data-line">
+              <text>时间范围：</text>
+              <picker mode="date" value="{{startDate4}}" data-datatap="startDate4" bindchange="bindDateChange">
+                <view class="picker">
+                  {{startDate4}}
+                </view>
+              </picker>
+              <text>~</text>
+              <picker mode="date" value="{{endDate4}}" data-datatap="endDate4" bindchange="bindDateChange">
+                <view class="picker">
+                  {{endDate4}}
+                </view>
+              </picker>
+              <text class="reset-button" bindtap="resetData" data-index="4">重置</text>
+            </view>
+            <ec-canvas id="mychart-4" class="mychart" canvas-id="mychart-4" ec="{{ ecChart_4 }}"></ec-canvas>
+          </view>
+        </view>
+
+        <view class="cu-card">
+          <view class="cu-item shadow">
+            <view class="data-line">
+              <text>时间范围：</text>
+              <picker mode="date" value="{{startDate5}}" data-datatap="startDate5" bindchange="bindDateChange">
+                <view class="picker">
+                  {{startDate5}}
+                </view>
+              </picker>
+              <text>~</text>
+              <picker mode="date" value="{{endDate5}}" data-datatap="endDate5" bindchange="bindDateChange">
+                <view class="picker">
+                  {{endDate5}}
+                </view>
+              </picker>
+              <text class="reset-button" bindtap="resetData" data-index="5">重置</text>
+            </view>
+            <ec-canvas id="mychart-5" class="mychart" canvas-id="mychart-5" ec="{{ ecChart_5 }}"></ec-canvas>
+          </view>
+        </view>
+
+        <view class="cu-card">
+          <view class="cu-item shadow">
+            <view class="data-line">
+              <text>时间范围：</text>
+              <picker mode="date" value="{{startDate6}}" data-datatap="startDate6" bindchange="bindDateChange">
+                <view class="picker">
+                  {{startDate6}}
+                </view>
+              </picker>
+              <text>~</text>
+              <picker mode="date" value="{{endDate6}}" data-datatap="endDate6" bindchange="bindDateChange">
+                <view class="picker">
+                  {{endDate6}}
+                </view>
+              </picker>
+              <text class="reset-button" bindtap="resetData" data-index="6">重置</text>
+            </view>
+            <ec-canvas id="mychart-6" class="mychart" canvas-id="mychart-6" ec="{{ ecChart_6 }}"></ec-canvas>
           </view>
         </view>
 
@@ -48,34 +150,23 @@
       <!-- 选项卡2 -->
       <view class="tab-card" wx:if="{{TabCur==1}}">
         <view class="cu-card">
-          <view class="cu-item shadow">22222</view>
+          <view class="cu-item shadow">暂无数据</view>
         </view>
 
         <view class="cu-card">
-          <view class="cu-item shadow">22222</view>
+          <view class="cu-item shadow">暂无数据</view>
         </view>
       </view>
       <!-- 选项卡3 -->
       <view class="tab-card" wx:if="{{TabCur==2}}">
         <view class="cu-card">
-          <view class="cu-item shadow">33333</view>
+          <view class="cu-item shadow">暂无数据</view>
         </view>
 
         <view class="cu-card">
-          <view class="cu-item shadow">33333</view>
+          <view class="cu-item shadow">暂无数据</view>
         </view>
       </view>
-      <!-- 选项卡4 -->
-      <view class="tab-card" wx:if="{{TabCur==3}}">
-        <view class="cu-card">
-          <view class="cu-item shadow">44444</view>
-        </view>
-
-        <view class="cu-card">
-          <view class="cu-item shadow">44444</view>
-        </view>
-      </view>
-
 
     </view>
   </view>

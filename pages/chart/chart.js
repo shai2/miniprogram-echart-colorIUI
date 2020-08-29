@@ -2,47 +2,134 @@ import * as echarts from '../../ec-canvas/echarts';
 import { myRequest } from '../../utils/request'
 const app = getApp()
 
+let chart_1, chart_2, chart_3, chart_4, chart_5, chart_6
+
 Page({
   data: {
     userInfo: {},
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
-    TabCur:0,
-    tabNav: ['销售视角', '产品视角', '区域视角','渠道视角'],
-    ecBar: {
+    TabCur: 0,
+    tabNav: ['销售视角', '产品视角', '区域视角'],
+    startDate1: '未选择',
+    endDate1: '未选择',
+    startDate2: '未选择',
+    endDate2: '未选择',
+    startDate3: '未选择',
+    endDate3: '未选择',
+    startDate4: '未选择',
+    endDate4: '未选择',
+    startDate5: '未选择',
+    endDate5: '未选择',
+    startDate6: '未选择',
+    endDate6: '未选择',
+    ecChart_1: {
       disableTouch: true,
       onInit: function (canvas, width, height, dpr) {
-        const barChart = echarts.init(canvas, null, {
+        chart_1 = echarts.init(canvas, null, {
           width: width,
           height: height,
-          devicePixelRatio: dpr // new
+          devicePixelRatio: dpr,
         });
-        canvas.setChart(barChart);
-        barChart.setOption(getBarOption());
-
-        return barChart;
+        canvas.setChart(chart_1);
+        chart_1.showLoading();
+        return chart_1;
       }
     },
-    ecLine: {
+    ecChart_2: {
       disableTouch: true,
       onInit: function (canvas, width, height, dpr) {
-        const lineChart = echarts.init(canvas, null, {
+        chart_2 = echarts.init(canvas, null, {
           width: width,
           height: height,
-          devicePixelRatio: dpr // new
+          devicePixelRatio: dpr,
         });
-        canvas.setChart(lineChart);
-        lineChart.setOption(getLineOption());
-
-        return lineChart;
+        canvas.setChart(chart_2);
+        chart_2.showLoading();
+        return chart_2;
       }
-    }
+    },
+    ecChart_3: {
+      disableTouch: true,
+      onInit: function (canvas, width, height, dpr) {
+        chart_3 = echarts.init(canvas, null, {
+          width: width,
+          height: height,
+          devicePixelRatio: dpr,
+        });
+        canvas.setChart(chart_3);
+        chart_3.showLoading();
+        return chart_3;
+      }
+    },
+    ecChart_4: {
+      disableTouch: true,
+      onInit: function (canvas, width, height, dpr) {
+        chart_4 = echarts.init(canvas, null, {
+          width: width,
+          height: height,
+          devicePixelRatio: dpr,
+        });
+        canvas.setChart(chart_4);
+        chart_4.showLoading();
+        return chart_4;
+      }
+    },
+    ecChart_5: {
+      disableTouch: true,
+      onInit: function (canvas, width, height, dpr) {
+        chart_5 = echarts.init(canvas, null, {
+          width: width,
+          height: height,
+          devicePixelRatio: dpr,
+        });
+        canvas.setChart(chart_5);
+        chart_5.showLoading();
+        return chart_5;
+      }
+    },
+    ecChart_6: {
+      disableTouch: true,
+      onInit: function (canvas, width, height, dpr) {
+        chart_6 = echarts.init(canvas, null, {
+          width: width,
+          height: height,
+          devicePixelRatio: dpr,
+        });
+        canvas.setChart(chart_6);
+        chart_6.showLoading();
+        return chart_6;
+      }
+    },
   },
   onLoad() {
     wx.hideTabBar({}) //未授权隐藏tabbar
-    if(wx.getStorageSync('canUseUserInfo')){
+    if (wx.getStorageSync('canUseUserInfo')) {
       this.userInfoReadyCallback()
     }
+  },
+  bindDateChange(e) {
+    console.log(`${e.target.dataset.datatap}改变：`, e.detail.value)
+    this.setData({
+      [e.target.dataset.datatap]: e.detail.value
+    })
+    let _index = e.target.dataset.datatap.slice(-1)
+    // 如果结束时间大于开始时间 且不为"未选择" 请求接口
+    let _start = this.data[`startDate${_index}`]
+    let _end = this.data[`endDate${_index}`]
+    if(_start!=='未选择' && _end!=='未选择' && _start<_end){
+      this[`getChart_${_index}`]()
+    }
+  },
+  // 重置日期选择
+  resetData(e){
+    let _index = e.currentTarget.dataset.index
+    this.setData({
+      [`startDate${_index}`]: '未选择',
+      [`endDate${_index}`]: '未选择',
+    },()=>{
+      this[`getChart_${_index}`](true)
+    })
   },
   // 切换tab
   tabSelect(e) {
@@ -53,11 +140,11 @@ Page({
     })
   },
   // wx.login后开始执行
-  userInfoReadyCallback(){
+  userInfoReadyCallback() {
     // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
     wx.getUserInfo({
       success: res => {
-        console.log('getUserInfo返回',res.userInfo)
+        console.log('getUserInfo返回', res.userInfo)
         this.setData({
           userInfo: res.userInfo,
           hasUserInfo: true
@@ -68,209 +155,504 @@ Page({
     })
   },
   // 发送 res.code临时登录凭证 到后台换取 openId
-  getWechatOpenId(code){
+  getWechatOpenId(code) {
     let _obj = { code: code }
     myRequest('getWechatOpenId', _obj).then(res => {
-      console.log('openid',res.openid)
-      wx.setStorageSync('openid',res.openid)
+      console.log('openid', res.openid)
+      wx.setStorageSync('openid', res.openid)
       this.regUser()
     })
   },
   //注册新用户
-  regUser(){
+  regUser() {
     let _obj = {
       userid: wx.getStorageSync('openid'),
       nickname: app.globalData.userInfo.nickName
     }
-    console.log('注册新用户参数：',_obj)
+    console.log('注册新用户参数：', _obj)
     myRequest('regUser', _obj).then(res => {
       console.log('注册用户：', res)
-      wx.setStorageSync('token',res.token)
+      wx.setStorageSync('token', res.token)
       this.getUserInfo()
-    }).catch(err=>{
-      console.log('注册返回：',err)
-      if(err==="不提示"){
+    }).catch(err => {
+      console.log('注册返回：', err)
+      if (err === "不提示") {
         this.getToken()
       }
     })
   },
-  getToken(openid = wx.getStorageSync('openid')){
+  getToken(openid = wx.getStorageSync('openid')) {
     let _obj = { userid: openid }
     myRequest('getToken', _obj).then(res => {
-      console.log('老用户获取token：',res)
-      wx.setStorageSync('token',res.token)
+      console.log('老用户获取token：', res)
+      wx.setStorageSync('token', res.token)
       this.getUserInfo()
     })
   },
   // 获取用户信息
-  getUserInfo(){
+  getUserInfo() {
     myRequest('getUserInfo', null).then(res => {
-      app.globalData.userInfo = Object.assign({},res[0],app.globalData.userInfo)
+      app.globalData.userInfo = Object.assign({}, res[0], app.globalData.userInfo)
       console.log('获取用户信息：', app.globalData.userInfo)
       wx.showTabBar({})
       // 请求关系列表
-      !wx.getStorageSync('RelationInfo')&&this.getRelationInfo()
+      !wx.getStorageSync('RelationInfo') && this.getRelationInfo()
+      this.getChartAll()
       // 一个周提示到期
-      if(60*60*24*7*1000>(Date.parse(app.globalData.userInfo.ExpiresDate)-Date.now())){
+      if (60 * 60 * 24 * 7 * 1000 > (Date.parse(app.globalData.userInfo.ExpiresDate) - Date.now())) {
         wx.showToast({
-          title:'vip有效期不足一周',
+          title: 'vip有效期不足一周',
           icon: 'none',
         })
-      }else if(Date.parse(app.globalData.userInfo.ExpiresDate)<Date.now()){
+      } else if (Date.parse(app.globalData.userInfo.ExpiresDate) < Date.now()) {
         wx.showToast({
-          title:'vip已过期，请联系管理员',
+          title: 'vip已过期，请联系管理员',
           icon: 'none',
         })
       }
     })
   },
   // 获取关系标签
-  getRelationInfo(){
+  getRelationInfo() {
     myRequest('getRelationInfo', null).then(res => {
-      console.log('关系标签：',res)
+      console.log('关系标签：', res)
       wx.setStorageSync('RelationInfo', res.reverse())
+    })
+  },
+  getChartAll() {
+    this.getChart_1(true)
+    this.getChart_2(true)
+    this.getChart_3(true)
+    this.getChart_4(true)
+    this.getChart_5(true)
+    this.getChart_6(true)
+  },
+  // 销售视图接触点分值图表
+  getChart_1(flag) { //flag传true则时间传""
+    let {startDate1,endDate1} = this.data
+    let _obj = {
+      Datestart: flag ? '' : startDate1,
+      Dateend: flag ? '' : endDate1,
+    }
+    myRequest('getContactPoint_S', _obj).then(res => {
+      console.log('getContactPoint_S：', res)
+      chart_1.setOption(getChartOption_1(res));
+    })
+  },
+  // 销售视图接触类型分析图表
+  getChart_2(flag) {
+    let {startDate2,endDate2} = this.data
+    let _obj = {
+      Datestart: flag ? '' : startDate2,
+      Dateend: flag ? '' : endDate2,
+    }
+    myRequest('getContactWay_S', _obj).then(res => {
+      console.log('getContactWay_S：', res)
+      chart_2.setOption(getChartOption_2(res));
+    })
+  },
+  // 销售视图接触点分值在标签上分布图表
+  getChart_3(flag) {
+    let {startDate3,endDate3} = this.data
+    let _obj = {
+      Datestart: flag ? '' : startDate3,
+      Dateend: flag ? '' : endDate3,
+    }
+    myRequest('getContactPointInRelation_S', _obj).then(res => {
+      console.log('getContactPointInRelation_S：', res)
+      chart_3.setOption(getChartOption_3(res));
+    })
+  },
+  // 销售视图客户总分值图表
+  getChart_4(flag) {
+    let {startDate4,endDate4} = this.data
+    let _obj = {
+      Datestart: flag ? '' : startDate4,
+      Dateend: flag ? '' : endDate4,
+    }
+    myRequest('getCustomPonint_S', _obj).then(res => {
+      console.log('getCustomPonint_S：', res)
+      chart_4.setOption(getChartOption_4(res));
+    })
+  },
+  // 销售视图标签客户数量图表
+  getChart_5(flag) {
+    let {startDate5,endDate5} = this.data
+    let _obj = {
+      Datestart: flag ? '' : startDate5,
+      Dateend: flag ? '' : endDate5,
+    }
+    myRequest('getCustomInRelation_S', _obj).then(res => {
+      console.log('getCustomInRelation_S：', res)
+      chart_5.setOption(getChartOption_5(res));
+    })
+  },
+  // 销售视图标签客户数量与结构图表
+  getChart_6(flag) {
+    let {startDate6,endDate6} = this.data
+    let _obj = {
+      Datestart: flag ? '' : startDate6,
+      Dateend: flag ? '' : endDate6,
+    }
+    myRequest('getCountCustomInRelation_S', _obj).then(res => {
+      console.log('getCountCustomInRelation_S：', res)
+      chart_6.setOption(getChartOption_6(res));
     })
   },
 })
 
 // echart图表配置
-function getBarOption() {
-  return {
-    color: ['#37a2da', '#32c5e9', '#67e0e3'],
-    tooltip: {
-      trigger: 'axis',
-      axisPointer: {            // 坐标轴指示器，坐标轴触发有效
-        type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
-      }
+function getChartOption_1(data) {
+  var names1 = [];
+  var values1 = [];
+  var list1 = data["viewContactPoint"]
+  for (var i = 0; i < list1.length; i++) {
+    names1.push(list1[i].name);
+    values1.push(list1[i].num);
+  }
+  chart_1.hideLoading();
+  chart_1.setOption({
+    title: {
+      text: '接触点分值统计（按日）',
+    },
+    tooltip: {},
+    xAxis: {
+      type: 'category',
+      data: names1
+    },
+    yAxis: {
+      type: 'value'
+    },
+    series: [{
+      data: values1,
+      type: 'bar',
+    }]
+  });
+
+}
+
+function getChartOption_2(data) {
+  var list2 = data["viewContactWay"]
+  var names2 = [];
+  var values_v1 = [];
+  var values_v2 = [];
+  var values_v3 = [];
+  var values_v4 = [];
+  for (var i = 0; i < list2.length; i++) {
+    names2.push(list2[i].name);
+    values_v1.push(list2[i].v1);
+    values_v2.push(list2[i].v2);
+    values_v3.push(list2[i].v3);
+    values_v4.push(list2[i].v4);
+  }
+  chart_2.hideLoading();
+  chart_2.setOption({
+    title: {
+      text: '接触类型分析（按日）',
     },
     legend: {
-      data: ['热度', '正面', '负面']
+      orient: 'horizontal', // 'vertical'
+      x: 'center', // 'center' | 'left' | {number},
+      y: 'bottom', // 'center' | 'bottom' | {number}
+      data: ['线上非实时互动', '线上实时互动', '线下多边互动', '线下双边互动']
     },
-    grid: {
-      left: 20,
-      right: 20,
-      bottom: 15,
-      top: 40,
-      containLabel: true
+    grid:{
+      bottom:'20%',//距离下边距
     },
+    tooltip: {},
     xAxis: [
       {
-        type: 'value',
-        axisLine: {
-          lineStyle: {
-            color: '#999'
-          }
-        },
-        axisLabel: {
-          color: '#666'
-        }
+        type: 'category',
+        data: names2
       }
     ],
     yAxis: [
       {
-        type: 'category',
-        axisTick: { show: false },
-        data: ['汽车之家', '今日头条', '百度贴吧', '一点资讯', '微信', '微博', '知乎'],
-        axisLine: {
-          lineStyle: {
-            color: '#999'
-          }
-        },
-        axisLabel: {
-          color: '#666'
-        }
+        type: 'value'
       }
     ],
     series: [
       {
-        name: '热度',
-        type: 'bar',
-        label: {
-          normal: {
-            show: true,
-            position: 'inside'
-          }
-        },
-        data: [300, 270, 340, 344, 300, 320, 310]
-      },
-      {
-        name: '正面',
+        name: '线上非实时互动',
         type: 'bar',
         stack: '总量',
-        label: {
-          normal: {
-            show: true
-          }
-        },
-        data: [120, 102, 141, 174, 190, 250, 220]
+        data: values_v1
       },
       {
-        name: '负面',
+        name: '线上实时互动',
         type: 'bar',
         stack: '总量',
-        label: {
-          normal: {
-            show: true,
-            position: 'left'
-          }
-        },
-        data: [-20, -32, -21, -34, -90, -130, -110]
+        data: values_v2
+      },
+      {
+        name: '线下多边互动',
+        type: 'bar',
+        stack: '总量',
+        data: values_v3
+      },
+      {
+        name: '线下双边互动',
+        type: 'bar',
+        stack: '总量',
+        data: values_v4
       }
     ]
-  };
+  });
 }
 
-function getLineOption() {
-  return {
+function getChartOption_3(data) {
+  var list3 = data["viewContactPointInRelation"]
+  var values_v5 = [];
+  var values_v6 = [];
+  values_v5.push(list3[0].v1);
+  values_v5.push(list3[0].v2);
+  values_v5.push(list3[0].v3);
+  values_v5.push(list3[0].v4);
+  values_v5.push(list3[0].v5);
+  values_v5.push(list3[0].v6);
+  values_v5.push(list3[0].v7);
+  if (list3.length < 2) {
+    values_v6.push(0);
+    values_v6.push(0);
+    values_v6.push(0);
+    values_v6.push(0);
+    values_v6.push(0);
+    values_v6.push(0);
+    values_v6.push(0);
+  } else {
+    values_v6.push(list3[1].v1);
+    values_v6.push(list3[1].v2);
+    values_v6.push(list3[1].v3);
+    values_v6.push(list3[1].v4);
+    values_v6.push(list3[1].v5);
+    values_v6.push(list3[1].v6);
+    values_v6.push(list3[1].v7);
+  }
+  chart_3.hideLoading();
+  chart_3.setOption({
     title: {
-      text: '',
-      left: 'center'
+      text: '接触点分值在标签上的分布对比（按日）',
+      subtext: '未选择筛选日期时，历史数据为昨日'
     },
-    color: ["#37A2DA", "#67E0E3", "#9FE6B8"],
     legend: {
-      data: ['A', 'B', 'C'],
-      top: 0,
-      left: 'center',
-      z: 100
+      orient: 'horizontal', // 'vertical'
+      x: 'center', // 'center' | 'left' | {number},
+      y: 'bottom', // 'center' | 'bottom' | {number}
+      data: ['今日', '历史']
     },
-    grid: {
-      containLabel: true
+    tooltip: {},
+    xAxis: [
+      {
+        type: 'category',
+        data: ['门外', '熟悉', '洞察', '利益关联', '深度合作', '主动联络', '反复主动'],
+      }
+    ],
+    yAxis: [
+      {
+        type: 'value'
+      }
+    ],
+    series: [
+      {
+        name: '今日',
+        type: 'bar',
+        data: values_v5
+      },
+      {
+        name: '历史',
+        type: 'line',
+        data: values_v6
+      }
+    ]
+  });
+}
+
+function getChartOption_4(data) {
+  var list4 = data["viewCustomPonint"]
+  var names4 = [];
+  var values4 = [];
+  for (var i = 0; i < list4.length; i++) {
+    names4.push(list4[i].name);
+    values4.push(list4[i].num);
+  }
+  chart_4.hideLoading();
+  chart_4.setOption({
+    title: {
+      text: '客户总分值统计（按周）',
+      subtext: '客户数 x 客户标签值'
     },
-    tooltip: {
-      show: true,
-      trigger: 'axis'
-    },
+    tooltip: {},
     xAxis: {
       type: 'category',
-      boundaryGap: false,
-      data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日'],
-      // show: false
+      data: names4
     },
     yAxis: {
-      x: 'center',
-      type: 'value',
-      splitLine: {
-        lineStyle: {
-          type: 'dashed'
-        }
-      }
-      // show: false
+      type: 'value'
     },
     series: [{
-      name: 'A',
-      type: 'line',
-      smooth: true,
-      data: [18, 36, 65, 30, 78, 40, 33]
-    }, {
-      name: 'B',
-      type: 'line',
-      smooth: true,
-      data: [12, 50, 51, 35, 70, 30, 20]
-    }, {
-      name: 'C',
-      type: 'line',
-      smooth: true,
-      data: [10, 30, 31, 50, 40, 20, 10]
+      data: values4,
+      type: 'bar',
     }]
-  };
+  });
+}
+
+function getChartOption_5(data) {
+  var list5 = data["viewCustomInRelation"]
+  var names5 = [];
+  var values_v9 = [];
+  var values_v10 = [];
+  var values_v11 = [];
+  var values_v12 = [];
+  var values_v13 = [];
+  var values_v14 = [];
+  var values_v15 = [];
+  for (var i = 0; i < list5.length; i++) {
+    names5.push(list5[i].name);
+    values_v9.push(list5[i].v1);
+    values_v10.push(list5[i].v2);
+    values_v11.push(list5[i].v3);
+    values_v12.push(list5[i].v4);
+    values_v13.push(list5[i].v5);
+    values_v14.push(list5[i].v6);
+    values_v15.push(list5[i].v7);
+  }
+  chart_5.hideLoading();
+  chart_5.setOption({
+    title: {
+      text: '不同标签客户的数量分析（按日）',
+    },
+    legend: {
+      orient: 'horizontal', // 'vertical'
+      x: 'center', // 'center' | 'left' | {number},
+      y: 'bottom', // 'center' | 'bottom' | {number}
+      data: ['门外', '熟悉', '洞察', '利益关联', '深度合作', '主动联络', '反复主动']
+    },
+    grid:{
+      bottom:'20%',//距离下边距
+    },
+    tooltip: {},
+    xAxis: [
+      {
+        type: 'category',
+        data: names5
+      }
+    ],
+    yAxis: [
+      {
+        type: 'value'
+      }
+    ],
+    series: [
+      {
+        name: '门外',
+        type: 'bar',
+        stack: '总量',
+        data: values_v9
+      },
+      {
+        name: '熟悉',
+        type: 'bar',
+        stack: '总量',
+        data: values_v10
+      },
+      {
+        name: '洞察',
+        type: 'bar',
+        stack: '总量',
+        data: values_v11
+      },
+      {
+        name: '利益关联',
+        type: 'bar',
+        stack: '总量',
+        data: values_v12
+      }
+      ,
+      {
+        name: '深度合作',
+        type: 'bar',
+        stack: '总量',
+        data: values_v13
+      },
+      {
+        name: '主动联络',
+        type: 'bar',
+        stack: '总量',
+        data: values_v14
+      },
+      {
+        name: '反复主动',
+        type: 'bar',
+        stack: '总量',
+        data: values_v15
+      }
+    ]
+  });
+}
+
+function getChartOption_6(data) {
+  var list6 = data["viewCountCustomInRelation"]
+  var values_v7 = [];
+  var values_v8 = [];
+  values_v7.push(list6[0].v1);
+  values_v7.push(list6[0].v2);
+  values_v7.push(list6[0].v3);
+  values_v7.push(list6[0].v4);
+  values_v7.push(list6[0].v5);
+  values_v7.push(list6[0].v6);
+  values_v7.push(list6[0].v7);
+  if (list6.length < 2) {
+    values_v8.push(0);
+    values_v8.push(0);
+    values_v8.push(0);
+    values_v8.push(0);
+    values_v8.push(0);
+    values_v8.push(0);
+    values_v8.push(0);
+  } else {
+    values_v8.push(list6[1].v1);
+    values_v8.push(list6[1].v2);
+    values_v8.push(list6[1].v3);
+    values_v8.push(list6[1].v4);
+    values_v8.push(list6[1].v5);
+    values_v8.push(list6[1].v6);
+    values_v8.push(list6[1].v7);
+  }
+  chart_6.hideLoading();
+  chart_6.setOption({
+    title: {
+      text: '客户数量与结构（按周）',
+      subtext: '未选择筛选日期时，历史数据为上周'
+    },
+    legend: {
+      orient: 'horizontal', // 'vertical'
+      x: 'center', // 'center' | 'left' | {number},
+      y: 'bottom', // 'center' | 'bottom' | {number}
+      data: ['本周', '历史']
+    },
+    tooltip: {},
+    xAxis: [
+      {
+        type: 'category',
+        data: ['门外', '熟悉', '洞察', '利益关联', '深度合作', '主动联络', '反复主动'],
+      }
+    ],
+    yAxis: [
+      {
+        type: 'value'
+      }
+    ],
+    series: [
+      {
+        name: '本周',
+        type: 'bar',
+        data: values_v7
+      },
+      {
+        name: '历史',
+        type: 'line',
+        data: values_v8
+      }
+    ]
+  });
 }

@@ -15,7 +15,7 @@
     "navigationBarBackgroundColor": "#0F355A",
     "navigationBarTextStyle": "white",
     "backgroundTextStyle":"light",
-    "navigationBarTitleText": "客户关系管理"
+    "navigationBarTitleText": ""
   },
   "style": "v2",
   "sitemapLocation": "sitemap.json",
