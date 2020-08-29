@@ -113,7 +113,7 @@ Page({
       // 一个周提示到期
       if(60*60*24*7*1000>(Date.parse(app.globalData.userInfo.ExpiresDate)-Date.now())){
         wx.showToast({
-          title:'vip还有一个周到期',
+          title:'vip有效期不足一周',
           icon: 'none',
         })
       }else if(Date.parse(app.globalData.userInfo.ExpiresDate)<Date.now()){
