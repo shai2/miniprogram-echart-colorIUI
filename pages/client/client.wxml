@@ -8,16 +8,17 @@ module.exports.format = function(string){
 <view class="cu-bar bg-white search fixed" style="top:{{CustomBar}}px;">
   <view class="search-form round">
     <text class="cuIcon-search"></text>
-    <input type="text" placeholder="搜索客户" confirm-type="search"></input>
+    <input value="{{searchText}}" bindinput="changeSearch" type="text" placeholder="搜索客户" confirm-type="search" bindconfirm="search"></input>
+    <text wx:if="{{searchText.length}}" style="font-size:30rpx;color:#aaa;" class="cuIcon-roundclosefill" bindtap="clearSearch"></text>
   </view>
   <view class="action search-btn-wrapper">
-    <button class="cu-btn search-btn shadow-blur round">搜索</button>
+    <button class="cu-btn search-btn shadow-blur round" bindtap="search">搜索</button>
   </view>
 </view>
-<view class="VerticalBox">
+<view wx:if="{{!searchList.length}}" class="VerticalBox">
   <!-- 列表左侧 -->
   <scroll-view class="VerticalNav nav" scroll-y scroll-with-animation scroll-top="{{VerticalNavTop}}" style="height:calc(100vh - 100rpx)">
-    <view class="cu-item {{index==TabCur?'color-active cur':''}}" wx:for="{{list}}" wx:key="index" bindtap='tabSelect' data-id="{{index}}">
+    <view class="cu-item {{index==TabCur?'color-active cur':''}}" wx:for="{{list}}" wx:key="index" bindtap="tabSelect" data-id="{{index}}">
       {{item.name}}
     </view>
   </scroll-view>
@@ -44,9 +45,20 @@ module.exports.format = function(string){
             </view> -->
           </view>
         </view>
-        
       </view>
 
     </view>
   </scroll-view>
+</view>
+<view wx:else class="SearchBox">
+  <view class="cu-list menu-avatar" style="width:100%;">
+    <view wx:for="{{searchList}}" wx:key="index" class="cu-item" catchtap="toClientDetail" data-id="{{item.Id}}">
+      <view class="cu-avatar round lg">
+        {{utils.format(item.CustomName)}}
+      </view>
+      <view class="content">
+        <view class="text-grey">{{item.CustomName}}</view>
+      </view>
+    </view>
+  </view>
 </view>

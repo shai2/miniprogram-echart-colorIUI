@@ -30,7 +30,7 @@
   bottom: 0;
   margin: auto;
 }
-.VerticalBox{
+.VerticalBox, .SearchBox{
   display: flex;
   position: fixed;
   width: 100%;

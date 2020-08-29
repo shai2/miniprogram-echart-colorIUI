@@ -8,9 +8,12 @@ Page({
     MainCur: 0, //找到的滑动位置id
     VerticalNavTop: 0,
     list: [],
+    customOriginList:null,//存接口返回的客户数据（未格式化前）
     load: true,
     relationArr:[],
     customArr:[],
+    searchText:'',//搜索文本
+    searchList: [],//搜索后列表
   },
   onLoad() {
     wx.showLoading({
@@ -29,6 +32,8 @@ Page({
       this.getCustomList()
       wx.removeStorageSync('needRefresh')
     }
+    //每次进来清空搜索结果
+    this.clearSearch()
   },
   onReady() {
     wx.hideLoading()
@@ -101,7 +106,10 @@ Page({
       res.forEach((e,i)=>{
         _customArr[e.RelationId-1].push(e) //RelationId从1开始的 比index大1
       })
-      this.setData({customArr:_customArr})
+      this.setData({
+        customArr:_customArr,
+        customOriginList: res,
+      })
     })
   },
   // 查看详情
@@ -124,5 +132,29 @@ Page({
     myRequest('getContactAssess', null).then(res => {
       wx.setStorageSync('contactList',res)
     })
+  },
+  // 输入input
+  changeSearch(e){
+    this.setData({
+      searchText: e.detail.value
+    })
+  },
+  // 清空搜索
+  clearSearch(){
+    this.setData({
+      searchList: [],
+      searchText:'',
+    })
+  },
+  // 搜索客户
+  search(){
+    if(!this.data.searchText.trim().length) return
+    let _arr = []
+    this.data.customOriginList.forEach(e=>{
+      if(e.CustomName.includes(this.data.searchText)){
+        _arr.push(e)
+      }
+    })
+    this.setData({searchList: _arr},()=>{console.log(this.data.searchList)})
   },
 })
