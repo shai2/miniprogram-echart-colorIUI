@@ -107,8 +107,21 @@ Page({
     myRequest('getUserInfo', null).then(res => {
       app.globalData.userInfo = Object.assign({},res[0],app.globalData.userInfo)
       console.log('获取用户信息：', app.globalData.userInfo)
-      !wx.getStorageSync('RelationInfo')&&this.getRelationInfo()
       wx.showTabBar({})
+      // 请求关系列表
+      !wx.getStorageSync('RelationInfo')&&this.getRelationInfo()
+      // 一个周提示到期
+      if(60*60*24*7*1000>(Date.parse(app.globalData.userInfo.ExpiresDate)-Date.now())){
+        wx.showToast({
+          title:'vip还有一个周到期',
+          icon: 'none',
+        })
+      }else if(Date.parse(app.globalData.userInfo.ExpiresDate)<Date.now()){
+        wx.showToast({
+          title:'vip已过期，请联系管理员',
+          icon: 'none',
+        })
+      }
     })
   },
   // 获取关系标签
