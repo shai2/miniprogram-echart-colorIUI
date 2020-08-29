@@ -357,7 +357,7 @@ function getChartOption_2(data) {
       data: ['线上非实时互动', '线上实时互动', '线下多边互动', '线下双边互动']
     },
     grid:{
-      bottom:'20%',//距离下边距
+      bottom:'25%',//距离下边距
     },
     tooltip: {},
     xAxis: [
@@ -528,7 +528,7 @@ function getChartOption_5(data) {
       data: ['门外', '熟悉', '洞察', '利益关联', '深度合作', '主动联络', '反复主动']
     },
     grid:{
-      bottom:'20%',//距离下边距
+      bottom:'25%',//距离下边距
     },
     tooltip: {},
     xAxis: [
