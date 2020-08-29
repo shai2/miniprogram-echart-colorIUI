@@ -1,4 +1,5 @@
 import { myRequest } from '../../utils/request'
+import { formatTime } from '../../utils/util'
 
 Page({
   data: {
@@ -35,6 +36,13 @@ Page({
       let _formatObj = {}
       // 按照日期格式化 todo:日期可以格式化成"今天 今天"
       res.rows.forEach((e,i)=>{
+        // 加字段 是否是当天，是否显示编辑和删除
+        if(e.ContactDate.split(' ')[0] == formatTime().split(' ')[0]){
+          e.showContactEdit = true
+        }else{
+          e.showContactEdit = false
+        }
+        
         let _day = e.ContactDate.split(' ')[0]
         if(!_formatObj[_day]){
           _formatObj[_day] = []

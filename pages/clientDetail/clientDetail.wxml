@@ -70,7 +70,7 @@ module.exports.myFormatTime = function(e){
         <block wx:key="index" wx:for="{{item}}" wx:for-item="e">
           <view class="cu-item">
             <view class="contact-content content">
-              <view class="control-area-item">
+              <view wx:if="{{e.showContactEdit}}" class="control-area-item">
                 <text bindtap="toEditContact" data-id="{{e.Id}}" data-item="{{e}}">编辑</text> |
                 <text bindtap="showDeleteModal" data-id="{{e.Id}}" data-target="deleteModalContact">删除</text>
               </view>
