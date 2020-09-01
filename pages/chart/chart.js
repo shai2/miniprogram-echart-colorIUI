@@ -32,6 +32,8 @@ Page({
           devicePixelRatio: dpr,
         });
         canvas.setChart(chart_1);
+        let _page = getCurrentPages()
+        _page[_page.length-1].getChart_1(true)
         return chart_1;
       }
     },
@@ -45,6 +47,8 @@ Page({
         });
         canvas.setChart(chart_2);
         chart_2.showLoading();
+        let _page = getCurrentPages()
+        _page[_page.length-1].getChart_2(true)
         return chart_2;
       }
     },
@@ -58,6 +62,8 @@ Page({
         });
         canvas.setChart(chart_3);
         chart_3.showLoading();
+        let _page = getCurrentPages()
+        _page[_page.length-1].getChart_3(true)
         return chart_3;
       }
     },
@@ -71,6 +77,8 @@ Page({
         });
         canvas.setChart(chart_4);
         chart_4.showLoading();
+        let _page = getCurrentPages()
+        _page[_page.length-1].getChart_4(true)
         return chart_4;
       }
     },
@@ -84,6 +92,8 @@ Page({
         });
         canvas.setChart(chart_5);
         chart_5.showLoading();
+        let _page = getCurrentPages()
+        _page[_page.length-1].getChart_5(true)
         return chart_5;
       }
     },
@@ -97,6 +107,8 @@ Page({
         });
         canvas.setChart(chart_6);
         chart_6.showLoading();
+        let _page = getCurrentPages()
+        _page[_page.length-1].getChart_6(true)
         return chart_6;
       }
     },
@@ -190,7 +202,6 @@ Page({
       wx.showTabBar({})
       // 请求关系列表
       !wx.getStorageSync('RelationInfo') && this.getRelationInfo()
-      this.getChartAll()
       // 过期提示
       if (!app.globalData.userInfo.IsAble) {
         wx.showToast({
@@ -218,14 +229,6 @@ Page({
       console.log('关系标签：', res)
       wx.setStorageSync('RelationInfo', res.reverse())
     })
-  },
-  getChartAll() {
-    this.getChart_1(true)
-    this.getChart_2(true)
-    this.getChart_3(true)
-    this.getChart_4(true)
-    this.getChart_5(true)
-    this.getChart_6(true)
   },
   // 销售视图接触点分值图表
   getChart_1(flag) { //flag传true则时间传""
@@ -303,6 +306,7 @@ Page({
 
 // echart图表配置
 function getChartOption_1(data) {
+  console.log('========> getChartOption_1')
   var names1 = [];
   var values1 = [];
   var list1 = data["viewContactPoint"]
@@ -311,6 +315,7 @@ function getChartOption_1(data) {
     values1.push(list1[i].num);
   }
   chart_1.hideLoading();
+  console.log('========> getChartOption_111')
   chart_1.setOption({
     title: {
       text: '接触点分值统计（按日）',
@@ -332,6 +337,7 @@ function getChartOption_1(data) {
 }
 
 function getChartOption_2(data) {
+  console.log('========> getChartOption_2')
   var list2 = data["viewContactWay"]
   var names2 = [];
   var values_v1 = [];
@@ -346,6 +352,7 @@ function getChartOption_2(data) {
     values_v4.push(list2[i].v4);
   }
   chart_2.hideLoading();
+  console.log('========> getChartOption_222')
   chart_2.setOption({
     title: {
       text: '接触类型分析（按日）',
@@ -401,6 +408,7 @@ function getChartOption_2(data) {
 }
 
 function getChartOption_3(data) {
+  console.log('========> getChartOption_3')
   var list3 = data["viewContactPointInRelation"]
   var values_v5 = [];
   var values_v6 = [];
@@ -429,6 +437,7 @@ function getChartOption_3(data) {
     values_v6.push(list3[1].v7);
   }
   chart_3.hideLoading();
+  console.log('========> getChartOption_333')
   chart_3.setOption({
     title: {
       text: '接触点分值在标签上的分布对比（按日）',
@@ -468,6 +477,7 @@ function getChartOption_3(data) {
 }
 
 function getChartOption_4(data) {
+  console.log('========> getChartOption_4')
   var list4 = data["viewCustomPonint"]
   var names4 = [];
   var values4 = [];
@@ -476,6 +486,7 @@ function getChartOption_4(data) {
     values4.push(list4[i].num);
   }
   chart_4.hideLoading();
+  console.log('========> getChartOption_444')
   chart_4.setOption({
     title: {
       text: '客户总分值统计（按周）',
@@ -497,6 +508,7 @@ function getChartOption_4(data) {
 }
 
 function getChartOption_5(data) {
+  console.log('========> getChartOption_5')
   var list5 = data["viewCustomInRelation"]
   var names5 = [];
   var values_v9 = [];
@@ -517,6 +529,7 @@ function getChartOption_5(data) {
     values_v15.push(list5[i].v7);
   }
   chart_5.hideLoading();
+  console.log('========> getChartOption_555')
   chart_5.setOption({
     title: {
       text: '不同标签客户的数量分析（按日）',
@@ -591,6 +604,7 @@ function getChartOption_5(data) {
 }
 
 function getChartOption_6(data) {
+  console.log('========> getChartOption_6')
   var list6 = data["viewCountCustomInRelation"]
   var values_v7 = [];
   var values_v8 = [];
@@ -601,7 +615,9 @@ function getChartOption_6(data) {
   values_v7.push(list6[0].v5);
   values_v7.push(list6[0].v6);
   values_v7.push(list6[0].v7);
+  console.log('========> getChartOption_66')
   if (list6.length < 2) {
+    console.log(1111)
     values_v8.push(0);
     values_v8.push(0);
     values_v8.push(0);
@@ -610,6 +626,7 @@ function getChartOption_6(data) {
     values_v8.push(0);
     values_v8.push(0);
   } else {
+    console.log(2222)
     values_v8.push(list6[1].v1);
     values_v8.push(list6[1].v2);
     values_v8.push(list6[1].v3);
@@ -619,6 +636,7 @@ function getChartOption_6(data) {
     values_v8.push(list6[1].v7);
   }
   chart_6.hideLoading();
+  console.log('========> getChartOption_666')
   chart_6.setOption({
     title: {
       text: '客户数量与结构（按周）',
