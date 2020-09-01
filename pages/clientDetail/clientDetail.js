@@ -40,11 +40,11 @@ Page({
     myRequest('getContactList', _obj).then(res => {
       console.log('接触点数据：',res.rows)
       let _formatObj = {}
-      // 按照日期格式化 todo:日期可以格式化成"今天 今天"
       res.rows.forEach((e,i)=>{
-        // 加字段 是否是当天，是否显示编辑和删除
+        // 加字段 是否是当天(日期可以格式化成"今天")，是否显示编辑和删除
         if(e.ContactDate.split(' ')[0] == formatTime().split(' ')[0]){
           e.showContactEdit = true
+          e.ContactDate = '今天'
         }else{
           e.showContactEdit = false
         }
