@@ -152,17 +152,8 @@ Page({
           hasUserInfo: true
         })
         app.globalData.userInfo = res.userInfo
-        this.getWechatOpenId(app.globalData.tempCode)
+        this.regUser()
       }
-    })
-  },
-  // 发送 res.code临时登录凭证 到后台换取 openId
-  getWechatOpenId(code) {
-    let _obj = { code: code }
-    myRequest('getWechatOpenId', _obj).then(res => {
-      console.log('openid', res.openid)
-      wx.setStorageSync('openid', res.openid)
-      this.regUser()
     })
   },
   //注册新用户

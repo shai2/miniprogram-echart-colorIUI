@@ -23,7 +23,6 @@ App({
     // 登录
     wx.login({
       success: loginRes => {
-        this.globalData.tempCode = loginRes.code
         // 获取用户权限
         wx.getSetting({
           success: res => {
@@ -32,15 +31,24 @@ App({
             }else{
               wx.setStorageSync('canUseUserInfo',false)
             }
-            // 由于 getUserInfo 是网络请求，会在 Page.onLoad 之后返回,加入 callback延迟调用
-            if (this.userInfoReadyCallback) {
-              this.userInfoReadyCallback()
-            }
+            // 发送 res.code临时登录凭证 到后台换取 openId
+            this.getWechatOpenId(loginRes.code)
           }
         })
       }
     })
     
+  },
+  getWechatOpenId(code) {
+    let _obj = { code: code }
+    myRequest('getWechatOpenId', _obj).then(res => {
+      console.log('openid', res.openid)
+      wx.setStorageSync('openid', res.openid)
+      // 由于 getUserInfo 是网络请求，会在 Page.onLoad 之后返回,加入 callback延迟调用
+      if (this.userInfoReadyCallback) {
+        this.userInfoReadyCallback()
+      }
+    })
   },
   globalData: {
     code:'',//wx.login的临时code

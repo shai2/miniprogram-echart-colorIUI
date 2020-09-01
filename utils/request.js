@@ -35,7 +35,7 @@ export function myRequest(url, data, method = 'POST') {
               title: _err,
               icon: 'none'
             })
-            console.log('接口错误', _err)
+            console.log(`${url}接口错误`, _err)
           }
           reject(_err||"暂无错误信息")
         } else {
