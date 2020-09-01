@@ -18,7 +18,7 @@
     </view>
     <view class="cu-form-group" style="align-items: flex-start;">
       <view class="require title" style="margin-top: 20rpx">接触内容</view>
-      <textarea data-type="ContactNote" value="{{ContactNote}}" bindblur="changeInput" maxlength="-1" auto-height placeholder="请填写接触内容" />
+      <textarea data-type="ContactNote" value="{{ContactNote}}" bindinput="changeInput" maxlength="-1" auto-height placeholder="请填写接触内容" />
     </view>
     
     <button form-type="submit" class="my-button cu-btn block margin-tb-sm lg">{{actionType}}</button>
