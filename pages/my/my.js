@@ -49,6 +49,13 @@ Page({
       })
     }
   },
+  onShow(){
+    if (app.globalData.userInfo.nickName) {
+      this.setData({
+        userInfo: app.globalData.userInfo
+      })
+    }
+  },
   getUserInfo(e) {
     // console.log(e)
     app.globalData.userInfo = e.detail.userInfo

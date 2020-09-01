@@ -38,7 +38,7 @@
 <view class="cu-modal {{modalName=='deleteModal'?'show':''}}">
   <view class="cu-dialog">
     <view class="cu-bar bg-white justify-end">
-      <view class="content">确定删除改产品？</view>
+      <view class="content">确定删除产品？</view>
       <view class="action" bindtap="closeModal">
         <text class="cuIcon-close text-red"></text>
       </view>

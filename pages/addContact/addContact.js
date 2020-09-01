@@ -11,13 +11,15 @@ Page({
     isEdit: false,
     ContactNote:'',//接触信息
     ContactWay:null,//接触方式
-    ContactPoint:'',//接触评分
+    ContactPoint:null,//接触评分
   },
   onLoad(opt) {
+    // console.log(1111,opt)
     this.setData({
       ContactPicker: wx.getStorageSync('contactList'),
       customId: opt.customId,
-      contactId: opt.contactId
+      contactId: opt.contactId,
+      relation: opt.relation || '0',
     })
     // 带contactId是编辑
     if(opt.contactId){
@@ -54,7 +56,7 @@ Page({
       })
       return
     }
-    else if(!this.data.ContactWay){
+    else if(this.data.ContactWay==null){
       wx.showToast({
         title: '接触方式必填',
         icon: 'none',
@@ -62,7 +64,7 @@ Page({
       })
       return
     }
-    else if(!this.data.ContactPoint){
+    else if(this.data.ContactPoint==null){
       wx.showToast({
         title: '接触评分必填',
         icon: 'none',
@@ -78,9 +80,10 @@ Page({
     let _obj = {
       customId: this.data.customId,
       ContactDate: formatTime(),
-      ContactNote: this.data.ContactNote,
       ContactPoint: _ContactPoint,
+      ContactNote: this.data.ContactNote,
       ContactWay: this.data.ContactWay,
+      Relation: this.data.relation,
     }
     // 编辑节点id 传null接口报错
     if(this.data.isEdit){
@@ -89,7 +92,8 @@ Page({
     console.log('新增的数据：', _obj)
     // console.log('新增的数据JSON：', JSON.stringify(_obj))
     myRequest(this.data.isEdit?'editContact':'addContact', _obj).then(res => {
-      wx.redirectTo({
+      wx.setStorageSync('needRefreshContact',true)//设置flag
+      wx.navigateBack({
         url: `/pages/clientDetail/clientDetail?customId=${this.data.customId}`
       })
     })
@@ -108,7 +112,7 @@ Page({
     console.log(_type,e.detail.value)
     // 改变接触方式
     if(_type==='ContactWay'){
-      console.log(3333, this.data.ContactPicker[e.detail.value*1].children)
+      // console.log(3333, this.data.ContactPicker[e.detail.value*1].children)
       this.setData({
         [_type]: e.detail.value,
         ContactPointPicker: this.data.ContactPicker[e.detail.value*1].children,

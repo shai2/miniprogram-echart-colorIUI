@@ -48,6 +48,8 @@ Page({
         icon: 'none',
         mask: true,
         success: ()=>{
+          app.globalData.userInfo.nickname = this.data.nickname
+          app.globalData.userInfo.Mobile = this.data.mobile
           setTimeout(()=>{
             wx.switchTab({
               url: `/pages/my/my`

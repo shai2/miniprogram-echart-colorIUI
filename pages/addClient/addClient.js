@@ -25,11 +25,15 @@ Page({
     RelationTag: '',
     Relationship: '',
     ProductIds: [],//选中的列表
+    from: null,//从哪个页面跳转来的
   },
   onLoad(opt) {
     this.getProductList()
     this.getProvince()
-    this.setData({RelationTagPicker: wx.getStorageSync('RelationInfo')})
+    this.setData({
+      RelationTagPicker: wx.getStorageSync('RelationInfo'),
+      from: opt.from
+    })
     // 带customId是编辑
     if(opt.customId){
       console.log('这是编辑')
@@ -88,7 +92,7 @@ Page({
   },
   // 提交表单
   formSubmit(e){
-    console.log('表单：', e)
+    // console.log('表单：', e)
     if(!this.data.CustomName){
       wx.showToast({
         title: '客户姓名必填',
@@ -97,7 +101,7 @@ Page({
       })
       return
     }
-    else if(!this.data.Gender){
+    else if(this.data.Gender==null){
       wx.showToast({
         title: '性别必填',
         icon: 'none',
@@ -137,12 +141,17 @@ Page({
         icon: 'none',
         mask: true,
         success: ()=>{
-          wx.setStorageSync('needRefresh',true)//设置flag
+          wx.setStorageSync('needRefreshClient',true)//设置flag
           // 添加成功后调转到联系人列表页
           setTimeout(()=>{
             if(this.data.isEdit){
               wx.redirectTo({
                 url: `/pages/clientDetail/clientDetail?customId=${this.data.editId}`
+              })
+            }
+            else if(this.data.from=='customList'){
+              wx.switchTab({
+                url: `/pages/client/client`
               })
             }
             else{

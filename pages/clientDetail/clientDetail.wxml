@@ -9,8 +9,8 @@ module.exports.myFormatTime = function(e){
     <view class="info-top">
       <view class="control-area">
         <text bindtap="toClientEdit">编辑</text> |
-        <text bindtap="showDeleteModal" data-target="deleteModal">删除</text> |
-        <text>图表</text>
+        <text bindtap="showDeleteModal" data-target="deleteModal">删除</text>
+         <!-- |<text>图表</text> -->
       </view>
       <text class="name">{{customInfo.CustomName}}</text>
       <view class="cu-capsule round">
@@ -91,7 +91,7 @@ module.exports.myFormatTime = function(e){
 <view class="cu-modal {{modalName=='deleteModal'?'show':''}}">
   <view class="cu-dialog">
     <view class="cu-bar bg-white justify-end">
-      <view class="content">确定删除该联系人？</view>
+      <view class="content">确定删除联系人？</view>
       <view class="action" bindtap="closeModal">
         <text class="cuIcon-close text-red"></text>
       </view>
@@ -106,7 +106,7 @@ module.exports.myFormatTime = function(e){
 <view class="cu-modal {{modalName=='deleteModalContact'?'show':''}}">
   <view class="cu-dialog">
     <view class="cu-bar bg-white justify-end">
-      <view class="content">确定删除该接触点？</view>
+      <view class="content">确定删除接触点？</view>
       <view class="action" bindtap="closeModal">
         <text class="cuIcon-close text-red"></text>
       </view>

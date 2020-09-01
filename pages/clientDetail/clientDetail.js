@@ -19,6 +19,12 @@ Page({
     this.getCustomInfo(this.data.customId)
     this.getContactList(this.data.customId)
   },
+  onShow(){
+    if(wx.getStorageSync('needRefreshContact')){
+      this.getContactList(this.data.customId)
+      wx.removeStorageSync('needRefreshContact')
+    }//设置flag
+  },
   toClientEdit(){
     wx.navigateTo({
       url: `/pages/addClient/addClient?customId=${this.data.customId}`
@@ -95,7 +101,7 @@ Page({
   // 去添加接触
   toAddContact(e){
     wx.navigateTo({
-      url: `/pages/addContact/addContact?customId=${this.data.customInfo.Id}`
+      url: `/pages/addContact/addContact?customId=${this.data.customInfo.Id}&relation=${this.data.customInfo.Relation}`
     })
   },
   // 编辑触点详情
@@ -104,13 +110,13 @@ Page({
     wx.setStorageSync('editItem',e.target.dataset.item)
     
     wx.navigateTo({
-      url: `/pages/addContact/addContact?customId=${this.data.customInfo.Id}&contactId=${e.target.dataset.id}`
+      url: `/pages/addContact/addContact?customId=${this.data.customInfo.Id}&contactId=${e.target.dataset.id}&relation=${this.data.customInfo.Relation}`
     })
   },
   // 删除客户 支持多个 格式：1,2,3
   delCustom(){
     myRequest('delCustom', {customids: this.data.customInfo.Id}).then(res => {
-      wx.setStorageSync('needRefresh',true)//设置flag
+      wx.setStorageSync('needRefreshClient',true)//设置flag
       wx.switchTab({
         url: `/pages/client/client`
       })
@@ -120,6 +126,7 @@ Page({
   delContact(){
     myRequest('delContact', {ContactIds: this.data.contactIds}).then(res => {
       this.getContactList(this.data.customId)
+      this.closeModal()
     })
   },
   // 打开询问弹窗

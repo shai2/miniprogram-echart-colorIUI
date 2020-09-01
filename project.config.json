@@ -89,7 +89,7 @@
 					"id": 3,
 					"name": "客户信息",
 					"pathName": "pages/clientDetail/clientDetail",
-					"query": "customId=9",
+					"query": "customId=15",
 					"scene": null
 				},
 				{

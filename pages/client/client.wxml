@@ -23,7 +23,7 @@ module.exports.format = function(string){
     </view>
   </scroll-view>
   <!-- 列表右侧 -->
-  <scroll-view class="VerticalMain" scroll-y scroll-with-animation style="height:calc(100vh - 100rpx)" scroll-into-view="main-{{MainCur}}" bindscroll="VerticalMain">
+  <scroll-view wx:if="{{customOriginList.length}}" class="VerticalMain" scroll-y scroll-with-animation style="height:calc(100vh - 100rpx)" scroll-into-view="main-{{MainCur}}" bindscroll="VerticalMain">
     <view class="padding-top padding-lr" wx:for="{{list}}" wx:key="index" id="main-{{index}}">
       <view class='cu-bar solid-bottom bg-white'>
         <view class='action'>
@@ -49,6 +49,10 @@ module.exports.format = function(string){
 
     </view>
   </scroll-view>
+  <view wx:else class="customListTip">
+    <text>您还没有客户</text>
+    <button bindtap="toAddClient">去添加</button>
+  </view>
 </view>
 <view wx:else class="SearchBox">
   <view class="cu-list menu-avatar" style="width:100%;">

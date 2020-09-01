@@ -28,9 +28,9 @@ Page({
     // 没有标签list 就获取一次
     !this.data.list.length && this.listInit()
     // 每次切换回来 有flag时 重新请求一次列表
-    if(wx.getStorageSync('needRefresh')){
+    if(wx.getStorageSync('needRefreshClient')){
       this.getCustomList()
-      wx.removeStorageSync('needRefresh')
+      wx.removeStorageSync('needRefreshClient')
     }
     //每次进来清空搜索结果
     this.clearSearch()
@@ -93,7 +93,7 @@ Page({
   },
   // 获取联系人列表
   getCustomList(){
-    myRequest('getCustomList', null, "GET").then(res => {
+    myRequest('getCustomList', null).then(res => {
       res=res.map(e=>{
         e.RelationId = e.RelationId || 1
         return e
@@ -116,6 +116,12 @@ Page({
   toClientDetail(e){
     wx.navigateTo({
       url: `/pages/clientDetail/clientDetail?customId=${e.currentTarget.dataset.id}`
+    })
+  },
+  // 添加客户
+  toAddClient(){
+    wx.navigateTo({
+      url: `/pages/addClient/addClient?from=customList`
     })
   },
   // 获取我的产品列表

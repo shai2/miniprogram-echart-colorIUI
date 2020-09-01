@@ -68,7 +68,7 @@
       <view class="title">关系标签</view>
       <picker data-type="RelationTag" bindchange="PickerChange" value="{{RelationTag}}" range="{{RelationTagPicker}}" range-key="RelationTag">
         <view class="picker">
-          {{RelationTag?RelationTagPicker[RelationTag].RelationTag:'未选择'}}
+          {{RelationTag!==null?RelationTagPicker[RelationTag].RelationTag:'未选择'}}
         </view>
       </picker>
     </view>

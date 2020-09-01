@@ -1,7 +1,7 @@
 {
   "pages":[
     "pages/chart/chart",
-    "pages/login/login",
+    "pages/vip/vip",
     "pages/client/client",
     "pages/addClient/addClient",
     "pages/editMyInfo/editMyInfo",

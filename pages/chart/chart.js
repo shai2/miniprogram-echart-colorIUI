@@ -210,6 +210,11 @@ Page({
         wx.showToast({
           title: 'vip已过期，请联系管理员',
           icon: 'none',
+          success: ()=>{
+            wx.navigateTo({
+              url: `/pages/vip/vip`
+            })
+          }
         })
       }
     })
@@ -250,7 +255,7 @@ Page({
     }
     myRequest('getContactWay_S', _obj).then(res => {
       console.log('getContactWay_S：', res)
-      chart_2.setOption(getChartOption_2(res));
+      // chart_2.setOption(getChartOption_2(res));
     })
   },
   // 销售视图接触点分值在标签上分布图表
@@ -262,7 +267,7 @@ Page({
     }
     myRequest('getContactPointInRelation_S', _obj).then(res => {
       console.log('getContactPointInRelation_S：', res)
-      chart_3.setOption(getChartOption_3(res));
+      // chart_3.setOption(getChartOption_3(res));
     })
   },
   // 销售视图客户总分值图表
@@ -274,7 +279,7 @@ Page({
     }
     myRequest('getCustomPonint_S', _obj).then(res => {
       console.log('getCustomPonint_S：', res)
-      chart_4.setOption(getChartOption_4(res));
+      // chart_4.setOption(getChartOption_4(res));
     })
   },
   // 销售视图标签客户数量图表
@@ -286,7 +291,7 @@ Page({
     }
     myRequest('getCustomInRelation_S', _obj).then(res => {
       console.log('getCustomInRelation_S：', res)
-      chart_5.setOption(getChartOption_5(res));
+      // chart_5.setOption(getChartOption_5(res));
     })
   },
   // 销售视图标签客户数量与结构图表
@@ -298,7 +303,7 @@ Page({
     }
     myRequest('getCountCustomInRelation_S', _obj).then(res => {
       console.log('getCountCustomInRelation_S：', res)
-      chart_6.setOption(getChartOption_6(res));
+      // chart_6.setOption(getChartOption_6(res));
     })
   },
 })
