@@ -119,6 +119,13 @@
 					"pathName": "pages/addContact/addContact",
 					"query": "customId=9",
 					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "过期页面",
+					"pathName": "pages/vip/vip",
+					"query": "",
+					"scene": null
 				}
 			]
 		}

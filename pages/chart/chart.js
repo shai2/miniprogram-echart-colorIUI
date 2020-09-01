@@ -200,21 +200,23 @@ Page({
       // 请求关系列表
       !wx.getStorageSync('RelationInfo') && this.getRelationInfo()
       this.getChartAll()
-      // 一个周提示到期
-      if (60 * 60 * 24 * 7 * 1000 > (Date.parse(app.globalData.userInfo.ExpiresDate) - Date.now())) {
-        wx.showToast({
-          title: 'vip有效期不足一周',
-          icon: 'none',
-        })
-      } else if (Date.parse(app.globalData.userInfo.ExpiresDate) < Date.now()) {
+      // 过期提示
+      if (!app.globalData.userInfo.IsAble) {
         wx.showToast({
           title: 'vip已过期，请联系管理员',
           icon: 'none',
           success: ()=>{
-            wx.navigateTo({
+            wx.reLaunch({
               url: `/pages/vip/vip`
             })
           }
+        })
+      } 
+      // 一个周提示到期
+      else if ( 60 * 60 * 24 * 7 * 1000 > (Date.parse(app.globalData.userInfo.ExpiresDate) - Date.now()) ){
+        wx.showToast({
+          title: 'vip有效期不足一周',
+          icon: 'none',
         })
       }
     })

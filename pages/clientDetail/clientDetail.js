@@ -48,13 +48,17 @@ Page({
         }else{
           e.showContactEdit = false
         }
-        
+        // 回显数据字段
+        var _item = this.data.contactList.find(contactItem=>contactItem.ContactWayId==e.ContactWay)
+        e.ContactWayShow = _item.ContactWay
+        // 填入二元数组
         let _day = e.ContactDate.split(' ')[0]
         if(!_formatObj[_day]){
           _formatObj[_day] = []
         }
         _formatObj[_day].push(e)
       })
+
       let _formatArr = []
       for(let e in _formatObj){
         _formatArr.push(_formatObj[e])

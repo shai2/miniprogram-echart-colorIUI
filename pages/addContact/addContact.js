@@ -14,9 +14,9 @@ Page({
     ContactPoint:null,//接触评分
   },
   onLoad(opt) {
-    // console.log(1111,opt)
+    let _contactList = wx.getStorageSync('contactList')
     this.setData({
-      ContactPicker: wx.getStorageSync('contactList'),
+      ContactPicker: _contactList,
       customId: opt.customId,
       contactId: opt.contactId,
       relation: opt.relation || '0',
@@ -24,18 +24,19 @@ Page({
     // 带contactId是编辑
     if(opt.contactId){
       console.log('这是编辑')
-      let _picker =  wx.getStorageSync('contactList')
-      // 回显
+      let _picker =  _contactList
       let _editItem = wx.getStorageSync('editItem')
       wx.setNavigationBarTitle({
         title: '编辑接触',
       })
+      // 回显数据对应的picker
+      let _ContactWayInPicker = _contactList.findIndex(e=>e.ContactWayId==_editItem.ContactWay)
       this.setData({
         actionType:'修改',
         isEdit: true,
         ContactNote:_editItem.ContactNote,//接触信息
-        ContactWay:_editItem.ContactWay*1,//接触方式
-        ContactPointPicker:_picker[_editItem.ContactWay*1].children,
+        ContactWay:_ContactWayInPicker,//接触方式
+        ContactPointPicker:_picker[_ContactWayInPicker].children,
       },()=>{
         this.setData({
           ContactPoint: this.data.ContactPointPicker.findIndex(e=>{
@@ -47,7 +48,7 @@ Page({
   },
   // 提交表单
   formSubmit(e){
-    console.log('表单：', e)
+    // console.log('表单：', e)
     if(!this.data.ContactNote){
       wx.showToast({
         title: '接触信息必填',
@@ -76,13 +77,16 @@ Page({
   },
   // 新增
   addContact(){
+    // 找ContactPicker给的值对应的ContactWayId和point
+    let _ContactWay = this.data.ContactPicker[this.data.ContactWay].ContactWayId
+    // 找ContactPointPicker值对应的ContactPoint
     let _ContactPoint = this.data.ContactPointPicker[this.data.ContactPoint].point
     let _obj = {
       customId: this.data.customId,
       ContactDate: formatTime(),
       ContactPoint: _ContactPoint,
+      ContactWay: _ContactWay,
       ContactNote: this.data.ContactNote,
-      ContactWay: this.data.ContactWay,
       Relation: this.data.relation,
     }
     // 编辑节点id 传null接口报错
@@ -112,7 +116,7 @@ Page({
     console.log(_type,e.detail.value)
     // 改变接触方式
     if(_type==='ContactWay'){
-      // console.log(3333, this.data.ContactPicker[e.detail.value*1].children)
+      console.log(3333, this.data.ContactPicker)
       this.setData({
         [_type]: e.detail.value,
         ContactPointPicker: this.data.ContactPicker[e.detail.value*1].children,

@@ -76,7 +76,7 @@ module.exports.myFormatTime = function(e){
               </view>
               <view class="cu-capsule radius">
                 <view class="cu-tag bg-cyan">{{e.ContactPoint}}</view>
-                <view class="cu-tag line-cyan">{{contactList[0].ContactWay}}</view>
+                <view class="cu-tag line-cyan">{{e.ContactWayShow}}</view>
               </view>
               <view class="margin-top">{{e.ContactNote}}</view>
             </view>

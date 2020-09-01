@@ -1,0 +1,6 @@
+.vip{
+  padding: 150rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
