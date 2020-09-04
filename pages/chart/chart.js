@@ -125,6 +125,7 @@ Page({
       this.userInfoReadyCallback()
     }
   },
+  // 日期变更
   bindDateChange(e) {
     console.log(`${e.target.dataset.datatap}改变：`, e.detail.value)
     this.setData({
@@ -134,8 +135,19 @@ Page({
     // 如果结束时间大于开始时间 且不为"未选择" 请求接口
     let _start = this.data[`startDate${_index}`]
     let _end = this.data[`endDate${_index}`]
-    if (_start !== '未选择' && _end !== '未选择' && _start < _end) {
+    console.log(1111,_index)
+    if (
+      // 除了3、6图表
+      (_start !== '未选择' && _end !== '未选择' && _start < _end) ||
+      // 3,6图表
+      ['3','6'].includes(_index)
+    ) {
       this[`getChart_${_index}`]()
+    }else if(_start >= _end){
+      wx.showToast({
+        title: '请选择正确的起止时间',
+        icon: 'none',
+      })
     }
   },
   // 重置日期选择
@@ -215,7 +227,7 @@ Page({
           icon: 'none',
           success: () => {
             wx.reLaunch({
-              url: `/pages/vip/vip`
+              // url: `/pages/vip/vip`
             })
           }
         })
@@ -262,10 +274,9 @@ Page({
   },
   // 销售视图接触点分值在标签上分布图表
   getChart_3(flag) {
-    let { startDate3, endDate3 } = this.data
+    let { startDate3 } = this.data
     let _obj = {
-      Datestart: flag ? '' : startDate3,
-      Dateend: flag ? '' : endDate3,
+      Date: flag ? '' : startDate3,
     }
     myRequest('getContactPointInRelation_S', _obj).then(res => {
       console.log('getContactPointInRelation_S：', res)
@@ -298,10 +309,9 @@ Page({
   },
   // 销售视图标签客户数量与结构图表
   getChart_6(flag) {
-    let { startDate6, endDate6 } = this.data
+    let { startDate6 } = this.data
     let _obj = {
-      Datestart: flag ? '' : startDate6,
-      Dateend: flag ? '' : endDate6,
+      Date: flag ? '' : startDate6,
     }
     myRequest('getCountCustomInRelation_S', _obj).then(res => {
       console.log('getCountCustomInRelation_S：', res)
@@ -508,7 +518,7 @@ function getChartOption_4(data) {
     names4.push(list4[i].name);
     values4.push(list4[i].num);
   }
-  console.log(names4, values4)
+  // console.log(names4, values4)
   chart_4.hideLoading();
   chart_4.setOption({
     title: {

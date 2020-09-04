@@ -65,16 +65,10 @@
         <view class="cu-card">
           <view class="cu-item shadow">
             <view class="data-line">
-              <text>时间范围：</text>
-              <picker mode="date" value="{{startDate3}}" data-datatap="startDate3" bindchange="bindDateChange">
+              <text>对比日期：</text>
+              <picker mode="date" value="{{startDate3}}" data-datatap="startDate3" bindchange="bindDateChange" style="margin-right:200rpx">
                 <view class="picker">
                   {{startDate3}}
-                </view>
-              </picker>
-              <text>~</text>
-              <picker mode="date" value="{{endDate3}}" data-datatap="endDate3" bindchange="bindDateChange">
-                <view class="picker">
-                  {{endDate3}}
                 </view>
               </picker>
               <text class="reset-button" bindtap="resetData" data-index="3">重置</text>
@@ -128,16 +122,10 @@
         <view class="cu-card">
           <view class="cu-item shadow">
             <view class="data-line">
-              <text>时间范围：</text>
-              <picker mode="date" value="{{startDate6}}" data-datatap="startDate6" bindchange="bindDateChange">
+              <text>对比日期：</text>
+              <picker mode="date" value="{{startDate6}}" data-datatap="startDate6" bindchange="bindDateChange" style="margin-right:200rpx">
                 <view class="picker">
                   {{startDate6}}
-                </view>
-              </picker>
-              <text>~</text>
-              <picker mode="date" value="{{endDate6}}" data-datatap="endDate6" bindchange="bindDateChange">
-                <view class="picker">
-                  {{endDate6}}
                 </view>
               </picker>
               <text class="reset-button" bindtap="resetData" data-index="6">重置</text>
