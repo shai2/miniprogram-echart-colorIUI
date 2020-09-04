@@ -320,11 +320,10 @@ function getChartOption_1(data) {
       names1.push('No Data');
       values1.push(0);
     }
-  } else {
-    for (var i = 0; i < list1.length; i++) {
-      names1.push(list1[i].name);
-      values1.push(list1[i].num);
-    }
+  }
+  for (var i = 0; i < list1.length; i++) {
+    names1.push(list1[i].name);
+    values1.push(list1[i].num);
   }
   chart_1.hideLoading();
   chart_1.setOption({
@@ -363,14 +362,13 @@ function getChartOption_2(data) {
       values_v3.push(0);
       values_v4.push(0);
     }
-  } else {
-    for (var i = 0; i < list2.length; i++) {
-      names2.push(list2[i].name);
-      values_v1.push(list2[i].v1);
-      values_v2.push(list2[i].v2);
-      values_v3.push(list2[i].v3);
-      values_v4.push(list2[i].v4);
-    }
+  }
+  for (var i = 0; i < list2.length; i++) {
+    names2.push(list2[i].name);
+    values_v1.push(list2[i].v1);
+    values_v2.push(list2[i].v2);
+    values_v3.push(list2[i].v3);
+    values_v4.push(list2[i].v4);
   }
   chart_2.hideLoading();
   chart_2.setOption({
@@ -505,12 +503,12 @@ function getChartOption_4(data) {
       names4.push('No Data');
       values4.push(0);
     }
-  } else {
-    for (var i = 0; i < list4.length; i++) {
-      names4.push(list4[i].name);
-      values4.push(list4[i].num);
-    }
   }
+  for (var i = 0; i < list4.length; i++) {
+    names4.push(list4[i].name);
+    values4.push(list4[i].num);
+  }
+  console.log(names4, values4)
   chart_4.hideLoading();
   chart_4.setOption({
     title: {
@@ -554,17 +552,16 @@ function getChartOption_5(data) {
       values_v14.push(0);
       values_v15.push(0);
     }
-  } else {
-    for (var i = 0; i < list5.length; i++) {
-      names5.push(list5[i].name);
-      values_v9.push(list5[i].v1);
-      values_v10.push(list5[i].v2);
-      values_v11.push(list5[i].v3);
-      values_v12.push(list5[i].v4);
-      values_v13.push(list5[i].v5);
-      values_v14.push(list5[i].v6);
-      values_v15.push(list5[i].v7);
-    }
+  }
+  for (var i = 0; i < list5.length; i++) {
+    names5.push(list5[i].name);
+    values_v9.push(list5[i].v1);
+    values_v10.push(list5[i].v2);
+    values_v11.push(list5[i].v3);
+    values_v12.push(list5[i].v4);
+    values_v13.push(list5[i].v5);
+    values_v14.push(list5[i].v6);
+    values_v15.push(list5[i].v7);
   }
   chart_5.hideLoading();
   chart_5.setOption({
