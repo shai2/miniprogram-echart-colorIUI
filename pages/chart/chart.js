@@ -227,7 +227,7 @@ Page({
           icon: 'none',
           success: () => {
             wx.reLaunch({
-              // url: `/pages/vip/vip`
+              url: `/pages/vip/vip`
             })
           }
         })
