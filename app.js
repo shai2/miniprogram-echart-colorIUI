@@ -8,7 +8,7 @@ import { myRequest } from '/utils/request'
     let newConfig = Object.assign(pageConfig, {
       onShareAppMessage: function () {
         return {
-          title: '默认分享标题',
+          title: '思谟客户管理',
           path: `pages/chart/chart`,
           // imageUrl:'默认分享图片',
         };
