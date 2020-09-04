@@ -34,7 +34,7 @@ Page({
         // console.log(11111,canvas, width, height, dpr)
         canvas.setChart(chart_1);
         let _page = getCurrentPages()
-        _page[_page.length-1].getChart_1(true)
+        _page[_page.length - 1].getChart_1(true)
         return chart_1;
       }
     },
@@ -50,7 +50,7 @@ Page({
         canvas.setChart(chart_2);
         chart_2.showLoading();
         let _page = getCurrentPages()
-        _page[_page.length-1].getChart_2(true)
+        _page[_page.length - 1].getChart_2(true)
         return chart_2;
       }
     },
@@ -66,7 +66,7 @@ Page({
         canvas.setChart(chart_3);
         chart_3.showLoading();
         let _page = getCurrentPages()
-        _page[_page.length-1].getChart_3(true)
+        _page[_page.length - 1].getChart_3(true)
         return chart_3;
       }
     },
@@ -82,7 +82,7 @@ Page({
         canvas.setChart(chart_4);
         chart_4.showLoading();
         let _page = getCurrentPages()
-        _page[_page.length-1].getChart_4(true)
+        _page[_page.length - 1].getChart_4(true)
         return chart_4;
       }
     },
@@ -98,7 +98,7 @@ Page({
         canvas.setChart(chart_5);
         chart_5.showLoading();
         let _page = getCurrentPages()
-        _page[_page.length-1].getChart_5(true)
+        _page[_page.length - 1].getChart_5(true)
         return chart_5;
       }
     },
@@ -114,7 +114,7 @@ Page({
         canvas.setChart(chart_6);
         chart_6.showLoading();
         let _page = getCurrentPages()
-        _page[_page.length-1].getChart_6(true)
+        _page[_page.length - 1].getChart_6(true)
         return chart_6;
       }
     },
@@ -134,17 +134,17 @@ Page({
     // 如果结束时间大于开始时间 且不为"未选择" 请求接口
     let _start = this.data[`startDate${_index}`]
     let _end = this.data[`endDate${_index}`]
-    if(_start!=='未选择' && _end!=='未选择' && _start<_end){
+    if (_start !== '未选择' && _end !== '未选择' && _start < _end) {
       this[`getChart_${_index}`]()
     }
   },
   // 重置日期选择
-  resetData(e){
+  resetData(e) {
     let _index = e.currentTarget.dataset.index
     this.setData({
       [`startDate${_index}`]: '未选择',
       [`endDate${_index}`]: '未选择',
-    },()=>{
+    }, () => {
       this[`getChart_${_index}`](true)
     })
   },
@@ -213,16 +213,15 @@ Page({
         wx.showToast({
           title: 'vip已过期，请联系管理员',
           icon: 'none',
-          success: ()=>{
+          success: () => {
             wx.reLaunch({
               url: `/pages/vip/vip`
-              // url: `pages/chart/chart`
             })
           }
         })
-      } 
+      }
       // 一个周提示到期
-      else if ( 60 * 60 * 24 * 7 * 1000 > (Date.parse(app.globalData.userInfo.ExpiresDate) - Date.now()) ){
+      else if (60 * 60 * 24 * 7 * 1000 > (Date.parse(app.globalData.userInfo.ExpiresDate) - Date.now())) {
         wx.showToast({
           title: 'vip有效期不足一周',
           icon: 'none',
@@ -239,7 +238,7 @@ Page({
   },
   // 销售视图接触点分值图表
   getChart_1(flag) { //flag传true则时间传""
-    let {startDate1,endDate1} = this.data
+    let { startDate1, endDate1 } = this.data
     let _obj = {
       Datestart: flag ? '' : startDate1,
       Dateend: flag ? '' : endDate1,
@@ -251,7 +250,7 @@ Page({
   },
   // 销售视图接触类型分析图表
   getChart_2(flag) {
-    let {startDate2,endDate2} = this.data
+    let { startDate2, endDate2 } = this.data
     let _obj = {
       Datestart: flag ? '' : startDate2,
       Dateend: flag ? '' : endDate2,
@@ -263,7 +262,7 @@ Page({
   },
   // 销售视图接触点分值在标签上分布图表
   getChart_3(flag) {
-    let {startDate3,endDate3} = this.data
+    let { startDate3, endDate3 } = this.data
     let _obj = {
       Datestart: flag ? '' : startDate3,
       Dateend: flag ? '' : endDate3,
@@ -275,7 +274,7 @@ Page({
   },
   // 销售视图客户总分值图表
   getChart_4(flag) {
-    let {startDate4,endDate4} = this.data
+    let { startDate4, endDate4 } = this.data
     let _obj = {
       Datestart: flag ? '' : startDate4,
       Dateend: flag ? '' : endDate4,
@@ -287,7 +286,7 @@ Page({
   },
   // 销售视图标签客户数量图表
   getChart_5(flag) {
-    let {startDate5,endDate5} = this.data
+    let { startDate5, endDate5 } = this.data
     let _obj = {
       Datestart: flag ? '' : startDate5,
       Dateend: flag ? '' : endDate5,
@@ -299,7 +298,7 @@ Page({
   },
   // 销售视图标签客户数量与结构图表
   getChart_6(flag) {
-    let {startDate6,endDate6} = this.data
+    let { startDate6, endDate6 } = this.data
     let _obj = {
       Datestart: flag ? '' : startDate6,
       Dateend: flag ? '' : endDate6,
@@ -316,15 +315,23 @@ function getChartOption_1(data) {
   var names1 = [];
   var values1 = [];
   var list1 = data["viewContactPoint"]
-  for (var i = 0; i < list1.length; i++) {
-    names1.push(list1[i].name);
-    values1.push(list1[i].num);
+  if (list1.length < 7) {
+    for (var i = 0; i < 7 - list1.length; i++) {
+      names1.push('No Data');
+      values1.push(0);
+    }
+  } else {
+    for (var i = 0; i < list1.length; i++) {
+      names1.push(list1[i].name);
+      values1.push(list1[i].num);
+    }
   }
   chart_1.hideLoading();
   chart_1.setOption({
     title: {
       text: '接触点分值统计（按日）',
     },
+    color: '#396184',
     tooltip: {},
     xAxis: {
       type: 'category',
@@ -348,26 +355,37 @@ function getChartOption_2(data) {
   var values_v2 = [];
   var values_v3 = [];
   var values_v4 = [];
-  for (var i = 0; i < list2.length; i++) {
-    names2.push(list2[i].name);
-    values_v1.push(list2[i].v1);
-    values_v2.push(list2[i].v2);
-    values_v3.push(list2[i].v3);
-    values_v4.push(list2[i].v4);
+  if (list2.length < 7) {
+    for (var i = 0; i < 7 - list2.length; i++) {
+      names2.push('No Data');
+      values_v1.push(0);
+      values_v2.push(0);
+      values_v3.push(0);
+      values_v4.push(0);
+    }
+  } else {
+    for (var i = 0; i < list2.length; i++) {
+      names2.push(list2[i].name);
+      values_v1.push(list2[i].v1);
+      values_v2.push(list2[i].v2);
+      values_v3.push(list2[i].v3);
+      values_v4.push(list2[i].v4);
+    }
   }
   chart_2.hideLoading();
   chart_2.setOption({
     title: {
       text: '接触类型分析（按日）',
     },
+    color: ['#0f325c', '#396184', '#5187b5', '#bac7cf'],
     legend: {
       orient: 'horizontal', // 'vertical'
       x: 'center', // 'center' | 'left' | {number},
       y: 'bottom', // 'center' | 'bottom' | {number}
       data: ['线上非实时互动', '线上实时互动', '线下多边互动', '线下双边互动']
     },
-    grid:{
-      bottom:'25%',//距离下边距
+    grid: {
+      bottom: '25%',//距离下边距
     },
     tooltip: {},
     xAxis: [
@@ -444,6 +462,7 @@ function getChartOption_3(data) {
       text: '接触点分值在标签上的分布对比（按日）',
       subtext: '未选择筛选日期时，历史数据为昨日'
     },
+    color: ['#396184', '#5187b5'],
     legend: {
       orient: 'horizontal', // 'vertical'
       x: 'center', // 'center' | 'left' | {number},
@@ -481,9 +500,16 @@ function getChartOption_4(data) {
   var list4 = data["viewCustomPonint"]
   var names4 = [];
   var values4 = [];
-  for (var i = 0; i < list4.length; i++) {
-    names4.push(list4[i].name);
-    values4.push(list4[i].num);
+  if (list4.length < 7) {
+    for (var i = 0; i < 7 - list4.length; i++) {
+      names4.push('No Data');
+      values4.push(0);
+    }
+  } else {
+    for (var i = 0; i < list4.length; i++) {
+      names4.push(list4[i].name);
+      values4.push(list4[i].num);
+    }
   }
   chart_4.hideLoading();
   chart_4.setOption({
@@ -491,6 +517,7 @@ function getChartOption_4(data) {
       text: '客户总分值统计（按周）',
       subtext: '客户数 x 客户标签值'
     },
+    color: '#396184',
     tooltip: {},
     xAxis: {
       type: 'category',
@@ -516,29 +543,43 @@ function getChartOption_5(data) {
   var values_v13 = [];
   var values_v14 = [];
   var values_v15 = [];
-  for (var i = 0; i < list5.length; i++) {
-    names5.push(list5[i].name);
-    values_v9.push(list5[i].v1);
-    values_v10.push(list5[i].v2);
-    values_v11.push(list5[i].v3);
-    values_v12.push(list5[i].v4);
-    values_v13.push(list5[i].v5);
-    values_v14.push(list5[i].v6);
-    values_v15.push(list5[i].v7);
+  if (list5.length < 7) {
+    for (var i = 0; i < 7 - list5.length; i++) {
+      names5.push('No Data');
+      values_v9.push(0);
+      values_v10.push(0);
+      values_v11.push(0);
+      values_v12.push(0);
+      values_v13.push(0);
+      values_v14.push(0);
+      values_v15.push(0);
+    }
+  } else {
+    for (var i = 0; i < list5.length; i++) {
+      names5.push(list5[i].name);
+      values_v9.push(list5[i].v1);
+      values_v10.push(list5[i].v2);
+      values_v11.push(list5[i].v3);
+      values_v12.push(list5[i].v4);
+      values_v13.push(list5[i].v5);
+      values_v14.push(list5[i].v6);
+      values_v15.push(list5[i].v7);
+    }
   }
   chart_5.hideLoading();
   chart_5.setOption({
     title: {
       text: '不同标签客户的数量分析（按日）',
     },
+    color: ['#11315b', '#2d4874', '#475f8e', '#6078a8', '#7a91c4', '#95ace0', '#afc6fb'],
     legend: {
       orient: 'horizontal', // 'vertical'
       x: 'center', // 'center' | 'left' | {number},
       y: 'bottom', // 'center' | 'bottom' | {number}
       data: ['门外', '熟悉', '洞察', '利益关联', '深度合作', '主动联络', '反复主动']
     },
-    grid:{
-      bottom:'25%',//距离下边距
+    grid: {
+      bottom: '25%',//距离下边距
     },
     tooltip: {},
     xAxis: [
@@ -634,6 +675,7 @@ function getChartOption_6(data) {
       text: '客户数量与结构（按周）',
       subtext: '未选择筛选日期时，历史数据为上周'
     },
+    color: ['#396184', '#5187b5'],
     legend: {
       orient: 'horizontal', // 'vertical'
       x: 'center', // 'center' | 'left' | {number},
