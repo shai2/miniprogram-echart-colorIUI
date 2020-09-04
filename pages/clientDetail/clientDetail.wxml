@@ -37,7 +37,7 @@ module.exports.myFormatTime = function(e){
         </text>
       </view>
       <view class="info-line">
-        <text>公司：</text>
+        <text>单位：</text>
         <text>{{customInfo.CompanyName}}</text>
       </view>
       <view class="info-line">
@@ -49,7 +49,7 @@ module.exports.myFormatTime = function(e){
         <text>{{customInfo.Relationship}}</text>
       </view>
       <view class="info-line">
-        <text>联系方式：</text>
+        <text>联系办法：</text>
         <text>{{customInfo.ContactWay}}</text>
       </view>
       <view class="info-line">

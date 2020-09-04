@@ -22,7 +22,7 @@ Page({
     ContactWay: '',
     CompanyName: '',
     Job: '',
-    RelationTag: '',
+    RelationTag: null,
     Relationship: '',
     ProductIds: [],//选中的列表
     from: null,//从哪个页面跳转来的

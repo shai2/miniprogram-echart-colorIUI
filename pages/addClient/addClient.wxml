@@ -14,7 +14,7 @@
     </view>
     <view class="cu-form-group margin-top">
       <view class="title">生日</view>
-      <picker mode="date" value="{{Birthday}}" start="2015-09-01" end="2020-09-01" bindchange="DateChange">
+      <picker mode="date" value="{{Birthday}}" value="2000-01-01" bindchange="DateChange">
         <view class="picker">
           {{Birthday||'请选择生日'}}
         </view>
@@ -49,8 +49,8 @@
       <input type="number" maxlength="13" placeholder="请填写电话" data-type="Telephone" bindinput="changeInput" value="{{Telephone}}"></input>
     </view>
     <view class="cu-form-group">
-      <view class="title">公司</view>
-      <input placeholder="请填写公司" data-type="CompanyName" bindinput="changeInput" value="{{CompanyName}}"></input>
+      <view class="title">单位</view>
+      <input placeholder="请填写单位" data-type="CompanyName" bindinput="changeInput" value="{{CompanyName}}"></input>
     </view>
     <view class="cu-form-group">
       <view class="title">职务</view>
@@ -58,11 +58,11 @@
     </view>
     <view class="cu-form-group">
       <view class="title">关系</view>
-      <input placeholder="请填写关系" data-type="Relationship" bindinput="changeInput" value="{{Relationship}}"></input>
+      <input placeholder="请填写与其他客户的关系" data-type="Relationship" bindinput="changeInput" value="{{Relationship}}"></input>
     </view>
     <view class="cu-form-group">
-      <view class="title">联系方式</view>
-      <input placeholder="请填写联系方式" data-type="ContactWay" bindinput="changeInput" value="{{ContactWay}}"></input>
+      <view class="title">联系办法</view>
+      <input placeholder="请填写联系办法" data-type="ContactWay" bindinput="changeInput" value="{{ContactWay}}"></input>
     </view>
     <view class="cu-form-group">
       <view class="title">关系标签</view>

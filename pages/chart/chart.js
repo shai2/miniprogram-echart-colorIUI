@@ -216,6 +216,7 @@ Page({
           success: ()=>{
             wx.reLaunch({
               url: `/pages/vip/vip`
+              // url: `pages/chart/chart`
             })
           }
         })
