@@ -44,10 +44,10 @@ module.exports.myFormatTime = function(e){
         <text>生日：</text>
         <text>{{customInfo.Birthday}}</text>
       </view>
-      <view class="info-line">
+      <!-- <view class="info-line">
         <text>关系：</text>
         <text>{{customInfo.Relationship}}</text>
-      </view>
+      </view> -->
       <view class="info-line">
         <text>联系办法：</text>
         <text>{{customInfo.ContactWay}}</text>

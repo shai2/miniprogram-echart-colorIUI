@@ -56,10 +56,10 @@
       <view class="title">职务</view>
       <input placeholder="请填写职务" data-type="Job" bindinput="changeInput" value="{{Job}}"></input>
     </view>
-    <view class="cu-form-group">
+    <!-- <view class="cu-form-group">
       <view class="title">关系</view>
       <input placeholder="请填写与其他客户的关系" data-type="Relationship" bindinput="changeInput" value="{{Relationship}}"></input>
-    </view>
+    </view> -->
     <view class="cu-form-group">
       <view class="title">联系办法</view>
       <input placeholder="请填写联系办法" data-type="ContactWay" bindinput="changeInput" value="{{ContactWay}}"></input>

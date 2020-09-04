@@ -325,15 +325,15 @@ function getChartOption_1(data) {
   var names1 = [];
   var values1 = [];
   var list1 = data["viewContactPoint"]
+  for (var i = 0; i < list1.length; i++) {
+    names1.push(list1[i].name);
+    values1.push(list1[i].num);
+  }
   if (list1.length < 7) {
     for (var i = 0; i < 7 - list1.length; i++) {
       names1.push('No Data');
       values1.push(0);
     }
-  }
-  for (var i = 0; i < list1.length; i++) {
-    names1.push(list1[i].name);
-    values1.push(list1[i].num);
   }
   chart_1.hideLoading();
   chart_1.setOption({
@@ -364,6 +364,13 @@ function getChartOption_2(data) {
   var values_v2 = [];
   var values_v3 = [];
   var values_v4 = [];
+  for (var i = 0; i < list2.length; i++) {
+    names2.push(list2[i].name);
+    values_v1.push(list2[i].v1);
+    values_v2.push(list2[i].v2);
+    values_v3.push(list2[i].v3);
+    values_v4.push(list2[i].v4);
+  }
   if (list2.length < 7) {
     for (var i = 0; i < 7 - list2.length; i++) {
       names2.push('No Data');
@@ -372,13 +379,6 @@ function getChartOption_2(data) {
       values_v3.push(0);
       values_v4.push(0);
     }
-  }
-  for (var i = 0; i < list2.length; i++) {
-    names2.push(list2[i].name);
-    values_v1.push(list2[i].v1);
-    values_v2.push(list2[i].v2);
-    values_v3.push(list2[i].v3);
-    values_v4.push(list2[i].v4);
   }
   chart_2.hideLoading();
   chart_2.setOption({
@@ -508,15 +508,15 @@ function getChartOption_4(data) {
   var list4 = data["viewCustomPonint"]
   var names4 = [];
   var values4 = [];
+  for (var i = 0; i < list4.length; i++) {
+    names4.push(list4[i].name);
+    values4.push(list4[i].num);
+  }
   if (list4.length < 7) {
     for (var i = 0; i < 7 - list4.length; i++) {
       names4.push('No Data');
       values4.push(0);
     }
-  }
-  for (var i = 0; i < list4.length; i++) {
-    names4.push(list4[i].name);
-    values4.push(list4[i].num);
   }
   // console.log(names4, values4)
   chart_4.hideLoading();
@@ -551,6 +551,16 @@ function getChartOption_5(data) {
   var values_v13 = [];
   var values_v14 = [];
   var values_v15 = [];
+  for (var i = 0; i < list5.length; i++) {
+    names5.push(list5[i].name);
+    values_v9.push(list5[i].v1);
+    values_v10.push(list5[i].v2);
+    values_v11.push(list5[i].v3);
+    values_v12.push(list5[i].v4);
+    values_v13.push(list5[i].v5);
+    values_v14.push(list5[i].v6);
+    values_v15.push(list5[i].v7);
+  }
   if (list5.length < 7) {
     for (var i = 0; i < 7 - list5.length; i++) {
       names5.push('No Data');
@@ -562,16 +572,6 @@ function getChartOption_5(data) {
       values_v14.push(0);
       values_v15.push(0);
     }
-  }
-  for (var i = 0; i < list5.length; i++) {
-    names5.push(list5[i].name);
-    values_v9.push(list5[i].v1);
-    values_v10.push(list5[i].v2);
-    values_v11.push(list5[i].v3);
-    values_v12.push(list5[i].v4);
-    values_v13.push(list5[i].v5);
-    values_v14.push(list5[i].v6);
-    values_v15.push(list5[i].v7);
   }
   chart_5.hideLoading();
   chart_5.setOption({

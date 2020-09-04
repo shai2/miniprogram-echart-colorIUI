@@ -23,7 +23,7 @@ Page({
     CompanyName: '',
     Job: '',
     RelationTag: null,
-    Relationship: '',
+    // Relationship: '',
     ProductIds: [],//选中的列表
     from: null,//从哪个页面跳转来的
   },
@@ -67,7 +67,7 @@ Page({
         CompanyName: res[0].CompanyName,
         Job: res[0].Job,
         RelationTag: res[0].Relation*1-1, //RelationTag是index，接口比数组picker的value大1，减1回显
-        Relationship: res[0].Relationship,
+        // Relationship: res[0].Relationship,
         ProductIds: res[0].ProductIds,
       })
       // 处理checkbox回显
@@ -125,7 +125,7 @@ Page({
       CompanyName: this.data.CompanyName,
       Job: this.data.Job,
       RelationTag: this.data.RelationTag&&this.data.RelationTagPicker[this.data.RelationTag].RelationId||1,//不填默认给1，门外关系
-      Relationship: this.data.Relationship,
+      // Relationship: this.data.Relationship,
       ProductIds: this.data.ProductIds+'',
     }
     // 编辑需要联系人id 传null接口报错
