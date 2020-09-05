@@ -322,9 +322,9 @@ Page({
 
 // echart图表配置
 function getChartOption_1(data) {
+  var list1 = data["viewContactPoint"].reverse()
   var names1 = [];
   var values1 = [];
-  var list1 = data["viewContactPoint"]
   for (var i = 0; i < list1.length; i++) {
     names1.push(list1[i].name);
     values1.push(list1[i].num);
@@ -344,7 +344,12 @@ function getChartOption_1(data) {
     tooltip: {},
     xAxis: {
       type: 'category',
-      data: names1
+      data: names1,
+      axisLabel: {
+        interval: 0,
+        rotate: 30,
+        fontSize: 10
+      },
     },
     yAxis: {
       type: 'value'
@@ -358,7 +363,7 @@ function getChartOption_1(data) {
 }
 
 function getChartOption_2(data) {
-  var list2 = data["viewContactWay"]
+  var list2 = data["viewContactWay"].reverse()
   var names2 = [];
   var values_v1 = [];
   var values_v2 = [];
@@ -399,7 +404,12 @@ function getChartOption_2(data) {
     xAxis: [
       {
         type: 'category',
-        data: names2
+        data: names2,
+        axisLabel: {
+          interval: 0,
+          rotate: 30,
+          fontSize: 10
+        },
       }
     ],
     yAxis: [
@@ -482,6 +492,11 @@ function getChartOption_3(data) {
       {
         type: 'category',
         data: ['门外', '熟悉', '洞察', '利益关联', '深度合作', '主动联络', '反复主动'],
+        axisLabel: {
+          interval: 0,
+          rotate: 30,
+          fontSize: 10
+        },
       }
     ],
     yAxis: [
@@ -505,7 +520,7 @@ function getChartOption_3(data) {
 }
 
 function getChartOption_4(data) {
-  var list4 = data["viewCustomPonint"]
+  var list4 = data["viewCustomPonint"].reverse()
   var names4 = [];
   var values4 = [];
   for (var i = 0; i < list4.length; i++) {
@@ -529,7 +544,12 @@ function getChartOption_4(data) {
     tooltip: {},
     xAxis: {
       type: 'category',
-      data: names4
+      data: names4,
+      axisLabel: {
+        interval: 0,
+        rotate: 30,
+        fontSize: 10
+      },
     },
     yAxis: {
       type: 'value'
@@ -542,7 +562,7 @@ function getChartOption_4(data) {
 }
 
 function getChartOption_5(data) {
-  var list5 = data["viewCustomInRelation"]
+  var list5 = data["viewCustomInRelation"].reverse()
   var names5 = [];
   var values_v9 = [];
   var values_v10 = [];
@@ -592,7 +612,12 @@ function getChartOption_5(data) {
     xAxis: [
       {
         type: 'category',
-        data: names5
+        data: names5,
+        axisLabel: {
+          interval: 0,
+          rotate: 30,
+          fontSize: 10
+        },
       }
     ],
     yAxis: [
@@ -694,6 +719,11 @@ function getChartOption_6(data) {
       {
         type: 'category',
         data: ['门外', '熟悉', '洞察', '利益关联', '深度合作', '主动联络', '反复主动'],
+        axisLabel: {
+          interval: 0,
+          rotate: 30,
+          fontSize: 10
+        },
       }
     ],
     yAxis: [

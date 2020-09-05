@@ -16,6 +16,21 @@
     </view>
     <view class="tab-card-wrapper">
       <!-- 选项卡1 -->
+       <view class="cu-card">
+        <view class="cu-item shadow">
+          <view class="data-line">
+            <text>对比日期：</text>
+            <picker mode="date" value="{{startDate6}}" data-datatap="startDate6" bindchange="bindDateChange" style="margin-right:200rpx">
+              <view class="picker">
+                {{startDate6}}
+              </view>
+            </picker>
+            <text class="reset-button" bindtap="resetData" data-index="6">重置</text>
+          </view>
+          <ec-canvas id="mychart-6" class="mychart" canvas-id="mychart-6" ec="{{ ecChart_6 }}"></ec-canvas>
+        </view>
+      </view>
+
       <view class="tab-card" hidden="{{TabCur!=0}}">
         <view class="cu-card">
           <view class="cu-item shadow">
@@ -116,21 +131,6 @@
               <text class="reset-button" bindtap="resetData" data-index="5">重置</text>
             </view>
             <ec-canvas id="mychart-5" class="mychart" canvas-id="mychart-5" ec="{{ ecChart_5 }}"></ec-canvas>
-          </view>
-        </view>
-
-        <view class="cu-card">
-          <view class="cu-item shadow">
-            <view class="data-line">
-              <text>对比日期：</text>
-              <picker mode="date" value="{{startDate6}}" data-datatap="startDate6" bindchange="bindDateChange" style="margin-right:200rpx">
-                <view class="picker">
-                  {{startDate6}}
-                </view>
-              </picker>
-              <text class="reset-button" bindtap="resetData" data-index="6">重置</text>
-            </view>
-            <ec-canvas id="mychart-6" class="mychart" canvas-id="mychart-6" ec="{{ ecChart_6 }}"></ec-canvas>
           </view>
         </view>
 
