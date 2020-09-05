@@ -331,8 +331,8 @@ function getChartOption_1(data) {
   }
   if (list1.length < 7) {
     for (var i = 0; i < 7 - list1.length; i++) {
-      names1.push('No Data');
-      values1.push(0);
+      names1.unshift('No Data');
+      values1.unshift(0);
     }
   }
   chart_1.hideLoading();
@@ -378,11 +378,11 @@ function getChartOption_2(data) {
   }
   if (list2.length < 7) {
     for (var i = 0; i < 7 - list2.length; i++) {
-      names2.push('No Data');
-      values_v1.push(0);
-      values_v2.push(0);
-      values_v3.push(0);
-      values_v4.push(0);
+      names2.unshift('No Data');
+      values_v1.unshift(0);
+      values_v2.unshift(0);
+      values_v3.unshift(0);
+      values_v4.unshift(0);
     }
   }
   chart_2.hideLoading();
@@ -398,7 +398,7 @@ function getChartOption_2(data) {
       data: ['线上非实时互动', '线上实时互动', '线下多边互动', '线下双边互动']
     },
     grid: {
-      bottom: '25%',//距离下边距
+      bottom: '30%',//距离下边距
     },
     tooltip: {},
     xAxis: [
@@ -529,8 +529,8 @@ function getChartOption_4(data) {
   }
   if (list4.length < 7) {
     for (var i = 0; i < 7 - list4.length; i++) {
-      names4.push('No Data');
-      values4.push(0);
+      names4.unshift('No Data');
+      values4.unshift(0);
     }
   }
   // console.log(names4, values4)
@@ -583,14 +583,14 @@ function getChartOption_5(data) {
   }
   if (list5.length < 7) {
     for (var i = 0; i < 7 - list5.length; i++) {
-      names5.push('No Data');
-      values_v9.push(0);
-      values_v10.push(0);
-      values_v11.push(0);
-      values_v12.push(0);
-      values_v13.push(0);
-      values_v14.push(0);
-      values_v15.push(0);
+      names5.unshift('No Data');
+      values_v9.unshift(0);
+      values_v10.unshift(0);
+      values_v11.unshift(0);
+      values_v12.unshift(0);
+      values_v13.unshift(0);
+      values_v14.unshift(0);
+      values_v15.unshift(0);
     }
   }
   chart_5.hideLoading();
@@ -606,7 +606,7 @@ function getChartOption_5(data) {
       data: ['门外', '熟悉', '洞察', '利益关联', '深度合作', '主动联络', '反复主动']
     },
     grid: {
-      bottom: '25%',//距离下边距
+      bottom: '30%',//距离下边距
     },
     tooltip: {},
     xAxis: [
