@@ -3,7 +3,8 @@ import { myRequest } from '../../utils/request'
 const app = getApp()
 
 let chart_1, chart_2, chart_3, chart_4, chart_5, chart_6, chart_7, chart_8, chart_9
-// 7和6是同一套，8和1是同一套，9和4同一套
+// tab2里是 7(和6同一套)，8(和1同一套)，9(和4同一套) 多了productids字段
+// tab3里是 10(和6同一套)，11(和1同一套)，12(和4同一套) 多了areaids字段
 Page({
   data: {
     userInfo: {},
@@ -177,6 +178,7 @@ Page({
   },
   onLoad() {
     this.getProductList()
+    this.getAddJson()
     wx.hideTabBar({}) //未授权隐藏tabbar
     if (wx.getStorageSync('canUseUserInfo')) {
       this.userInfoReadyCallback()
@@ -203,10 +205,13 @@ Page({
       modalName: e.currentTarget.dataset.target
     })
   },
-  hideModal(e) {
+  hideModalTab2(e) {
     this.setData({
       modalName: null
     })
+    this.getChart_7()
+    this.getChart_8()
+    this.getChart_9()
   },
   // 日期变更
   bindDateChange(e) {
@@ -326,6 +331,17 @@ Page({
       }
     })
   },
+  // 获取所有城市JSON
+  getAddJson(){
+    myRequest('getAddJson',null).then(res => {
+      console.log('获取所有城市', res)
+      // this.setData({
+      //   CityPicker: res.map(e=>e.CityName),
+      //   CityPickerOrigin: res
+      // })
+      // this.getArea(res[0].CityCode) //默认给第一个
+    })
+  },
   // 获取我的产品列表
   getProductList(){
     let _obj = {
@@ -420,7 +436,8 @@ Page({
   getChart_7(flag) {
     let { startDate7 } = this.data
     let _obj = {
-      Date: flag ? '' : startDate7,
+      Date: flag ? '' : startDate7 === '未选择' ? '' : startDate7,
+      productids: this.data.ProductIds.join(',')
     }
     myRequest('getCountCustomInRelation_S', _obj).then(res => {
       console.log('getCountCustomInRelation_S：', res)
@@ -431,8 +448,9 @@ Page({
   getChart_8(flag) { //flag传true则时间传""
     let { startDate8, endDate8 } = this.data
     let _obj = {
-      Datestart: flag ? '' : startDate8,
-      Dateend: flag ? '' : endDate8,
+      Datestart: flag ? '' : startDate8 === '未选择' ? '' : startDate8,
+      Dateend: flag ? '' : endDate8 === '未选择' ? '' : endDate8,
+      productids: this.data.ProductIds.join(',')
     }
     myRequest('getContactPoint_S', _obj).then(res => {
       console.log('getContactPoint_S：', res)
@@ -443,8 +461,9 @@ Page({
   getChart_9(flag) {
     let { startDate9, endDate9 } = this.data
     let _obj = {
-      Datestart: flag ? '' : startDate9,
-      Dateend: flag ? '' : endDate9,
+      Datestart: flag ? '' : startDate9 === '未选择' ? '' : startDate9,
+      Dateend: flag ? '' : endDate9 === '未选择' ? '' : endDate9,
+      productids: this.data.ProductIds.join(',')
     }
     myRequest('getCustomPonint_S', _obj).then(res => {
       console.log('getCustomPonint_S：', res)

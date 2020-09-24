@@ -219,7 +219,7 @@
 </view>
 
 <!-- 选择产品弹窗 -->
-<view class="cu-modal drawer-modal justify-end {{modalName=='DrawerModalR'?'show':''}}" bindtap="hideModal">
+<view class="cu-modal drawer-modal justify-end {{modalName=='DrawerModalR'?'show':''}}" bindtap="hideModalTab2">
   <view class="cu-dialog basis-lg" catchtap style="top:{{CustomBar}}px;height:calc(100vh - {{CustomBar}}px)">
     <checkbox-group bindchange="checkboxChange">
       <view class="productList-box">
