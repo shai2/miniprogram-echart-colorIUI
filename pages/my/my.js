@@ -69,8 +69,14 @@ Page({
   },
   // 点击icon-item跳转
   toUrl(e){
-    wx.navigateTo({
-      url: '/pages/'+e.currentTarget.dataset.url
-    })
+    if(['vip/vip'].includes(e.currentTarget.dataset.url)){
+      wx.navigateTo({
+        url: '/pages/'+e.currentTarget.dataset.url
+      })
+    }else{
+      wx.navigateTo({
+        url: '/otherPage/pages/'+e.currentTarget.dataset.url
+      })
+    }
   }
 })

@@ -1,5 +1,5 @@
-import { myRequest } from '../../utils/request'
-import { formatTime } from '../../utils/util'
+import { myRequest } from '../../../utils/request'
+import { formatTime } from '../../../utils/util'
 const app = getApp()
 
 Page({

@@ -1,5 +1,5 @@
-import { myRequest } from '../../utils/request'
-import { formatTime } from '../../utils/util'
+import { myRequest } from '../../../utils/request'
+import { formatTime } from '../../../utils/util'
 
 Page({
   data: {
@@ -27,7 +27,7 @@ Page({
   },
   toClientEdit(){
     wx.navigateTo({
-      url: `/pages/addClient/addClient?customId=${this.data.customId}`
+      url: `/otherPage/pages/addClient/addClient?customId=${this.data.customId}`
     })
   },
   // 获取单一联系人接触
@@ -105,7 +105,7 @@ Page({
   // 去添加接触
   toAddContact(e){
     wx.navigateTo({
-      url: `/pages/addContact/addContact?customId=${this.data.customInfo.Id}&relation=${this.data.customInfo.Relation}`
+      url: `/otherPage/pages/addContact/addContact?customId=${this.data.customInfo.Id}&relation=${this.data.customInfo.Relation}`
     })
   },
   // 编辑触点详情
@@ -114,7 +114,7 @@ Page({
     wx.setStorageSync('editItem',e.target.dataset.item)
     
     wx.navigateTo({
-      url: `/pages/addContact/addContact?customId=${this.data.customInfo.Id}&contactId=${e.target.dataset.id}&relation=${this.data.customInfo.Relation}`
+      url: `/otherPage/pages/addContact/addContact?customId=${this.data.customInfo.Id}&contactId=${e.target.dataset.id}&relation=${this.data.customInfo.Relation}`
     })
   },
   // 删除客户 支持多个 格式：1,2,3

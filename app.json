@@ -3,13 +3,26 @@
     "pages/chart/chart",
     "pages/vip/vip",
     "pages/client/client",
-    "pages/addClient/addClient",
-    "pages/editMyInfo/editMyInfo",
-    "pages/my/my",
-    "pages/clientDetail/clientDetail",
-    "pages/myProduct/myProduct",
-    "pages/addContact/addContact"
+    "pages/my/my"
   ],
+  "subpackages": [
+    {
+      "root": "otherPage",
+      "pages": [
+        "pages/addClient/addClient",
+        "pages/editMyInfo/editMyInfo",
+        "pages/clientDetail/clientDetail",
+        "pages/myProduct/myProduct",
+        "pages/addContact/addContact"
+      ]
+    }
+  ],
+  "preloadRule": {
+    "pages/chart/chart": {
+      "network": "all",
+      "packages": ["otherPage"]
+    }
+  },
   "window":{
     "enablePullDownRefresh": false,
     "navigationBarBackgroundColor": "#0F355A",

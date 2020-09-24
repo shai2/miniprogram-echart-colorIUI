@@ -41,6 +41,6 @@
   z-index:10000; 
 }
 checkbox .wx-checkbox-input.wx-checkbox-input-checked{
-  border: 1rpx solid var(--theme)!important;
+  border: 1px solid var(--theme)!important;
   background: var(--theme)!important;
 }

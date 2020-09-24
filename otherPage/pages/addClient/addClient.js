@@ -1,4 +1,4 @@
-import { myRequest } from '../../utils/request'
+import { myRequest } from '../../../utils/request'
 const app = getApp()
 
 Page({
@@ -146,7 +146,7 @@ Page({
           setTimeout(()=>{
             if(this.data.isEdit){
               wx.redirectTo({
-                url: `/pages/clientDetail/clientDetail?customId=${this.data.editId}`
+                url: `otherPage/pages/clientDetail/clientDetail?customId=${this.data.editId}`
               })
             }
             else if(this.data.from=='customList'){

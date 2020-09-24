@@ -115,13 +115,13 @@ Page({
   // 查看详情
   toClientDetail(e){
     wx.navigateTo({
-      url: `/pages/clientDetail/clientDetail?customId=${e.currentTarget.dataset.id}`
+      url: `/otherPage/pages/clientDetail/clientDetail?customId=${e.currentTarget.dataset.id}`
     })
   },
   // 添加客户
   toAddClient(){
     wx.navigateTo({
-      url: `/pages/addClient/addClient?from=customList`
+      url: `/otherPage/pages/addClient/addClient?from=customList`
     })
   },
   // 获取我的产品列表

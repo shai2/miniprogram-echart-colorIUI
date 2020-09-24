@@ -88,35 +88,35 @@
 				{
 					"id": 3,
 					"name": "客户信息",
-					"pathName": "pages/clientDetail/clientDetail",
+					"pathName": "otherPage/pages/clientDetail/clientDetail",
 					"query": "customId=6",
 					"scene": null
 				},
 				{
 					"id": 4,
 					"name": "添加客户",
-					"pathName": "pages/addClient/addClient",
+					"pathName": "otherPage/pages/addClient/addClient",
 					"query": "",
 					"scene": null
 				},
 				{
 					"id": -1,
 					"name": "我的产品",
-					"pathName": "pages/myProduct/myProduct",
+					"pathName": "otherPage/pages/myProduct/myProduct",
 					"query": "",
 					"scene": null
 				},
 				{
 					"id": -1,
 					"name": "编辑客户",
-					"pathName": "pages/addClient/addClient",
+					"pathName": "otherPage/pages/addClient/addClient",
 					"query": "customId=9",
 					"scene": null
 				},
 				{
 					"id": -1,
 					"name": "添加接触点",
-					"pathName": "pages/addContact/addContact",
+					"pathName": "otherPage/pages/addContact/addContact",
 					"query": "customId=9",
 					"scene": null
 				},

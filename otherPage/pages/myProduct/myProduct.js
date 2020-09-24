@@ -1,4 +1,4 @@
-import { myRequest } from '../../utils/request'
+import { myRequest } from '../../../utils/request'
 const app = getApp()
 
 Page({
