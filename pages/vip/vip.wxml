@@ -1,3 +1,5 @@
 <view class="vip">
-  vip已过期，请联系管理员续费
+  <image class="image" src="../../images/outdata.jpeg" mode="aspectFill"></image>
+  <view class="box"></view>
+  <text class="text">思谟医药咨询(上海)有限公司</text>
 </view>

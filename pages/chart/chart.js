@@ -226,9 +226,11 @@ Page({
           title: 'vip已过期，请联系管理员',
           icon: 'none',
           success: () => {
-            wx.reLaunch({
-              url: `/pages/vip/vip`
-            })
+            setTimeout(()=>{
+              wx.reLaunch({
+                url: `/pages/vip/vip`
+              })
+            },500)
           }
         })
       }

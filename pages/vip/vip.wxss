@@ -1,6 +1,24 @@
 .vip{
-  padding: 150rpx;
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.image{
+  height: 100%;
+  width: 100%;
+}
+.text{
+  position: fixed;
+  bottom: 24rpx;
+  color: #fff;
+  font-size: 24rpx;
+}
+.box{
+  position: fixed;
+  width: 1000rpx;
+  height: 400rpx;
+  background: #0E325C;
+  bottom: -300rpx;
+  transform: rotate(-9deg);
 }

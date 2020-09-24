@@ -24,21 +24,24 @@ Page({
       url: 'myProduct/myProduct'
     }, 
     {
-      icon: 'noticefill',
+      icon: 'phone',
       color: 'olive',
-      badge: 22,
-      name: '暂无'
-    }, {
-      icon: 'upstagefill',
-      color: 'cyan',
+      name: '联系我们',
       badge: 0,
-      name: '暂无'
-    }, {
-      icon: 'clothesfill',
-      color: 'blue',
-      badge: 0,
-      name: '暂无'
-    }],
+      url: 'vip/vip'
+    }
+    // , {
+    //   icon: 'upstagefill',
+    //   color: 'cyan',
+    // badge: 22,
+    //   name: '暂无'
+    // }, {
+    //   icon: 'clothesfill',
+    //   color: 'blue',
+    //   badge: 0,
+    //   name: '暂无'
+    // }
+    ],
     gridCol:3,
   },
   onLoad() {
