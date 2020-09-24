@@ -50,6 +50,30 @@
   height: 700rpx;
   position: relative;
 }
+.cu-item-sp{
+  height: auto;
+  display: flex!important;
+  justify-content: center;
+  flex-direction: row;
+  padding-bottom: 20rpx;
+}
+.mylist-title{
+  flex-basis: 5em;
+  flex-shrink: 0;
+  margin-top: 5rpx;
+}
+.mylist{
+  flex-grow: 1;
+}
+.mylist-item{
+  display:inline-block;
+  padding: 5rpx 10rpx;
+  border-radius: 10rpx;
+  border: 1px solid var(--theme);
+  background: rgba(15,53,90,0.2);
+  margin-right: 10rpx;
+  margin-bottom: 10rpx;
+}
 .card-top {
   margin-bottom: 50rpx;
 }
@@ -64,6 +88,12 @@
   left: 20rpx;
   right: 20rpx;
 }
+/* .cu-item-plus{
+  height: 750rpx;
+}
+.cu-item-plus .mychart{
+  top: 140rpx;
+} */
 .data-line{
   display: flex;
   justify-content: space-between;
@@ -84,4 +114,12 @@
   padding: 10rpx 0;
   text-align: center;
   border-radius: 10rpx;
+}
+.productList-box{
+  padding: 36rpx;
+}
+.productList-item{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20rpx;
 }

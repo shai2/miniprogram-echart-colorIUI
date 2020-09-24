@@ -37,3 +37,10 @@
   width:120rpx!important;
   margin-left:20rpx!important;
 }
+.cu-modal.drawer-modal {
+  z-index:10000; 
+}
+checkbox .wx-checkbox-input.wx-checkbox-input-checked{
+  border: 1rpx solid var(--theme)!important;
+  background: var(--theme)!important;
+}

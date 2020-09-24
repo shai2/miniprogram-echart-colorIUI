@@ -16,22 +16,21 @@
     </view>
     <view class="tab-card-wrapper">
       <!-- 选项卡1 -->
-       <view class="cu-card">
-        <view class="cu-item shadow">
-          <view class="data-line">
-            <text>对比日期：</text>
-            <picker mode="date" value="{{startDate6}}" data-datatap="startDate6" bindchange="bindDateChange" style="margin-right:200rpx">
-              <view class="picker">
-                {{startDate6}}
-              </view>
-            </picker>
-            <text class="reset-button" bindtap="resetData" data-index="6">重置</text>
+      <view class="tab-card" wx:if="{{TabCur==0}}">
+        <view class="cu-card">
+          <view class="cu-item shadow">
+            <view class="data-line">
+              <text>对比日期：</text>
+              <picker mode="date" value="{{startDate6}}" data-datatap="startDate6" bindchange="bindDateChange" style="margin-right:200rpx">
+                <view class="picker">
+                  {{startDate6}}
+                </view>
+              </picker>
+              <text class="reset-button" bindtap="resetData" data-index="6">重置</text>
+            </view>
+            <ec-canvas id="mychart-6" class="mychart" canvas-id="mychart-6" ec="{{ ecChart_6 }}"></ec-canvas>
           </view>
-          <ec-canvas id="mychart-6" class="mychart" canvas-id="mychart-6" ec="{{ ecChart_6 }}"></ec-canvas>
         </view>
-      </view>
-
-      <view class="tab-card" hidden="{{TabCur!=0}}">
         <view class="cu-card">
           <view class="cu-item shadow">
             <view class="data-line">
@@ -136,17 +135,76 @@
 
       </view>
       <!-- 选项卡2 -->
-      <view class="tab-card" hidden="{{TabCur!=1}}">
+      <view class="tab-card" wx:if="{{TabCur==1}}">
         <view class="cu-card">
-          <view class="cu-item shadow">暂无数据</view>
+          <view class="cu-item shadow cu-item-sp">
+            <view class="mylist-title">选择产品：</view>
+            <view class="mylist" bindtap="showModal" data-target="DrawerModalR" >
+              <text wx:if="{{ProductIdsShow.length===0}}" class="mylist-item">全部</text>
+              <text class="mylist-item" wx:for="{{ProductIdsShow}}" wx:key="index">{{item}}</text>
+            </view>
+          </view>
         </view>
 
         <view class="cu-card">
-          <view class="cu-item shadow">暂无数据</view>
+          <view class="cu-item shadow">
+            <view class="data-line">
+              <text>对比日期：</text>
+              <picker mode="date" value="{{startDate7}}" data-datatap="startDate7" bindchange="bindDateChange" style="margin-right:200rpx">
+                <view class="picker">
+                  {{startDate7}}
+                </view>
+              </picker>
+              <text class="reset-button" bindtap="resetData" data-index="7">重置</text>
+            </view>
+            <ec-canvas id="mychart-7" class="mychart" canvas-id="mychart-7" ec="{{ ecChart_7 }}"></ec-canvas>
+          </view>
+        </view>
+
+        <view class="cu-card">
+          <view class="cu-item shadow">
+            <view class="data-line">
+              <text>时间范围：</text>
+              <picker mode="date" value="{{startDate8}}" data-datatap="startDate8" bindchange="bindDateChange">
+                <view class="picker">
+                  {{startDate8}}
+                </view>
+              </picker>
+              <text>~</text>
+              <picker mode="date" value="{{endDate8}}" data-datatap="endDate8" bindchange="bindDateChange">
+                <view class="picker">
+                  {{endDate8}}
+                </view>
+              </picker>
+              <text class="reset-button" bindtap="resetData" data-index="8">重置</text>
+            </view>
+            <ec-canvas id="mychart-8" class="mychart" canvas-id="mychart-8" ec="{{ ecChart_8 }}"></ec-canvas>
+          </view>
+        </view>
+
+        <view class="cu-card">
+          <view class="cu-item shadow">
+            <view class="data-line">
+              <text>时间范围：</text>
+              <picker mode="date" value="{{startDate9}}" data-datatap="startDate9" bindchange="bindDateChange">
+                <view class="picker">
+                  {{startDate9}}
+                </view>
+              </picker>
+              <text>~</text>
+              <picker mode="date" value="{{endDate9}}" data-datatap="endDate9" bindchange="bindDateChange">
+                <view class="picker">
+                  {{endDate9}}
+                </view>
+              </picker>
+              <text class="reset-button" bindtap="resetData" data-index="9">重置</text>
+            </view>
+            <ec-canvas id="mychart-9" class="mychart" canvas-id="mychart-9" ec="{{ ecChart_9 }}"></ec-canvas>
+          </view>
         </view>
       </view>
       <!-- 选项卡3 -->
-      <view class="tab-card" hidden="{{TabCur!=2}}">
+      <view class="tab-card" wx:if="{{TabCur==2}}">
         <view class="cu-card">
           <view class="cu-item shadow">暂无数据</view>
         </view>
@@ -157,5 +215,19 @@
       </view>
 
     </view>
+  </view>
+</view>
+
+<!-- 选择产品弹窗 -->
+<view class="cu-modal drawer-modal justify-end {{modalName=='DrawerModalR'?'show':''}}" bindtap="hideModal">
+  <view class="cu-dialog basis-lg" catchtap style="top:{{CustomBar}}px;height:calc(100vh - {{CustomBar}}px)">
+    <checkbox-group bindchange="checkboxChange">
+      <view class="productList-box">
+      <view class="productList-item" wx:for="{{productList}}" wx:key="index">
+        {{item.ProductName}}
+        <checkbox color="#0F355A" checked="{{item.checked}}" value="{{item.Id}}"></checkbox>
+      </view>
+      </view>
+    </checkbox-group>
   </view>
 </view>

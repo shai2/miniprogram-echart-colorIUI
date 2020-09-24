@@ -2,11 +2,14 @@ import * as echarts from '../../ec-canvas/echarts';
 import { myRequest } from '../../utils/request'
 const app = getApp()
 
-let chart_1, chart_2, chart_3, chart_4, chart_5, chart_6
-
+let chart_1, chart_2, chart_3, chart_4, chart_5, chart_6, chart_7, chart_8, chart_9
+// 7和6是同一套，8和1是同一套，9和4同一套
 Page({
   data: {
     userInfo: {},
+    productList: [],//产品列表
+    ProductIds:[],
+    ProductIdsShow:[],
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     TabCur: 0,
@@ -23,6 +26,12 @@ Page({
     endDate5: '未选择',
     startDate6: '未选择',
     endDate6: '未选择',
+    startDate7: '未选择',
+    endDate7: '未选择',
+    startDate8: '未选择',
+    endDate8: '未选择',
+    startDate9: '未选择',
+    endDate9: '未选择',
     ecChart_1: {
       disableTouch: true,
       onInit(canvas, width, height, dpr) {
@@ -118,12 +127,86 @@ Page({
         return chart_6;
       }
     },
+    ecChart_7: {
+      disableTouch: true,
+      onInit(canvas, width, height, dpr) {
+        chart_7 = echarts.init(canvas, null, {
+          width: width,
+          height: height,
+          devicePixelRatio: dpr,
+        });
+        // console.log(77777,canvas, width, height, dpr)
+        canvas.setChart(chart_7);
+        chart_7.showLoading();
+        let _page = getCurrentPages()
+        _page[_page.length - 1].getChart_7(true)
+        return chart_7;
+      }
+    },
+    ecChart_8: {
+      disableTouch: true,
+      onInit(canvas, width, height, dpr) {
+        chart_8 = echarts.init(canvas, null, {
+          width: width,
+          height: height,
+          devicePixelRatio: dpr,
+        });
+        // console.log(88888,canvas, width, height, dpr)
+        canvas.setChart(chart_8);
+        let _page = getCurrentPages()
+        _page[_page.length - 1].getChart_8(true)
+        return chart_8;
+      }
+    },
+    ecChart_9: {
+      disableTouch: true,
+      onInit(canvas, width, height, dpr) {
+        chart_9 = echarts.init(canvas, null, {
+          width: width,
+          height: height,
+          devicePixelRatio: dpr,
+        });
+        // console.log(99999,canvas, width, height, dpr)
+        canvas.setChart(chart_9);
+        chart_9.showLoading();
+        let _page = getCurrentPages()
+        _page[_page.length - 1].getChart_9(true)
+        return chart_9;
+      }
+    },
   },
   onLoad() {
+    this.getProductList()
     wx.hideTabBar({}) //未授权隐藏tabbar
     if (wx.getStorageSync('canUseUserInfo')) {
       this.userInfoReadyCallback()
     }
+  },
+  // 产品多选
+  checkboxChange(e){
+    let _val = e.detail.value
+    console.log(_val,typeof(_val))
+    let _ProductIdsShow = _val.map(e=>{
+      let _item = this.data.productList.find(m=>{
+        return m.Id == e
+      })
+      return _item.ProductName
+    })
+    this.setData({
+      ProductIds: _val,
+      ProductIdsShow:_ProductIdsShow
+    })
+  },
+  // 弹窗
+  showModal(e) {
+    this.setData({
+      modalName: e.currentTarget.dataset.target
+    })
+  },
+  hideModal(e) {
+    this.setData({
+      modalName: null
+    })
   },
   // 日期变更
   bindDateChange(e) {
@@ -243,6 +326,19 @@ Page({
       }
     })
   },
+  // 获取我的产品列表
+  getProductList(){
+    let _obj = {
+      pagesize: 9999
+    }
+    myRequest('getProductList', _obj).then(res => {
+      let _productList = res.rows.map(e=>e)
+      console.log('产品列表：', _productList)
+      this.setData({
+        productList: _productList
+      })
+    })
+  },
   // 获取关系标签
   getRelationInfo() {
     myRequest('getRelationInfo', null).then(res => {
@@ -309,7 +405,7 @@ Page({
       getChartOption_5(res)
     })
   },
-  // 销售视图标签客户数量与结构图表
+  // 销售视图标签客户数量与结构图表（销售视角）
   getChart_6(flag) {
     let { startDate6 } = this.data
     let _obj = {
@@ -318,6 +414,41 @@ Page({
     myRequest('getCountCustomInRelation_S', _obj).then(res => {
       console.log('getCountCustomInRelation_S：', res)
       getChartOption_6(res)
+    })
+  },
+  // 销售视图标签客户数量与结构图表（产品视角）todo:
+  getChart_7(flag) {
+    let { startDate7 } = this.data
+    let _obj = {
+      Date: flag ? '' : startDate7,
+    }
+    myRequest('getCountCustomInRelation_S', _obj).then(res => {
+      console.log('getCountCustomInRelation_S：', res)
+      getChartOption_7(res)
+    })
+  },
+  // 销售视图接触点分值图表（产品视角） todo:
+  getChart_8(flag) { //flag传true则时间传""
+    let { startDate8, endDate8 } = this.data
+    let _obj = {
+      Datestart: flag ? '' : startDate8,
+      Dateend: flag ? '' : endDate8,
+    }
+    myRequest('getContactPoint_S', _obj).then(res => {
+      console.log('getContactPoint_S：', res)
+      getChartOption_8(res)
+    })
+  },
+  // 销售视图客户总分值图表（产品视角） todo:
+  getChart_9(flag) {
+    let { startDate9, endDate9 } = this.data
+    let _obj = {
+      Datestart: flag ? '' : startDate9,
+      Dateend: flag ? '' : endDate9,
+    }
+    myRequest('getCustomPonint_S', _obj).then(res => {
+      console.log('getCustomPonint_S：', res)
+      getChartOption_9(res)
     })
   },
 })
@@ -745,5 +876,161 @@ function getChartOption_6(data) {
         data: values_v8
       }
     ]
+  });
+}
+
+function getChartOption_7(data) {
+  var list6 = data["viewCountCustomInRelation"]
+  var values_v7 = [];
+  var values_v8 = [];
+  values_v7.push(list6[0].v1);
+  values_v7.push(list6[0].v2);
+  values_v7.push(list6[0].v3);
+  values_v7.push(list6[0].v4);
+  values_v7.push(list6[0].v5);
+  values_v7.push(list6[0].v6);
+  values_v7.push(list6[0].v7);
+  if (list6.length < 2) {
+    values_v8.push(0);
+    values_v8.push(0);
+    values_v8.push(0);
+    values_v8.push(0);
+    values_v8.push(0);
+    values_v8.push(0);
+    values_v8.push(0);
+  } else {
+    values_v8.push(list6[1].v1);
+    values_v8.push(list6[1].v2);
+    values_v8.push(list6[1].v3);
+    values_v8.push(list6[1].v4);
+    values_v8.push(list6[1].v5);
+    values_v8.push(list6[1].v6);
+    values_v8.push(list6[1].v7);
+  }
+  chart_7 && chart_7.hideLoading();
+  chart_7 && chart_7.setOption({
+    title: {
+      text: '客户数量与结构（按周）',
+      subtext: '未选择筛选日期时，历史数据为上周'
+    },
+    color: ['#396184', '#5187b5'],
+    legend: {
+      orient: 'horizontal', // 'vertical'
+      x: 'center', // 'center' | 'left' | {number},
+      y: 'bottom', // 'center' | 'bottom' | {number}
+      data: ['本周', '历史']
+    },
+    tooltip: {},
+    xAxis: [
+      {
+        type: 'category',
+        data: ['门外', '熟悉', '洞察', '利益关联', '深度合作', '主动联络', '反复主动'],
+        axisLabel: {
+          interval: 0,
+          rotate: 30,
+          fontSize: 10
+        },
+      }
+    ],
+    yAxis: [
+      {
+        type: 'value'
+      }
+    ],
+    series: [
+      {
+        name: '本周',
+        type: 'bar',
+        data: values_v7
+      },
+      {
+        name: '历史',
+        type: 'line',
+        data: values_v8
+      }
+    ]
+  });
+}
+
+function getChartOption_8(data) {
+  var list1 = data["viewContactPoint"].reverse()
+  var names1 = [];
+  var values1 = [];
+  for (var i = 0; i < list1.length; i++) {
+    names1.push(list1[i].name);
+    values1.push(list1[i].num);
+  }
+  if (list1.length < 7) {
+    for (var i = 0; i < 7 - list1.length; i++) {
+      names1.unshift('No Data');
+      values1.unshift(0);
+    }
+  }
+  chart_8.hideLoading();
+  chart_8.setOption({
+    title: {
+      text: '接触点分值统计（按日）',
+    },
+    color: '#396184',
+    tooltip: {},
+    xAxis: {
+      type: 'category',
+      data: names1,
+      axisLabel: {
+        interval: 0,
+        rotate: 30,
+        fontSize: 10
+      },
+    },
+    yAxis: {
+      type: 'value'
+    },
+    series: [{
+      data: values1,
+      type: 'bar',
+    }]
+  });
+
+}
+
+function getChartOption_9(data) {
+  var list4 = data["viewCustomPonint"].reverse()
+  var names4 = [];
+  var values4 = [];
+  for (var i = 0; i < list4.length; i++) {
+    names4.push(list4[i].name);
+    values4.push(list4[i].num);
+  }
+  if (list4.length < 7) {
+    for (var i = 0; i < 7 - list4.length; i++) {
+      names4.unshift('No Data');
+      values4.unshift(0);
+    }
+  }
+  // console.log(names4, values4)
+  chart_9.hideLoading();
+  chart_9.setOption({
+    title: {
+      text: '客户总分值统计（按周）',
+      subtext: '客户数 x 客户标签值'
+    },
+    color: '#396184',
+    tooltip: {},
+    xAxis: {
+      type: 'category',
+      data: names4,
+      axisLabel: {
+        interval: 0,
+        rotate: 30,
+        fontSize: 10
+      },
+    },
+    yAxis: {
+      type: 'value'
+    },
+    series: [{
+      data: values4,
+      type: 'bar',
+    }]
   });
 }
