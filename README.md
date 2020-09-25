@@ -3,4 +3,6 @@
 ----------------------------------------------------------------------------
 - https://developers.weixin.qq.com/community/develop/doc/000e2cb1684d88a13077647d25b806 小程序里用watch、computed
 - 在线解析 http://tool.chacuo.net/cryptaes/
+- 在线解析2 https://www.keylala.cn/aes
+
 ----------------------------------------------------------------------------

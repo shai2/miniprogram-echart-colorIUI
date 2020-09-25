@@ -74,6 +74,10 @@
   margin-right: 10rpx;
   margin-bottom: 10rpx;
 }
+.mylist-item text{
+  display:inline-block;
+  margin-left:5rpx;
+}
 .card-top {
   margin-bottom: 50rpx;
 }
@@ -118,8 +122,14 @@
 .productList-box{
   padding: 36rpx;
 }
-.productList-item{
+.show-contorl{
   display: flex;
   justify-content: space-between;
   margin-bottom: 20rpx;
+}
+.search-btn-wrapper{
+  width:120rpx;
+}
+.search-form{
+  margin: 0 10rpx!important;
 }

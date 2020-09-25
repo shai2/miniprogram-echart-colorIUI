@@ -139,9 +139,12 @@
         <view class="cu-card">
           <view class="cu-item shadow cu-item-sp">
             <view class="mylist-title">选择产品：</view>
-            <view class="mylist" bindtap="showModal" data-target="DrawerModalR" >
+            <view class="mylist" bindtap="showModal" data-target="DrawerModalRTab2" >
               <text wx:if="{{ProductIdsShow.length===0}}" class="mylist-item">全部</text>
-              <text class="mylist-item" wx:for="{{ProductIdsShow}}" wx:key="index">{{item}}</text>
+              <view class="mylist-item" wx:for="{{ProductIdsShow}}" wx:key="index">
+                <text>{{item}}</text>
+                <text catchtap="delProduct" data-index="{{index}}" class="cuIcon-close"></text>
+              </view>
             </view>
           </view>
         </view>
@@ -206,11 +209,73 @@
       <!-- 选项卡3 -->
       <view class="tab-card" wx:if="{{TabCur==2}}">
         <view class="cu-card">
-          <view class="cu-item shadow">暂无数据</view>
+          <view class="cu-item shadow cu-item-sp">
+            <view class="mylist-title">选择城市：</view>
+            <view class="mylist" bindtap="showModal" data-target="DrawerModalRTab3" >
+              <text wx:if="{{CityShow.length===0}}" class="mylist-item">全部</text>
+              <view class="mylist-item" wx:for="{{CityShow}}" wx:key="index">
+                <text>{{item}}</text>
+                <text catchtap="delCity" data-index="{{index}}" class="cuIcon-close"></text>
+              </view>
+            </view>
+          </view>
         </view>
 
         <view class="cu-card">
-          <view class="cu-item shadow">暂无数据</view>
+          <view class="cu-item shadow">
+            <view class="data-line">
+              <text>对比日期：</text>
+              <picker mode="date" value="{{startDate10}}" data-datatap="startDate10" bindchange="bindDateChange" style="margin-right:200rpx">
+                <view class="picker">
+                  {{startDate10}}
+                </view>
+              </picker>
+              <text class="reset-button" bindtap="resetData" data-index="10">重置</text>
+            </view>
+            <ec-canvas id="mychart-10" class="mychart" canvas-id="mychart-10" ec="{{ ecChart_10 }}"></ec-canvas>
+          </view>
+        </view>
+
+        <view class="cu-card">
+          <view class="cu-item shadow">
+            <view class="data-line">
+              <text>时间范围：</text>
+              <picker mode="date" value="{{startDate11}}" data-datatap="startDate11" bindchange="bindDateChange">
+                <view class="picker">
+                  {{startDate11}}
+                </view>
+              </picker>
+              <text>~</text>
+              <picker mode="date" value="{{endDate11}}" data-datatap="endDate11" bindchange="bindDateChange">
+                <view class="picker">
+                  {{endDate11}}
+                </view>
+              </picker>
+              <text class="reset-button" bindtap="resetData" data-index="11">重置</text>
+            </view>
+            <ec-canvas id="mychart-11" class="mychart" canvas-id="mychart-11" ec="{{ ecChart_11 }}"></ec-canvas>
+          </view>
+        </view>
+
+        <view class="cu-card">
+          <view class="cu-item shadow">
+            <view class="data-line">
+              <text>时间范围：</text>
+              <picker mode="date" value="{{startDate12}}" data-datatap="startDate12" bindchange="bindDateChange">
+                <view class="picker">
+                  {{startDate12}}
+                </view>
+              </picker>
+              <text>~</text>
+              <picker mode="date" value="{{endDate12}}" data-datatap="endDate12" bindchange="bindDateChange">
+                <view class="picker">
+                  {{endDate12}}
+                </view>
+              </picker>
+              <text class="reset-button" bindtap="resetData" data-index="12">重置</text>
+            </view>
+            <ec-canvas id="mychart-12" class="mychart" canvas-id="mychart-12" ec="{{ ecChart_12 }}"></ec-canvas>
+          </view>
         </view>
       </view>
 
@@ -219,13 +284,42 @@
 </view>
 
 <!-- 选择产品弹窗 -->
-<view class="cu-modal drawer-modal justify-end {{modalName=='DrawerModalR'?'show':''}}" bindtap="hideModalTab2">
+<view class="cu-modal drawer-modal justify-end {{modalName=='DrawerModalRTab2'?'show':''}}" bindtap="hideModalTab2">
   <view class="cu-dialog basis-lg" catchtap style="top:{{CustomBar}}px;height:calc(100vh - {{CustomBar}}px)">
     <checkbox-group bindchange="checkboxChange">
       <view class="productList-box">
-      <view class="productList-item" wx:for="{{productList}}" wx:key="index">
-        {{item.ProductName}}
-        <checkbox color="#0F355A" checked="{{item.checked}}" value="{{item.Id}}"></checkbox>
+      <view class="productList-item" wx:for="{{ProductList}}" wx:key="index">
+        <view class="show-contorl" hidden="{{false}}">
+          {{item.ProductName}}
+          <checkbox color="#0F355A" checked="{{item.checked}}" value="{{item.Id}}"></checkbox>
+        </view>
+      </view>
+      </view>
+    </checkbox-group>
+  </view>
+</view>
+
+<!-- 选择城市弹窗 -->
+<view class="cu-modal drawer-modal justify-end {{modalName=='DrawerModalRTab3'?'show':''}}" bindtap="hideModalTab3">
+  <view class="cu-dialog basis-lg" catchtap style="top:{{CustomBar}}px;height:calc(100vh - {{CustomBar}}px)">
+    <!-- 搜索 -->
+    <view class="cu-bar bg-white search" style="top:{{CustomBar}}px;">
+      <view class="search-form round">
+        <text class="cuIcon-search"></text>
+        <input value="{{searchText}}" bindinput="changeSearch" type="text" placeholder="搜索城市" confirm-type="search" bindconfirm="search"></input>
+        <text wx:if="{{searchText.length}}" style="font-size:30rpx;color:#aaa;" class="cuIcon-roundclosefill" bindtap="clearSearch"></text>
+      </view>
+      <view class="action search-btn-wrapper">
+        <button class="cu-btn search-btn shadow-blur round" bindtap="search">搜索</button>
+      </view>
+    </view>
+    <checkbox-group bindchange="checkboxChangeCity">
+      <view class="productList-box">
+      <view class="productList-item" wx:for="{{CityList}}" wx:key="index">
+        <view class="show-contorl" hidden="{{!item.show}}">
+          {{item.CityName}}
+          <checkbox color="#0F355A" checked="{{item.checked}}" value="{{item.CityName}}"></checkbox>
+        </view>
       </view>
       </view>
     </checkbox-group>

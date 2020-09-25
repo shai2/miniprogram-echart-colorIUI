@@ -44,3 +44,6 @@ checkbox .wx-checkbox-input.wx-checkbox-input-checked{
   border: 1px solid var(--theme)!important;
   background: var(--theme)!important;
 }
+.cu-dialog{
+  overflow: auto;
+}
