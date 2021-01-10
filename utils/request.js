@@ -22,8 +22,21 @@ export function myRequest(url, data, method = 'POST') {
       data,
       success: res => {
         // console.log(res) 
+        if (res.data.res_code === "87") {
+          wx.showToast({
+            title: "vip已过期，请联系管理员",
+            icon: "none",
+            success: () => {
+              setTimeout(() => {
+                wx.reLaunch({
+                  url: `/pages/vip/vip`,
+                });
+              }, 500);
+            },
+          });
+        }
         // code==97为token过期
-        if(res.data.res_code === '97'){
+        else if(res.data.res_code === '97'){
           getToken()
         } else if (res.data.res_code !== '00') {
           let _err = res.data.res_msg
@@ -50,7 +63,7 @@ export function myRequest(url, data, method = 'POST') {
           icon: 'none',
           mask: true
         })
-        console.log(555555,res.data.res_msg)
+        // console.log(555555,res.data.res_msg)
         resolve(res.data.res_msg)
       }
     })
@@ -67,3 +80,4 @@ function getToken(openid = wx.getStorageSync('openid')){
     _currentPage.onLoad() //手动执行token过期那一页的onLoad
   })
 }
+

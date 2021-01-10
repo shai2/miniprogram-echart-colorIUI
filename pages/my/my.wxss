@@ -40,3 +40,17 @@
   width: 100%;
   margin-top: 80rpx;
 }
+.login-title{
+  color: #fff;
+  margin-bottom: 50rpx;
+}
+.login-button{
+  border-radius: 100rpx;
+  margin-bottom: 50rpx;
+}
+.refuse-button{
+  color: #fff;
+  border-radius: 100rpx;
+  padding: 25rpx 140rpx;
+  border: 1px solid #fff;
+}

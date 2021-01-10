@@ -3,61 +3,70 @@ const app = getApp()
 
 Page({
   data: {
-    productList: [],//产品列表 提前请求
+    productList: [], //产品列表 提前请求
     TabCur: 0, //左侧item高亮
     MainCur: 0, //找到的滑动位置id
     VerticalNavTop: 0,
     list: [],
-    customOriginList:null,//存接口返回的客户数据（未格式化前）
+    customOriginList: null, //存接口返回的客户数据（未格式化前）
     load: true,
-    relationArr:[],
-    customArr:[],
-    searchText:'',//搜索文本
-    searchList: [],//搜索后列表
+    relationArr: [],
+    customArr: [],
+    searchText: "", //搜索文本
+    searchList: [], //搜索后列表
   },
   onLoad() {
     wx.showLoading({
-      title: '加载中...',
-      mask: true
+      title: "加载中...",
+      mask: true,
     });
-    this.getCustomList()
-    this.getProductList()
-    this.getContactAssess()
+    this.getCustomList();
+    this.getProductList();
+    this.getContactAssess();
   },
   onShow() {
-    // 没有标签list 就获取一次
-    !this.data.list.length && this.listInit()
+    // 请求关系列表
+    !wx.getStorageSync("RelationInfo") && this.getRelationInfo();
     // 每次切换回来 有flag时 重新请求一次列表
-    if(wx.getStorageSync('needRefreshClient')){
-      this.getCustomList()
-      wx.removeStorageSync('needRefreshClient')
+    if (wx.getStorageSync("needRefreshClient")) {
+      this.getCustomList();
+      wx.removeStorageSync("needRefreshClient");
     }
     //每次进来清空搜索结果
-    this.clearSearch()
+    this.clearSearch();
   },
   onReady() {
-    wx.hideLoading()
+    wx.hideLoading();
+  },
+  // 获取关系标签
+  getRelationInfo() {
+    myRequest("getRelationInfo", null).then((res) => {
+      console.log("关系标签：", res);
+      wx.setStorageSync("RelationInfo", res.reverse());
+      this.listInit();
+    });
   },
   // 左侧列表初始化，加字段
-  listInit(){
-    let _listOrigin = wx.getStorageSync('RelationInfo')
-    let _list = []
+  listInit() {
+    let _listOrigin = wx.getStorageSync("RelationInfo");
+    let _list = [];
     for (let i = 0; i < _listOrigin.length; i++) {
-      _list[i] = {}
-      _list[i].name = _listOrigin[i].RelationTag
-      _list[i].id = i
+      _list[i] = {};
+      _list[i].name = _listOrigin[i].RelationTag;
+      _list[i].id = i;
     }
+    console.log("_list", _list);
     this.setData({
       list: _list,
-    })
+    });
   },
   // 点击左边
   tabSelect(e) {
     this.setData({
       TabCur: e.currentTarget.dataset.id,
       MainCur: e.currentTarget.dataset.id,
-      VerticalNavTop: (e.currentTarget.dataset.id - 1) * 50
-    })
+      VerticalNavTop: (e.currentTarget.dataset.id - 1) * 50,
+    });
   },
   // 滑动右边同步左边
   VerticalMain(e) {
@@ -67,100 +76,108 @@ Page({
     if (this.data.load) {
       for (let i = 0; i < list.length; i++) {
         let view = wx.createSelectorQuery().select("#main-" + list[i].id);
-        view.fields({
-          size: true
-        }, data => {
-          list[i].top = tabHeight;
-          tabHeight = tabHeight + data.height;
-          list[i].bottom = tabHeight;     
-        }).exec();
+        view
+          .fields(
+            {
+              size: true,
+            },
+            (data) => {
+              list[i].top = tabHeight;
+              tabHeight = tabHeight + data.height;
+              list[i].bottom = tabHeight;
+            }
+          )
+          .exec();
       }
       that.setData({
         load: false,
-        list: list
-      })
+        list: list,
+      });
     }
     let scrollTop = e.detail.scrollTop + 20;
     for (let i = 0; i < list.length; i++) {
       if (scrollTop > list[i].top && scrollTop < list[i].bottom) {
         that.setData({
           VerticalNavTop: (list[i].id - 1) * 50,
-          TabCur: list[i].id
-        })
-        return false
+          TabCur: list[i].id,
+        });
+        return false;
       }
     }
   },
   // 获取联系人列表
-  getCustomList(){
-    myRequest('getCustomList', null).then(res => {
-      res=res.map(e=>{
-        e.RelationId = e.RelationId || 1
-        return e
-      })
-      console.log('获取联系人列表：', res)
-      this.listInit()
-      // console.log('res:',res)
-      let _customArr = new Array(this.data.list.length).fill('')
-      _customArr = _customArr.map(e=>[])
-      res.forEach((e,i)=>{
-        _customArr[e.RelationId-1].push(e) //RelationId从1开始的 比index大1
-      })
+  getCustomList() {
+    myRequest("getCustomList", null).then((res) => {
+      res = res.map((e) => {
+        e.RelationId = e.RelationId || 1;
+        return e;
+      });
+      // console.log("获取联系人列表：", res);
+      this.listInit();
+      let _customArr = [];
+      res.forEach((e, i) => {
+        if (!_customArr[e.RelationId - 1]) {
+          _customArr[e.RelationId - 1] = [];
+        }
+        _customArr[e.RelationId - 1].push(e); //RelationId从1开始的 比index大1
+      });
       this.setData({
-        customArr:_customArr,
+        customArr: _customArr,
         customOriginList: res,
-      })
-    })
+      });
+    });
   },
   // 查看详情
-  toClientDetail(e){
+  toClientDetail(e) {
     wx.navigateTo({
-      url: `/otherPage/pages/clientDetail/clientDetail?customId=${e.currentTarget.dataset.id}`
-    })
+      url: `/otherPage/pages/clientDetail/clientDetail?customId=${e.currentTarget.dataset.id}`,
+    });
   },
   // 添加客户
-  toAddClient(){
+  toAddClient() {
     wx.navigateTo({
-      url: `/otherPage/pages/addClient/addClient?from=customList`
-    })
+      url: `/otherPage/pages/addClient/addClient?from=customList`,
+    });
   },
   // 获取我的产品列表
-  getProductList(){
+  getProductList() {
     let _obj = {
-      pagesize: 9999
-    }
-    myRequest('getProductList', _obj).then(res => {
-      wx.setStorageSync('productList',res.rows)
-    })
+      pagesize: 9999,
+    };
+    myRequest("getProductList", _obj).then((res) => {
+      wx.setStorageSync("productList", res.rows);
+    });
   },
   // 获取接触点评分
-  getContactAssess(){
-    myRequest('getContactAssess', null).then(res => {
-      wx.setStorageSync('contactList',res)
-    })
+  getContactAssess() {
+    myRequest("getContactAssess", null).then((res) => {
+      wx.setStorageSync("contactList", res);
+    });
   },
   // 输入input
-  changeSearch(e){
+  changeSearch(e) {
     this.setData({
-      searchText: e.detail.value
-    })
+      searchText: e.detail.value,
+    });
   },
   // 清空搜索
-  clearSearch(){
+  clearSearch() {
     this.setData({
       searchList: [],
-      searchText:'',
-    })
+      searchText: "",
+    });
   },
   // 搜索客户
-  search(){
-    if(!this.data.searchText.trim().length) return
-    let _arr = []
-    this.data.customOriginList.forEach(e=>{
-      if(e.CustomName.includes(this.data.searchText)){
-        _arr.push(e)
+  search() {
+    if (!this.data.searchText.trim().length) return;
+    let _arr = [];
+    this.data.customOriginList.forEach((e) => {
+      if (e.CustomName.includes(this.data.searchText)) {
+        _arr.push(e);
       }
-    })
-    this.setData({searchList: _arr},()=>{console.log(this.data.searchList)})
+    });
+    this.setData({ searchList: _arr }, () => {
+      console.log(this.data.searchList);
+    });
   },
-})
+});

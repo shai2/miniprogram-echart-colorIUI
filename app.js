@@ -52,9 +52,6 @@ App({
   },
   globalData: {
     code:'',//wx.login的临时code
-    userInfo: {
-      nickName:'',
-      avatarUrl:'',
-    },
+    userInfo: null,
   },
 })
