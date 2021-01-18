@@ -24,7 +24,7 @@ module.exports.format = function(string){
   </scroll-view>
   <!-- 列表右侧 -->
   <scroll-view wx:if="{{customOriginList.length}}" class="VerticalMain" scroll-y scroll-with-animation style="height:calc(100vh - 100rpx)" scroll-into-view="main-{{MainCur}}" bindscroll="VerticalMain">
-    <view class="padding-top padding-lr" wx:for="{{list}}" wx:key="index" id="main-{{index}}">
+    <view class="padding-top padding-lr {{index===list.length-1?'padding-bottom':''}}" wx:for="{{list}}" wx:key="index" id="main-{{index}}">
       <view class='cu-bar solid-bottom bg-white'>
         <view class='action'>
           <text class='cuIcon-title color-active'></text>{{item.name}}</view>

@@ -78,7 +78,6 @@ Page({
       return;
     }
     app.globalData.userInfo = e.detail.userInfo;
-    console.log(6666, app.globalData.userInfo);
     this.getToken();
   },
   //注册新用户
@@ -103,10 +102,13 @@ Page({
   getToken(openid = wx.getStorageSync("openid")) {
     let _obj = { userid: openid };
     myRequest("getToken", _obj).then((res) => {
-      wx.setStorageSync("token", res.token);
       wx.showTabBar({});
-      this.getUserInfoAjax();
-      this.regUser();
+      if (res.token) {
+        wx.setStorageSync("token", res.token);
+        this.getUserInfoAjax();
+      } else {
+        this.regUser();
+      }
     });
   },
   // 获取用户信息
